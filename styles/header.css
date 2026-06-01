@@ -1,0 +1,57 @@
+.header{
+  background-color: #0d0d10c1;
+  display: flex;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: rgb(63, 68, 92) 1px solid;
+}
+.all-tasks{
+  font-size: 23px;
+  font-weight: bold;
+  flex: 1;
+  margin-left: 30px;
+  font-weight: bold;
+}
+.search-bar-container{
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.search-field {
+  position: relative;
+  width: 264px;
+}
+
+.search-field i {
+  color: rgb(63, 68, 92);
+  left: 14px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+}
+
+.header input {
+  background-color: #131623;
+  border: 1px solid #263152;
+  border-radius: 7px;
+  box-sizing: border-box;
+  height: 38px;
+  padding-left: 38px;
+  width: 100%;
+}
+.header input::placeholder {
+  color: rgb(63, 68, 92);
+}
+.add-task-button{
+  background-color: rgb(91, 127, 255);
+  color: white;
+  outline: 0;
+  border: none;
+  font-size: 14px;
+  padding: 7px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}

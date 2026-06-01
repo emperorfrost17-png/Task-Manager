@@ -1,0 +1,59 @@
+.sidebar {
+  background-color: rgb(18, 21, 34);
+  width: 240px;
+  min-height: 100vh;
+  border-right-color: rgb(63, 68, 92) 1px solid;
+}
+.sidebar-check-icon {
+  color: rgb(50, 79, 226);
+  font-size: 30px;
+  align-items: center;
+  margin-right: 6px;
+}
+.taskflow-header {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 20px;
+  font-weight: bold;
+  padding-bottom: 14px;
+  font-size: 18px;
+}
+.sidebar-list div:not(.sidebar-views, .sidebar-priority) {
+  margin-top: 14px;
+  margin-left: 20px;
+  color: rgba(220, 220, 220, 0.416);
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 5px 10px;
+}
+.sidebar-views, .sidebar-priority {
+  margin-top: 17px;
+  margin-left: 29px;
+  color: rgba(220, 220, 220, 0.416);
+  font-size: 13px;
+  transition: 0.3s;
+}
+.sidebar-list div:not(.sidebar-views, .sidebar-priority):hover {
+  background-color: rgb(63, 68, 92);
+  color: white;
+  padding: 5px 10px;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+.sidebar-list i{
+  color: rgb(63, 68, 92);
+}
+/*This is to make the icons change color when hovering over list items*/
+.sidebar-list div:not(.sidebar-views, .sidebar-priority):hover i {
+  color: white;
+  transition: 0.3s;
+}
+.sidebar-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+}

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/side bar.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script
+      src="https://kit.fontawesome.com/29c2dd441e.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/lucide-static/font/lucide.css"
+    />
+  </head>
+  <body>
+    <div class="app-layout">
+      <div class="sidebar">
+        <div class="taskflow-header">
+          <i class="fa-regular fa-square-check sidebar-check-icon"></i>
+          TaskFlow
+        </div>
+        <div class="sidebar-list">
+          <div class="sidebar-views">VIEWS</div>
+          <div class="sidebar-item"><i class="fa-solid fa-list-check"></i> All Tasks <div class="task-count">1</div></div>
+          <div class="sidebar-item"><i class="fa-solid fa-clock"></i> Active <div class="task-count">1</div></div>
+          <div class="sidebar-item"><i class="fa-regular fa-square-check fa-sm"></i> Completed <div class="task-count">0</div></div>
+          <div class="sidebar-item"><i class="fa-solid fa-exclamation-triangle"></i> Overdue <div class="task-count">0</div></div>
+          <div class="sidebar-priority">PRIORITY</div>
+          <div class="sidebar-item"> <i class="fa-solid fa-circle fa-2xs" style="color: rgb(217, 66, 66);"></i> High Priority</div>
+          <div class="sidebar-item"> <i class="fa-solid fa-circle fa-2xs" style="color: rgb(255, 165, 0);"></i> Medium Priority</div>
+          <div class="sidebar-item"> <i class="fa-solid fa-circle fa-2xs" style="color: rgb(34, 139, 34);"></i>Low Priority</div>
+        </div>
+      </div>
+
+      <main class="main-content">
+        <header class="header">
+          <div class="all-tasks">All Tasks</div>
+          <div class="search-bar-container">
+            <div class="search-field">
+              <i class="fa-solid fa-magnifying-glass fa-2xs"></i>
+              <input
+                type="text"
+                placeholder="Search tasks..."
+                class="search-bar"
+              />
+            </div>
+            <button class="add-task-button">+ Add Task</button>
+          </div>
+        </header>
+      </main>
+    </div>
+  </body>
+</html>
