@@ -4,7 +4,8 @@
   align-items: center;
   padding-top: 20px;
   padding-bottom: 20px;
-  border-bottom: rgb(63, 68, 92) 1px solid;
+  border-bottom: 1px solid #263152;
+  
 }
 .all-tasks{
   font-size: 23px;
@@ -51,7 +52,8 @@
   outline: 0;
   border: none;
   font-size: 14px;
-  padding: 7px 15px;
+  padding: 0 16px;
+  height: 38px;
   border-radius: 5px;
   cursor: pointer;
 }

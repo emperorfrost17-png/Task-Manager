@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>TaskFlow – Task Management App</title>
     <link rel="stylesheet" href="styles/styles.css" />
     <link rel="stylesheet" href="styles/header.css" />
     <link rel="stylesheet" href="styles/side bar.css" />
@@ -31,23 +31,64 @@
   </head>
   <body>
     <div class="app-layout">
-      <div class="sidebar">
+      <aside class="sidebar">
         <div class="taskflow-header">
           <i class="fa-regular fa-square-check sidebar-check-icon"></i>
           TaskFlow
         </div>
-        <div class="sidebar-list">
+        <nav class="sidebar-list">
           <div class="sidebar-views">VIEWS</div>
-          <div class="sidebar-item"><i class="fa-solid fa-list-check"></i> All Tasks <div class="task-count">1</div></div>
-          <div class="sidebar-item"><i class="fa-solid fa-clock"></i> Active <div class="task-count">1</div></div>
-          <div class="sidebar-item"><i class="fa-regular fa-square-check fa-sm"></i> Completed <div class="task-count">0</div></div>
-          <div class="sidebar-item"><i class="fa-solid fa-exclamation-triangle"></i> Overdue <div class="task-count">0</div></div>
+          <ul>
+            <li class="sidebar-item">
+              <i class="fa-solid fa-list-check"></i> All Tasks
+              <span class="task-count">1</span>
+            </li>
+            <li class="sidebar-item">
+              <i class="fa-solid fa-clock"></i> Active
+              <span class="task-count">1</span>
+            </li>
+            <li class="sidebar-item">
+              <i class="fa-regular fa-square-check fa-sm"></i> Completed
+              <span class="task-count">0</span>
+            </li>
+            <li class="sidebar-item">
+              <i class="fa-solid fa-exclamation-triangle"></i> Overdue
+              <span class="task-count">0</span>
+            </li>
+          </ul>
           <div class="sidebar-priority">PRIORITY</div>
-          <div class="sidebar-item"> <i class="fa-solid fa-circle fa-2xs" style="color: rgb(217, 66, 66);"></i> High Priority</div>
-          <div class="sidebar-item"> <i class="fa-solid fa-circle fa-2xs" style="color: rgb(255, 165, 0);"></i> Medium Priority</div>
-          <div class="sidebar-item"> <i class="fa-solid fa-circle fa-2xs" style="color: rgb(34, 139, 34);"></i>Low Priority</div>
+          <ul>
+            <li class="sidebar-item">
+              <i
+                class="fa-solid fa-circle fa-2xs"
+                style="color: rgb(217, 66, 66)"
+              ></i>
+              High Priority <span class="task-count">0</span>
+            </li>
+            <li class="sidebar-item">
+              <i
+                class="fa-solid fa-circle fa-2xs"
+                style="color: rgb(255, 165, 0)"
+              ></i>
+              Medium Priority <span class="task-count">1</span>
+            </li>
+            <li class="sidebar-item">
+              <i
+                class="fa-solid fa-circle fa-2xs"
+                style="color: rgb(34, 139, 34)"
+              ></i
+              >Low Priority <span class="task-count">0</span>
+            </li>
+          </ul>
+        </nav>
+        
+        <div class="progress">
+          <div class="progress-header"><p>Overall Progress</p> <p>20%</p></div>
+          <div class="progress-bar-container">
+            <div class="progress-bar"></div>
+          </div>
         </div>
-      </div>
+      </aside>
 
       <main class="main-content">
         <header class="header">
