@@ -96,7 +96,7 @@
 .progress-bar-container {
   background-color: rgb(35, 37, 46);
   border-radius: 999px;
-  height: 10px;
+  height: 6px;
   width: 100%;
   overflow: hidden;
 }
