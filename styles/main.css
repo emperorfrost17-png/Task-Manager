@@ -1,0 +1,83 @@
+.task-containers {
+  display: flex;
+
+  justify-content: space-between;
+}
+.task-container {
+  width: 230px;
+  height: 100px;
+  border: 1px solid #263152;
+  border-radius: 15px;
+  background-color: rgb(18, 21, 34);
+}
+#total-task {
+  margin-left: 25px;
+}
+#overdue-task {
+  margin-right: 25px;
+}
+.task-container p {
+  color: rgba(220, 220, 220, 0.416);
+}
+.task-container h1,
+.task-container p {
+  margin-left: 20px;
+}
+.task-container h1 {
+  margin-top: 20px;
+}
+
+.active-number {
+  color: #5b8fff;
+}
+.completed-number {
+  color: #22db8d;
+}
+.overdue-number {
+  color: #ff6b6b;
+}
+.sort-by {
+  margin-top: 20px;
+  margin-left: 15px;
+  font-size: 14px;
+}
+.sort-by button {
+  background-color: rgb(18, 21, 34);
+  color: rgba(220, 220, 220, 0.416);
+  border: 1px solid #263152;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 25px;
+}
+.sort-by button:hover {
+  background-color: rgb(63, 68, 92);
+  color: white;
+  border: 1px solid #263152;
+  padding: 5px 10px;
+  transition: 0.3s;
+}
+.sort-by {
+  color: rgba(220, 220, 220, 0.416);
+}
+.clear-completed {
+  background-color: transparent;
+  color: rgba(220, 220, 220, 0.416);
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 25px;
+}
+.clear-completed:hover {
+  color: rgba(220, 220, 220, 0.671);
+  background-color: #ff6b6b;
+  transition: 0.3s;
+}
+.sort-clear-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

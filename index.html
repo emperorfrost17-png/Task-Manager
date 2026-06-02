@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles/styles.css" />
     <link rel="stylesheet" href="styles/header.css" />
     <link rel="stylesheet" href="styles/side bar.css" />
+    <link rel="stylesheet" href="styles/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script
@@ -39,45 +40,59 @@
         <nav class="sidebar-list">
           <div class="sidebar-views">VIEWS</div>
           <ul>
-            <li class="sidebar-item">
-              <i class="fa-solid fa-list-check"></i> All Tasks
-              <span class="task-count">1</span>
+            <li  class="sidebar-item">
+              <a href="#">
+                <i class="fa-solid fa-list-check"></i> All Tasks
+                <span class="task-count">1</span>
+              </a>
             </li>
             <li class="sidebar-item">
-              <i class="fa-solid fa-clock"></i> Active
-              <span class="task-count">1</span>
+              <a href="#">
+                <i class="fa-solid fa-clock"></i> Active
+                <span class="task-count">1</span>
+              </a>
             </li>
             <li class="sidebar-item">
-              <i class="fa-regular fa-square-check fa-sm"></i> Completed
-              <span class="task-count">0</span>
+              <a href="#">
+                <i class="fa-regular fa-square-check fa-sm"></i> Completed
+                <span class="task-count">0</span>
+              </a>
             </li>
             <li class="sidebar-item">
-              <i class="fa-solid fa-exclamation-triangle"></i> Overdue
-              <span class="task-count">0</span>
+              <a href="#">
+                <i class="fa-solid fa-exclamation-triangle"></i> Overdue
+                <span class="task-count">0</span>
+              </a>
             </li>
           </ul>
           <div class="sidebar-priority">PRIORITY</div>
           <ul>
             <li class="sidebar-item">
-              <i
-                class="fa-solid fa-circle fa-2xs"
-                style="color: rgb(217, 66, 66)"
-              ></i>
-              High Priority <span class="task-count">0</span>
+              <a href="#">
+                <i
+                  class="fa-solid fa-circle fa-2xs"
+                  style="color: rgb(217, 66, 66)"
+                ></i>
+                High Priority <span class="task-count">0</span>
+              </a>
             </li>
             <li class="sidebar-item">
-              <i
-                class="fa-solid fa-circle fa-2xs"
-                style="color: rgb(255, 165, 0)"
-              ></i>
-              Medium Priority <span class="task-count">1</span>
+              <a href="#">
+                <i
+                  class="fa-solid fa-circle fa-2xs"
+                  style="color: rgb(255, 165, 0)"
+                ></i>
+                Medium Priority <span class="task-count">1</span>
+              </a>
             </li>
             <li class="sidebar-item">
-              <i
-                class="fa-solid fa-circle fa-2xs"
-                style="color: rgb(34, 139, 34)"
-              ></i
-              >Low Priority <span class="task-count">0</span>
+              <a href="#">
+                <i
+                  class="fa-solid fa-circle fa-2xs"
+                  style="color: rgb(34, 139, 34)"
+                ></i>
+                Low Priority <span class="task-count">0</span>
+              </a>
             </li>
           </ul>
         </nav>
@@ -105,6 +120,24 @@
             <button class="add-task-button">+ Add Task</button>
           </div>
         </header>
+        <section>
+          <div class="task-containers">
+          <div class="task-container" id="total-task"><h1>5</h1> <p>TOTAL</p></div>
+          <div class="task-container"><h1 class="active-number">5</h1> <p>ACTIVE</p></div>
+          <div class="task-container"><h1 class="completed-number">0</h1> <p>COMPLETED</p></div>
+          <div class="task-container" id="overdue-task"><h1 class="overdue-number">1</h1> <p>OVERDUE</p></div>
+          </div>
+          
+        </section>
+
+        <section>
+          <div class="sort-clear-container">
+            <div class="sort-by">
+            Sort by <button>Date created</button> <button>Priority</button> <button>Due date</button>  <button>A-Z</button> 
+          </div> <div><button class="clear-completed">Clear Completed</button></div> 
+          </div>
+          
+        </section>
       </main>
     </div>
   </body>

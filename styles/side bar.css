@@ -1,6 +1,6 @@
 .sidebar {
   background-color: rgb(18, 21, 34);
-  width: 240px;
+  width: 230px;
   min-height: 100vh;
   border-right: 1px solid #263152;
 }
@@ -23,10 +23,11 @@
   border-right: 1px solid #263152;
   border-top: 1px solid #263152;
   border-bottom: 1px solid #263152;
-  
+
   height: 430px;
 }
 .sidebar-list li:not(.sidebar-views, .sidebar-priority) {
+  font-size: 14px;
   margin-top: 14px;
   margin-left: 20px;
   color: rgba(220, 220, 220, 0.416);
@@ -66,6 +67,14 @@
   width: calc(100% - 40px);
   box-sizing: border-box;
 }
+.sidebar-item a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
 .task-count {
   display: inline-flex;
   align-items: center;
@@ -98,11 +107,10 @@
   border-radius: 999px;
   height: 6px;
   width: 100%;
-  overflow: hidden;
 }
 .progress-bar {
   background-color: rgb(91, 127, 255);
   height: 100%;
   width: 20%;
+  border-radius: 999px;
 }
-
