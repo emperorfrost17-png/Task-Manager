@@ -82,3 +82,89 @@
   justify-content: space-between;
   align-items: center;
 }
+.task-item {
+  display: flex;
+  /*This is so that the circle will be aligned with the title*/
+  align-items: flex-start;
+  gap: 16px;
+  border: 1px solid #263152;
+  border-radius: 15px;
+  background-color: rgb(18, 21, 34);
+  padding: 24px 10px;
+  width: 95%;
+  margin: 10px auto;
+}
+
+.task-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #5f7199;
+  font-size: 22px;
+  cursor: pointer;
+  margin-top: 0;
+  padding-top: 1px;
+}
+
+.task-check i {
+  color: #5f7199;
+}
+
+.task-item-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-item-content h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.task-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.task-meta span {
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 5px 12px;
+}
+
+.task-priority-medium {
+  background-color: rgba(255, 165, 0, 0.18);
+  color: #ff9f43;
+}
+
+.due-date,
+.task-category {
+  background-color: #222a3f;
+  color: #9aa8c7;
+}
+
+.task-actions {
+  display: flex;
+  gap: 14px;
+}
+
+.task-actions button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
+  padding: 6px;
+}
+
+.task-actions i {
+  color: #657494;
+}
+
+.task-actions button:hover i {
+  color: #9eb2dc;
+}
