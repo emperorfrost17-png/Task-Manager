@@ -127,6 +127,11 @@
   font-weight: 700;
 }
 
+.task-description {
+  color: #9aa8c7;
+  font-size: 14px;
+}
+
 .task-meta {
   display: flex;
   align-items: center;
@@ -174,4 +179,15 @@
 .due-date i{
   color: #9aa8c7;
 }
-
+.task-description{
+  color: #9aa8c7;
+  margin-top: -9px;
+}
+.task-priority-high {
+  background-color: rgba(255, 0, 0, 0.233);
+  color: #ff6b6b;
+}
+.task-priority-low {
+  background-color: rgba(0, 255, 0, 0.18);
+  color: #22db8d;
+}
