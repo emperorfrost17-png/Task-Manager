@@ -157,6 +157,55 @@
         <section>
           <div class="task-list js-task-list"></div>
         </section>
+
+        <div class="new-task-modal js-new-task-modal">
+          <div class="new-task-content">
+            <form class="new-task-form">
+              <h2>New Task</h2>
+              <label for="new-title">Task Title</label>
+              <input
+                type="text"
+                id="new-title"
+                name="title"
+                placeholder="What needs to be done?"
+                required
+              />
+
+              <label for="new-description">Description</label>
+              <textarea
+                id="new-description"
+                name="description"
+                placeholder="Add a description..."
+              ></textarea>
+
+              <label for="new-due-date">Due Date</label>
+              <input type="date" id="new-due-date" name="dueDate" />
+
+              <label for="new-priority">Priority</label>
+              <select id="new-priority" name="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+
+              <label for="new-category">Category:</label>
+              <input
+                type="text"
+                id="new-category"
+                name="category"
+                placeholder="Add a category..."
+              />
+
+              <div class="modal-buttons">
+                <button type="button" class="cancel-button js-cancel-button">
+                  Cancel
+                </button>
+                <button type="submit" class="save-button js-save-button">Save Changes</button>
+                
+              </div>
+            </form>
+          </div>
+        </div>
       </main>
     </div>
 

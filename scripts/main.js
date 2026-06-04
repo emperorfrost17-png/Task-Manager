@@ -25,7 +25,7 @@ function renderPage() {
                 <button aria-label="Edit task" data-name="${task.title}">
                   <i class="fa-regular fa-pen-to-square"></i>
                 </button>
-                <button aria-label="Delete task" class="js-delete-button">
+                <button aria-label="Delete task" class="js-delete-button" data-index="${index}">
                   <i class="fa-regular fa-trash-can"></i>
                 </button>
               </div>
@@ -35,12 +35,16 @@ function renderPage() {
   }
   renderTasks();
 
-  document.querySelectorAll(".task-item").forEach((item) => {
+  document.querySelectorAll(".js-delete-button").forEach((item) => {
     item.addEventListener("click", () => {
       const index = item.dataset.index;
       //This will give us the task object that was clicked on, we can use this to populate the edit form or perform other actions
       const task = tasks[Number(index)];
-      console.log(`Clicked task: ${task.title}`);
+      //Remove the task from the array
+      //The splice method takes two arguments, the first is the index of the item to remove, and the second is the number of items to remove (in this case, we only want to remove one item)
+      tasks.splice(Number(index), 1);
+      //Re-render the page to reflect the changes
+      renderPage();
     });
   });
 }
