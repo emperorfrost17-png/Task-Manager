@@ -176,10 +176,10 @@
 .task-actions button:hover i {
   color: #9eb2dc;
 }
-.due-date i{
+.due-date i {
   color: #9aa8c7;
 }
-.task-description{
+.task-description {
   color: #9aa8c7;
   margin-top: -9px;
 }
@@ -203,7 +203,6 @@
   align-items: center;
   z-index: 1000;
   backdrop-filter: blur(8px);
-  
 }
 
 .new-task-modal-content {
@@ -211,9 +210,8 @@
   padding: 20px;
   border-radius: 15px;
   width: 400px;
-  
 }
-.new-task-form{
+.new-task-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -272,4 +270,34 @@
   color: white;
   border: 1px solid #263152;
   transition: 0.3s;
+}
+.new-task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.close-modal {
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.close-modal i {
+  color: #263152;
+  padding: 5px;
+  transition: 0.2s;
+}
+.close-modal:hover i {
+  background-color: transparent;
+  color: white;
+  transition: 0.2s;
+}
+.new-task h2 {
+  font-size: 18px;
+}
+#new-description {
+  min-height: 80px;
+  min-width: 375px;
+  max-width: 375px;
 }
