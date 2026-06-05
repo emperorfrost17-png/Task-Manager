@@ -47,5 +47,24 @@ function renderPage() {
       renderPage();
     });
   });
+
+  function showNewTask() {
+    const addButton = document.querySelector(".js-add-task-button");
+    addButton.addEventListener("click", () => {
+      document.querySelector(".js-new-task-modal").style.display = "flex";
+    });
+  }
+  function hideNewTask() {
+    const closeButton = document.querySelector(".js-close-modal");
+    closeButton.addEventListener("click", () => {
+      document.querySelector(".js-new-task-modal").style.display = "none";
+    });
+    const cancelButton = document.querySelector(".js-cancel-button");
+    cancelButton.addEventListener("click", () => {
+      document.querySelector(".js-new-task-modal").style.display = "none";
+    });
+  }
+  showNewTask();
+  hideNewTask();
 }
 renderPage();

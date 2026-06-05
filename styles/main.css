@@ -203,6 +203,7 @@
   align-items: center;
   z-index: 1000;
   backdrop-filter: blur(8px);
+  display: none;
 }
 
 .new-task-modal-content {
@@ -210,6 +211,7 @@
   padding: 20px;
   border-radius: 15px;
   width: 400px;
+  transition: 0.3s;
 }
 .new-task-form {
   display: flex;
@@ -229,7 +231,7 @@
 .new-task-form textarea {
   background-color: #222a3f;
   border: 1px solid #263152;
-  color: rgba(220, 220, 220, 0.416);
+  color: white;
   font-size: 14px;
   padding: 8px 12px;
   border-radius: 5px;
