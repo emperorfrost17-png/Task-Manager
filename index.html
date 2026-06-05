@@ -172,6 +172,7 @@
               <input
                 type="text"
                 id="new-title"
+                class="new-title"
                 name="title"
                 placeholder="What needs to be done?"
                 required
@@ -180,15 +181,16 @@
               <label for="new-description">Description</label>
               <textarea
                 id="new-description"
+                class="new-description"
                 name="description"
                 placeholder="Add a description..."
               ></textarea>
 
               <label for="new-due-date">Due Date</label>
-              <input type="date" id="new-due-date" name="dueDate" />
+              <input type="date" id="new-due-date" class="new-due-date" name="dueDate" />
 
               <label for="new-priority">Priority</label>
-              <select id="new-priority" name="priority">
+              <select id="new-priority" class="new-priority" name="priority">
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
@@ -198,6 +200,7 @@
               <input
                 type="text"
                 id="new-category"
+                class="new-category"
                 name="category"
                 placeholder="Add a category..."
               />
@@ -206,7 +209,7 @@
                 <button type="button" class="cancel-button js-cancel-button">
                   Cancel
                 </button>
-                <button type="submit" class="save-button js-save-button">Save Changes</button>
+                <button  class="save-button js-save-button">Save Changes</button>
                 
               </div>
             </form>
