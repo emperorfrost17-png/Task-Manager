@@ -1,19 +1,4 @@
-const tasks = JSON.parse(localStorage.getItem("tasks")) || [
-  {
-    title: "Call Client",
-    description: "About the Company meeting",
-    priority: 'Medium',
-    dueDate: 'Jun 5',
-    category: 'Personal'
-  },
-  {
-    title: "Morning Workout",
-    description: "Get up early and do a 30-minute workout",
-    priority: 'High',
-    dueDate: 'Jun 5',
-    category: 'Personal'
-  },
-];
+const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 function renderPage() {
   function renderTasks() {
     let taskHTML = "";
