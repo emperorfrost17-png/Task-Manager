@@ -21,7 +21,7 @@ function renderPage() {
               </div>
 
               <div class="task-actions">
-                <button aria-label="Edit task" data-name="${task.title}">
+                <button aria-label="Edit task" class="js-edit-button" data-index="${index}">
                   <i class="fa-regular fa-pen-to-square"></i>
                 </button>
                 <button aria-label="Delete task" class="js-delete-button" data-index="${index}">
@@ -31,22 +31,39 @@ function renderPage() {
             </div>`;
     });
     document.querySelector(".js-task-list").innerHTML = taskHTML;
+
+    document.querySelectorAll(".js-delete-button").forEach((item) => {
+      item.addEventListener("click", () => {
+        const index = item.dataset.index;
+        //This will give us the task object that was clicked on, we can use this to populate the edit form or perform other actions
+        const task = tasks[Number(index)];
+        //Remove the task from the array
+        //The splice method takes two arguments, the first is the index of the item to remove, and the second is the number of items to remove (in this case, we only want to remove one item)
+        tasks.splice(Number(index), 1);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        //Re-render the page to reflect the changes
+        renderPage();
+      });
+    });
+
+    document.querySelectorAll(".js-edit-button").forEach((item) => {
+      item.addEventListener("click", () => {
+        const index = item.dataset.index;
+        // Find the task object with the matching index
+        const task = tasks[Number(index)];
+        // Populate the edit form with the task's information
+        document.querySelector(".edit-title").value = task.title;
+        document.querySelector(".edit-description").value = task.description;
+        document.querySelector(".edit-priority").value = task.priority;
+        document.querySelector(".edit-due-date").value = task.dueDate;
+        document.querySelector(".edit-category").value = task.category;
+        // Show the edit modal
+        
+        document.querySelector(".js-edit-task-modal").style.display = "flex";
+      });
+    });
   }
   renderTasks();
-
-  document.querySelectorAll(".js-delete-button").forEach((item) => {
-    item.addEventListener("click", () => {
-      const index = item.dataset.index;
-      //This will give us the task object that was clicked on, we can use this to populate the edit form or perform other actions
-      const task = tasks[Number(index)];
-      //Remove the task from the array
-      //The splice method takes two arguments, the first is the index of the item to remove, and the second is the number of items to remove (in this case, we only want to remove one item)
-      tasks.splice(Number(index), 1);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-      //Re-render the page to reflect the changes
-      renderPage();
-    });
-  });
 }
 
 function getInputInformation() {
@@ -65,7 +82,22 @@ function getInputInformation() {
   };
   return newTask;
 }
-
+function getEditInputInformation() {
+  const titleInput = document.querySelector(".edit-title");
+  const descriptionInput = document.querySelector(".edit-description");
+  const priorityInput = document.querySelector(".edit-priority");
+  const dueDateInput = document.querySelector(".edit-due-date");
+  const categoryInput = document.querySelector(".edit-category");
+  //Create a new task object with the input values
+  const updatedTask = {
+    title: titleInput.value,
+    description: descriptionInput.value,
+    priority: priorityInput.value,
+    dueDate: dueDateInput.value,
+    category: categoryInput.value,
+  };
+  return updatedTask;
+}
 // This function will clear the form inputs after a new task is added, or when the modal is closed
 function clearFormInputs() {
   document.querySelector(".new-title").value = "";
@@ -90,6 +122,14 @@ const cancelButton = document.querySelector(".js-cancel-button");
 cancelButton.addEventListener("click", () => {
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
+const editCloseButton = document.querySelector(".js-edit-task-modal .js-close-modal");
+editCloseButton.addEventListener("click", () => {
+  document.querySelector(".js-edit-task-modal").style.display = "none";
+});
+const editCancelButton = document.querySelector(".js-edit-cancel-button");
+editCancelButton.addEventListener("click", () => {
+  document.querySelector(".js-edit-task-modal").style.display = "none";
+});
 
 const saveButton = document.querySelector(".js-save-button");
 saveButton.addEventListener("click", () => {
@@ -101,5 +141,17 @@ saveButton.addEventListener("click", () => {
   renderPage();
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
+const updateButton = document.querySelector(".js-update-button");
+updateButton.addEventListener("click", () => {
+  //Get the input information and create a new task object, then push that object to the tasks array, clear the form inputs, and re-render the page to show the new task
+  const updatedTask = getEditInputInformation();
+  //Find the index of the task that is being edited, and update that task in the tasks array with the new information from the form
+  const index = document.querySelector(".js-edit-button").dataset.index;
+  tasks[Number(index)] = updatedTask;
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  renderPage();
+  document.querySelector(".js-edit-task-modal").style.display = "none";
+});
+
 
 renderPage();
