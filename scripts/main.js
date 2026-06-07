@@ -1,7 +1,9 @@
-const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+import { taskCalculation } from "./taskcalculation.js";
+
+export const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let currentEditingIndex = null; // Track which task is being edited
 
-function renderPage() {
+ export function renderPage() {
   function renderTasks() {
     let taskHTML = "";
     tasks.forEach((task, index) => {
@@ -55,9 +57,9 @@ function renderPage() {
         // Find the task object with the matching index
         const task = tasks[Number(index)];
         // Populate the edit form with the task's information
-        
+
         document.querySelector(".edit-title").value = task.title;
-        
+
         document.querySelector(".edit-description").value = task.description;
         document.querySelector(".edit-priority").value = task.priority;
         document.querySelector(".edit-due-date").value = task.dueDate;
@@ -139,9 +141,25 @@ editCancelButton.addEventListener("click", () => {
 });
 
 const saveButton = document.querySelector(".js-save-button");
-saveButton.addEventListener("click", () => {
+saveButton.addEventListener("click", (event) => {
+  event.preventDefault();
   //Get the input information and create a new task object, then push that object to the tasks array, clear the form inputs, and re-render the page to show the new task
   const newTask = getInputInformation();
+  if (newTask.title === "") {
+    return alert("Title cannot be empty");
+  }
+  if (newTask.description === "") {
+    return alert("Description cannot be empty");
+  }
+  if (newTask.priority === "") {
+    return alert("Priority cannot be empty");
+  }
+  if (newTask.dueDate === "") {
+    return alert("Due date cannot be empty");
+  }
+  if (newTask.category === "") {
+    return alert("Category cannot be empty");
+  }
   tasks.push(newTask);
   localStorage.setItem("tasks", JSON.stringify(tasks));
   clearFormInputs();
@@ -149,26 +167,31 @@ saveButton.addEventListener("click", () => {
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
 const updateButton = document.querySelector(".js-update-button");
-updateButton.addEventListener("click", () => {
+updateButton.addEventListener("click", (event) => {
+  event.preventDefault();
   //Get the input information and create a new task object, then push that object to the tasks array, clear the form inputs, and re-render the page to show the new task
   const updatedTask = getEditInputInformation();
-  //Use the stored index from when the edit button was clicked
-  tasks[currentEditingIndex] = updatedTask;
-  if (tasks[currentEditingIndex].title === "") {
+  //Validate before saving
+  if (updatedTask.title === "") {
     return alert("Title cannot be empty");
   }
-  if (tasks[currentEditingIndex].description === "") {
+  if (updatedTask.description === "") {
     return alert("Description cannot be empty");
   }
-  if (tasks[currentEditingIndex].priority === "") {
+  if (updatedTask.priority === "") {
     return alert("Priority cannot be empty");
   }
-  if (tasks[currentEditingIndex].dueDate === "") {
+  if (updatedTask.dueDate === "") {
     return alert("Due date cannot be empty");
   }
+  if (updatedTask.category === "") {
+    return alert("Category cannot be empty");
+  }
+  //Use the stored index from when the edit button was clicked
+  tasks[currentEditingIndex] = updatedTask;
   localStorage.setItem("tasks", JSON.stringify(tasks));
   renderPage();
   document.querySelector(".js-edit-task-modal").style.display = "none";
 });
-
+taskCalculation();
 renderPage();
