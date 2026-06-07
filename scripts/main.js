@@ -1,4 +1,6 @@
 const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let currentEditingIndex = null; // Track which task is being edited
+
 function renderPage() {
   function renderTasks() {
     let taskHTML = "";
@@ -49,6 +51,7 @@ function renderPage() {
     document.querySelectorAll(".js-edit-button").forEach((item) => {
       item.addEventListener("click", () => {
         const index = item.dataset.index;
+        currentEditingIndex = Number(index); // Store the index of the task being edited
         // Find the task object with the matching index
         const task = tasks[Number(index)];
         // Populate the edit form with the task's information
@@ -58,7 +61,7 @@ function renderPage() {
         document.querySelector(".edit-due-date").value = task.dueDate;
         document.querySelector(".edit-category").value = task.category;
         // Show the edit modal
-        
+
         document.querySelector(".js-edit-task-modal").style.display = "flex";
       });
     });
@@ -122,7 +125,9 @@ const cancelButton = document.querySelector(".js-cancel-button");
 cancelButton.addEventListener("click", () => {
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
-const editCloseButton = document.querySelector(".js-edit-task-modal .js-close-modal");
+const editCloseButton = document.querySelector(
+  ".js-edit-task-modal .js-close-modal",
+);
 editCloseButton.addEventListener("click", () => {
   document.querySelector(".js-edit-task-modal").style.display = "none";
 });
@@ -145,13 +150,11 @@ const updateButton = document.querySelector(".js-update-button");
 updateButton.addEventListener("click", () => {
   //Get the input information and create a new task object, then push that object to the tasks array, clear the form inputs, and re-render the page to show the new task
   const updatedTask = getEditInputInformation();
-  //Find the index of the task that is being edited, and update that task in the tasks array with the new information from the form
-  const index = document.querySelector(".js-edit-button").dataset.index;
-  tasks[Number(index)] = updatedTask;
+  //Use the stored index from when the edit button was clicked
+  tasks[currentEditingIndex] = updatedTask;
   localStorage.setItem("tasks", JSON.stringify(tasks));
   renderPage();
   document.querySelector(".js-edit-task-modal").style.display = "none";
 });
-
 
 renderPage();
