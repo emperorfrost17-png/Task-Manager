@@ -55,7 +55,9 @@ function renderPage() {
         // Find the task object with the matching index
         const task = tasks[Number(index)];
         // Populate the edit form with the task's information
+        
         document.querySelector(".edit-title").value = task.title;
+        
         document.querySelector(".edit-description").value = task.description;
         document.querySelector(".edit-priority").value = task.priority;
         document.querySelector(".edit-due-date").value = task.dueDate;
@@ -152,6 +154,18 @@ updateButton.addEventListener("click", () => {
   const updatedTask = getEditInputInformation();
   //Use the stored index from when the edit button was clicked
   tasks[currentEditingIndex] = updatedTask;
+  if (tasks[currentEditingIndex].title === "") {
+    return alert("Title cannot be empty");
+  }
+  if (tasks[currentEditingIndex].description === "") {
+    return alert("Description cannot be empty");
+  }
+  if (tasks[currentEditingIndex].priority === "") {
+    return alert("Priority cannot be empty");
+  }
+  if (tasks[currentEditingIndex].dueDate === "") {
+    return alert("Due date cannot be empty");
+  }
   localStorage.setItem("tasks", JSON.stringify(tasks));
   renderPage();
   document.querySelector(".js-edit-task-modal").style.display = "none";
