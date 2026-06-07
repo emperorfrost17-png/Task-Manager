@@ -9,5 +9,6 @@
 
   const totalTasks = tasks.length;
   totalNumber.innerHTML = totalTasks;
+  document.querySelector(".js-all-tasks-count").innerHTML = totalTasks;
   renderPage();
 }
