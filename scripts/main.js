@@ -194,4 +194,5 @@ updateButton.addEventListener("click", (event) => {
   document.querySelector(".js-edit-task-modal").style.display = "none";
 });
 taskCalculation();
+
 renderPage();
