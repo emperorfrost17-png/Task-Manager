@@ -1,7 +1,11 @@
- import { tasks } from "./main.js";
- import { renderPage } from "./main.js";
- 
- export function totalTaskCalculation() {
+import { tasks } from "./main.js";
+import { renderPage } from "./main.js";
+
+const date = new Date();
+console.log(date)
+const activeTask = [];
+
+export function totalTaskCalculation() {
   const totalNumber = document.querySelector(".js-total-number");
   const activeNumber = document.querySelector(".js-active-number");
   const completedNumber = document.querySelector(".js-completed-number");
@@ -12,3 +16,4 @@
   document.querySelector(".js-all-tasks-count").innerHTML = totalTasks;
   renderPage();
 }
+function isActiveTask() {}
