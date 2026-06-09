@@ -1,4 +1,4 @@
-import { taskCalculation } from "./taskcalculation.js";
+import { totalTaskCalculation } from "./taskcalculation.js";
 
 export const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let currentEditingIndex = null; // Track which task is being edited
@@ -47,6 +47,7 @@ let currentEditingIndex = null; // Track which task is being edited
         localStorage.setItem("tasks", JSON.stringify(tasks));
         //Re-render the page to reflect the changes
         renderPage();
+        totalTaskCalculation();
       });
     });
 
@@ -109,7 +110,7 @@ function getEditInputInformation() {
 function clearFormInputs() {
   document.querySelector(".new-title").value = "";
   document.querySelector(".new-description").value = "";
-  document.querySelector(".new-priority").value = "";
+  document.querySelector(".new-priority").value = "low";
   document.querySelector(".new-due-date").value = "";
   document.querySelector(".new-category").value = "";
 }
@@ -164,6 +165,7 @@ saveButton.addEventListener("click", (event) => {
   localStorage.setItem("tasks", JSON.stringify(tasks));
   clearFormInputs();
   renderPage();
+  totalTaskCalculation();
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
 const updateButton = document.querySelector(".js-update-button");
@@ -191,8 +193,9 @@ updateButton.addEventListener("click", (event) => {
   tasks[currentEditingIndex] = updatedTask;
   localStorage.setItem("tasks", JSON.stringify(tasks));
   renderPage();
+  totalTaskCalculation();
   document.querySelector(".js-edit-task-modal").style.display = "none";
 });
-taskCalculation();
+totalTaskCalculation();
 
 renderPage();
