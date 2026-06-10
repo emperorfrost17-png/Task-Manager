@@ -7,7 +7,8 @@ export function totalTaskCalculation() {
   const completedNumber = document.querySelector(".js-completed-number");
   const overdueNumber = document.querySelector(".js-overdue-number");
 
- totalNumber.innerHTML = tasks.length
- document.querySelector('.js-all-tasks-count').innerHTML = tasks.length
+  if (totalNumber) totalNumber.innerHTML = tasks.length;
+  const allTasksCount = document.querySelector(".js-all-tasks-count");
+  if (allTasksCount) allTasksCount.innerHTML = tasks.length;
   renderPage();
 }

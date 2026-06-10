@@ -3,7 +3,7 @@ import { totalTaskCalculation } from "./taskcalculation.js";
 export const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let currentEditingIndex = null; // Track which task is being edited
 
- export function renderPage() {
+export function renderPage() {
   function renderTasks() {
     let taskHTML = "";
     tasks.forEach((task, index) => {
@@ -18,7 +18,7 @@ let currentEditingIndex = null; // Track which task is being edited
                 <div class="task-meta">
                   <span class="task-priority-${task.priority.toLowerCase()}">${task.priority}</span>
                   <span class="due-date"
-                    ><i class="fa-regular fa-calendar"></i> ${new Date(task.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span
+                    ><i class="fa-regular fa-calendar"></i> ${new Date(task.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span
                   >
                   <span class="task-category">${task.category}</span>
                 </div>
@@ -34,41 +34,38 @@ let currentEditingIndex = null; // Track which task is being edited
               </div>
             </div>`;
     });
-    document.querySelector(".js-task-list").innerHTML = taskHTML;
+    const taskList = document.querySelector(".js-task-list");
+    if (taskList) taskList.innerHTML = taskHTML;
 
     document.querySelectorAll(".js-delete-button").forEach((item) => {
-      item.addEventListener("click", () => {
-        const index = item.dataset.index;
-        //This will give us the task object that was clicked on, we can use this to populate the edit form or perform other actions
-        const task = tasks[Number(index)];
-        //Remove the task from the array
-        //The splice method takes two arguments, the first is the index of the item to remove, and the second is the number of items to remove (in this case, we only want to remove one item)
-        tasks.splice(Number(index), 1);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        //Re-render the page to reflect the changes
-        renderPage();
-        totalTaskCalculation();
-      });
+      if (item) {
+        item.addEventListener("click", () => {
+          const index = item.dataset.index;
+          const task = tasks[Number(index)];
+          tasks.splice(Number(index), 1);
+          localStorage.setItem("tasks", JSON.stringify(tasks));
+          renderPage();
+          totalTaskCalculation();
+        });
+      }
     });
 
     document.querySelectorAll(".js-edit-button").forEach((item) => {
-      item.addEventListener("click", () => {
-        const index = item.dataset.index;
-        currentEditingIndex = Number(index); // Store the index of the task being edited
-        // Find the task object with the matching index
-        const task = tasks[Number(index)];
-        // Populate the edit form with the task's information
-
-        document.querySelector(".edit-title").value = task.title;
-
-        document.querySelector(".edit-description").value = task.description;
-        document.querySelector(".edit-priority").value = task.priority;
-        document.querySelector(".edit-due-date").value = task.dueDate;
-        document.querySelector(".edit-category").value = task.category;
-        // Show the edit modal
-
-        document.querySelector(".js-edit-task-modal").style.display = "flex";
-      });
+      if (item) {
+        item.addEventListener("click", () => {
+          const index = item.dataset.index;
+          currentEditingIndex = Number(index);
+          // Populate the edit form with the task's information
+          const task = tasks[Number(index)];
+          document.querySelector(".edit-title").value = task.title;
+          document.querySelector(".edit-description").value = task.description;
+          document.querySelector(".edit-priority").value = task.priority;
+          document.querySelector(".edit-due-date").value = task.dueDate;
+          document.querySelector(".edit-category").value = task.category;
+          // Show the edit modal
+          document.querySelector(".js-edit-task-modal").style.display = "flex";
+        });
+      }
     });
   }
   renderTasks();
@@ -87,6 +84,7 @@ function getInputInformation() {
     priority: priorityInput.value,
     dueDate: dueDateInput.value,
     category: categoryInput.value,
+    completed: false,
   };
   return newTask;
 }
@@ -103,6 +101,7 @@ function getEditInputInformation() {
     priority: priorityInput.value,
     dueDate: dueDateInput.value,
     category: categoryInput.value,
+    completed: tasks[currentEditingIndex].completed, // Preserve the completed status
   };
   return updatedTask;
 }
