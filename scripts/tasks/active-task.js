@@ -1,16 +1,19 @@
 import { tasks } from "../main.js";
+import { totalTaskCalculation } from "../taskcalculation.js";
 let currentEditingIndex = null;
-const currentDate = new Date();
-const activeTasks = tasks.filter(
-  (task) => !task.completed,
-);
+
+export function getActiveTasks() {
+  return tasks.filter((task) => !task.completed);
+}
 const activeTaskList = document.querySelector(".js-active-task-list");
 
 function renderActiveTasks() {
   function renderTasks() {
     let taskHTML = "";
-    activeTasks.forEach((task, index) => {
-      taskHTML += ` <div class="task-item" data-index="${index}">
+    getActiveTasks().forEach((task) => {
+      // Use the index of the task in the original tasks array to ensure it matches up with edit and delete buttons
+      const actualIndex = tasks.indexOf(task);
+      taskHTML += ` <div class="task-item" data-index="${actualIndex}">
               <button class="task-check" aria-label="Mark task as completed">
                 <i class="fa-regular fa-circle"></i>
               </button>
@@ -28,10 +31,10 @@ function renderActiveTasks() {
               </div>
 
               <div class="task-actions">
-                <button aria-label="Edit task" class="js-edit-button" data-index="${index}">
+                <button aria-label="Edit task" class="js-edit-button" data-index="${actualIndex}">
                   <i class="fa-regular fa-pen-to-square"></i>
                 </button>
-                <button aria-label="Delete task" class="js-delete-button" data-index="${index}">
+                <button aria-label="Delete task" class="js-delete-button" data-index="${actualIndex}">
                   <i class="fa-regular fa-trash-can"></i>
                 </button>
               </div>
@@ -46,11 +49,11 @@ function renderActiveTasks() {
     if (item) {
       item.addEventListener("click", () => {
         const index = item.dataset.index;
-        const task = tasks[Number(index)];
         tasks.splice(Number(index), 1);
         localStorage.setItem("tasks", JSON.stringify(tasks));
-        renderPage();
+
         totalTaskCalculation();
+        renderActiveTasks();
       });
     }
   });
@@ -102,7 +105,7 @@ function getEditInputInformation() {
     dueDate: dueDateInput.value,
     category: categoryInput.value,
     // Preserve the completed status of the original task
-    completed: tasks[currentEditingIndex].completed, 
+    completed: tasks[currentEditingIndex].completed,
   };
   return updatedTask;
 }
@@ -123,11 +126,14 @@ addButton.addEventListener("click", () => {
 
 const closeButton = document.querySelector(".js-close-modal");
 closeButton.addEventListener("click", () => {
+  clearFormInputs();
   document.querySelector(".js-new-task-modal").style.display = "none";
+
 });
 
 const cancelButton = document.querySelector(".js-cancel-button");
 cancelButton.addEventListener("click", () => {
+  clearFormInputs();
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
 const editCloseButton = document.querySelector(
@@ -164,7 +170,7 @@ saveButton.addEventListener("click", (event) => {
   tasks.push(newTask);
   localStorage.setItem("tasks", JSON.stringify(tasks));
   clearFormInputs();
-  renderPage();
+  renderActiveTasks();
   totalTaskCalculation();
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
@@ -192,7 +198,7 @@ updateButton.addEventListener("click", (event) => {
   //Use the stored index from when the edit button was clicked
   tasks[currentEditingIndex] = updatedTask;
   localStorage.setItem("tasks", JSON.stringify(tasks));
-  renderPage();
+  renderActiveTasks();
   totalTaskCalculation();
   document.querySelector(".js-edit-task-modal").style.display = "none";
 });

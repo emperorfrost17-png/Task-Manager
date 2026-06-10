@@ -41,7 +41,6 @@ export function renderPage() {
       if (item) {
         item.addEventListener("click", () => {
           const index = item.dataset.index;
-          const task = tasks[Number(index)];
           tasks.splice(Number(index), 1);
           localStorage.setItem("tasks", JSON.stringify(tasks));
           renderPage();
@@ -122,11 +121,13 @@ addButton.addEventListener("click", () => {
 
 const closeButton = document.querySelector(".js-close-modal");
 closeButton.addEventListener("click", () => {
+  clearFormInputs();
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
 
 const cancelButton = document.querySelector(".js-cancel-button");
 cancelButton.addEventListener("click", () => {
+  clearFormInputs();
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
 const editCloseButton = document.querySelector(
