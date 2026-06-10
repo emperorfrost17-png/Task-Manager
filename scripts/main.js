@@ -18,7 +18,7 @@ let currentEditingIndex = null; // Track which task is being edited
                 <div class="task-meta">
                   <span class="task-priority-${task.priority.toLowerCase()}">${task.priority}</span>
                   <span class="due-date"
-                    ><i class="fa-regular fa-calendar"></i> ${task.dueDate}</span
+                    ><i class="fa-regular fa-calendar"></i> ${new Date(task.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span
                   >
                   <span class="task-category">${task.category}</span>
                 </div>
