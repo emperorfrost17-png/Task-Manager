@@ -1,4 +1,4 @@
-import { tasks } from "../main.js";
+import { tasks, saveTasks } from "../store.js";
 import { totalTaskCalculation } from "../taskcalculation.js";
 let currentEditingIndex = null;
 
@@ -44,36 +44,32 @@ function renderActiveTasks() {
   }
 
   renderTasks();
-
-  document.querySelectorAll(".js-delete-button").forEach((item) => {
-    if (item) {
-      item.addEventListener("click", () => {
-        const index = item.dataset.index;
-        tasks.splice(Number(index), 1);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-
-        totalTaskCalculation();
-        renderActiveTasks();
-      });
-    }
-  });
-
-  document.querySelectorAll(".js-edit-button").forEach((item) => {
-    if (item) {
-      item.addEventListener("click", () => {
-        const index = item.dataset.index;
-        currentEditingIndex = Number(index);
-        const task = tasks[Number(index)];
-        document.querySelector(".edit-title").value = task.title;
-        document.querySelector(".edit-description").value = task.description;
-        document.querySelector(".edit-priority").value = task.priority;
-        document.querySelector(".edit-due-date").value = task.dueDate;
-        document.querySelector(".edit-category").value = task.category;
-        document.querySelector(".js-edit-task-modal").style.display = "flex";
-      });
-    }
-  });
 }
+activeTaskList.addEventListener("click", (e) => {
+  const deleteBtn = e.target.closest(".js-delete-button");
+  const editBtn = e.target.closest(".js-edit-button");
+
+  if (deleteBtn) {
+    const index = Number(deleteBtn.dataset.index);
+    tasks.splice(index, 1);
+    saveTasks();
+    totalTaskCalculation();
+    renderActiveTasks();
+  }
+
+  if (editBtn) {
+    const index = Number(editBtn.dataset.index);
+    currentEditingIndex = index;
+    const task = tasks[index];
+    document.querySelector(".edit-title").value = task.title;
+    document.querySelector(".edit-description").value = task.description;
+    document.querySelector(".edit-priority").value = task.priority;
+    document.querySelector(".edit-due-date").value = task.dueDate;
+    document.querySelector(".edit-category").value = task.category;
+    document.querySelector(".js-edit-task-modal").style.display = "flex";
+  }
+});
+
 function getInputInformation() {
   const titleInput = document.querySelector(".new-title");
   const descriptionInput = document.querySelector(".new-description");
@@ -128,7 +124,6 @@ const closeButton = document.querySelector(".js-close-modal");
 closeButton.addEventListener("click", () => {
   clearFormInputs();
   document.querySelector(".js-new-task-modal").style.display = "none";
-
 });
 
 const cancelButton = document.querySelector(".js-cancel-button");
@@ -168,7 +163,7 @@ saveButton.addEventListener("click", (event) => {
     return alert("Category cannot be empty");
   }
   tasks.push(newTask);
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+  saveTasks();
   clearFormInputs();
   renderActiveTasks();
   totalTaskCalculation();
@@ -197,10 +192,10 @@ updateButton.addEventListener("click", (event) => {
   }
   //Use the stored index from when the edit button was clicked
   tasks[currentEditingIndex] = updatedTask;
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+  saveTasks();
   renderActiveTasks();
   totalTaskCalculation();
   document.querySelector(".js-edit-task-modal").style.display = "none";
 });
-
+totalTaskCalculation();
 renderActiveTasks();

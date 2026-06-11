@@ -1,13 +1,11 @@
-import { tasks } from "./main.js";
-import { renderPage } from "./main.js";
-<<<<<<< HEAD
+import { tasks } from "./store.js";
+
 
 const date = new Date();
 console.log(date)
 const activeTask = [];
 
-=======
->>>>>>> 205abc3651b8dc2d3bce9366db17ad7e48f53a3b
+
 export function totalTaskCalculation() {
   const totalNumber = document.querySelector(".js-total-number");
   const activeNumber = document.querySelector(".js-active-number");
@@ -22,9 +20,7 @@ export function totalTaskCalculation() {
   const activeTasksCount = document.querySelector(".js-active-tasks-count");
   if (activeTasksCount)
     activeTasksCount.innerHTML = tasks.filter((task) => !task.completed).length;
-  renderPage();
 }
-<<<<<<< HEAD
-function isActiveTask() {}
-=======
->>>>>>> 205abc3651b8dc2d3bce9366db17ad7e48f53a3b
+
+
+
