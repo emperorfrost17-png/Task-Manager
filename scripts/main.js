@@ -7,7 +7,7 @@ export function renderPage() {
   function renderTasks() {
     let taskHTML = "";
     tasks.forEach((task, index) => {
-      taskHTML += ` <div class="task-item" data-index="${index}">
+      taskHTML += ` <div class="task-item" data-index="${index}" style="opacity: ${task.completed ? "0.5" : "1"}">
               <button class="task-check js-task-check" aria-label="Mark task as completed" data-index="${index}" style="display: ${task.completed ? "none" : "inline"}">
   <i class="fa-regular fa-circle"></i>
 </button>
@@ -17,7 +17,7 @@ export function renderPage() {
 </button>
 
               <div class="task-item-content">
-                <h3>${task.title}</h3>
+                <h3 style="text-decoration: ${task.completed ? "line-through" : "none"}; opacity: ${task.completed ? "0.5" : "1"}">${task.title}</h3>
                 <p class="task-description">${task.description}</p>
                 <div class="task-meta">
                   <span class="task-priority-${task.priority.toLowerCase()}">${task.priority}</span>
