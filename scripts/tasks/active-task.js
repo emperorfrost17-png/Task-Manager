@@ -14,9 +14,12 @@ function renderActiveTasks() {
       // Use the index of the task in the original tasks array to ensure it matches up with edit and delete buttons
       const actualIndex = tasks.indexOf(task);
       taskHTML += ` <div class="task-item" data-index="${actualIndex}">
-              <button class="task-check" aria-label="Mark task as completed">
+              <button class="task-check js-task-check" aria-label="Mark task as completed" data-index="${actualIndex}" style="display: ${task.completed ? "none" : "inline"}">
                 <i class="fa-regular fa-circle"></i>
               </button>
+              <button class="task-check js-task-uncheck" aria-label="Mark task as not completed" data-index="${actualIndex}" style="display: ${task.completed ? "inline" : "none"}">
+  <i class="fa-solid fa-circle-check" style="color: rgb(99, 230, 99);"></i>
+</button>
 
               <div class="task-item-content">
                 <h3>${task.title}</h3>
@@ -46,32 +49,53 @@ function renderActiveTasks() {
   renderTasks();
 }
 if (activeTaskList) {
-activeTaskList.addEventListener("click", (e) => {
-  const deleteBtn = e.target.closest(".js-delete-button");
-  const editBtn = e.target.closest(".js-edit-button");
+  activeTaskList.addEventListener("click", (e) => {
+    // e.target.closest() searches UP the DOM tree from the clicked element to find the first
+    // matching parent element. This is useful because if a user clicks the icon inside the button,
+    // e.target would be the icon, not the button. closest() travels up to find the button.
+    const deleteBtn = e.target.closest(".js-delete-button");
+    const editBtn = e.target.closest(".js-edit-button");
+    const checkBtn = e.target.closest(".js-task-check");
+    const uncheckBtn = e.target.closest(".js-task-uncheck");
+    if (checkBtn) {
+      const index = Number(checkBtn.dataset.index);
+      tasks[index].completed = !tasks[index].completed;
+      console.log(tasks[index]);
 
-  if (deleteBtn) {
-    const index = Number(deleteBtn.dataset.index);
-    tasks.splice(index, 1);
-    saveTasks();
-    totalTaskCalculation();
-    renderActiveTasks();
-  }
+      saveTasks();
+      totalTaskCalculation();
+      renderActiveTasks(); // Re-render to move the task to the completed section
+    }
+    if (uncheckBtn) {
+      const index = Number(uncheckBtn.dataset.index);
+      // Toggle the completed status: Take the current completed status and flip it to the opposite.
+      tasks[index].completed = false;
+      console.log(tasks[index]);
+      saveTasks();
+      totalTaskCalculation();
+      renderActiveTasks(); // Re-render to move the task to the active section
+    }
+    if (deleteBtn) {
+      const index = Number(deleteBtn.dataset.index);
+      tasks.splice(index, 1);
+      saveTasks();
+      totalTaskCalculation();
+      renderActiveTasks();
+    }
 
-  if (editBtn) {
-    const index = Number(editBtn.dataset.index);
-    currentEditingIndex = index;
-    const task = tasks[index];
-    document.querySelector(".edit-title").value = task.title;
-    document.querySelector(".edit-description").value = task.description;
-    document.querySelector(".edit-priority").value = task.priority;
-    document.querySelector(".edit-due-date").value = task.dueDate;
-    document.querySelector(".edit-category").value = task.category;
-    document.querySelector(".js-edit-task-modal").style.display = "flex";
-  }
-});
+    if (editBtn) {
+      const index = Number(editBtn.dataset.index);
+      currentEditingIndex = index;
+      const task = tasks[index];
+      document.querySelector(".edit-title").value = task.title;
+      document.querySelector(".edit-description").value = task.description;
+      document.querySelector(".edit-priority").value = task.priority;
+      document.querySelector(".edit-due-date").value = task.dueDate;
+      document.querySelector(".edit-category").value = task.category;
+      document.querySelector(".js-edit-task-modal").style.display = "flex";
+    }
+  });
 }
-
 
 function getInputInformation() {
   const titleInput = document.querySelector(".new-title");

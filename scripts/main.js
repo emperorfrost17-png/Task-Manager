@@ -2,15 +2,19 @@ import { totalTaskCalculation } from "./taskcalculation.js";
 import { tasks, saveTasks } from "./store.js";
 
 let currentEditingIndex = null; // Track which task is being edited
- const taskList = document.querySelector(".js-task-list");
+const taskList = document.querySelector(".js-task-list");
 export function renderPage() {
   function renderTasks() {
     let taskHTML = "";
     tasks.forEach((task, index) => {
       taskHTML += ` <div class="task-item" data-index="${index}">
-              <button class="task-check" aria-label="Mark task as completed">
-                <i class="fa-regular fa-circle"></i>
-              </button>
+              <button class="task-check js-task-check" aria-label="Mark task as completed" data-index="${index}" style="display: ${task.completed ? "none" : "inline"}">
+  <i class="fa-regular fa-circle"></i>
+</button>
+
+<button class="task-check js-task-uncheck" aria-label="Mark task as not completed" data-index="${index}" style="display: ${task.completed ? "inline" : "none"}">
+  <i class="fa-solid fa-circle-check" style="color: rgb(99, 230, 99);"></i>
+</button>
 
               <div class="task-item-content">
                 <h3>${task.title}</h3>
@@ -34,17 +38,41 @@ export function renderPage() {
               </div>
             </div>`;
     });
-   
-    if (taskList) taskList.innerHTML = taskHTML;
 
-    
+    if (taskList) taskList.innerHTML = taskHTML;
   }
   renderTasks();
 }
 if (taskList) {
   taskList.addEventListener("click", (e) => {
+    // Use event delegation to handle clicks on dynamically generated edit and delete buttons
+    // e.target.closest() searches UP the DOM tree from the clicked element to find the first
+    // matching parent element. This is useful because if a user clicks the icon inside the button,
+    // e.target would be the icon, not the button. closest() travels up to find the button.
     const deleteBtn = e.target.closest(".js-delete-button");
     const editBtn = e.target.closest(".js-edit-button");
+    const checkBtn = e.target.closest(".js-task-check");
+    const uncheckBtn = e.target.closest(".js-task-uncheck");
+
+    if (checkBtn) {
+      const index = Number(checkBtn.dataset.index);
+      // Toggle the completed status: Take the current completed status and flip it to the opposite.
+      tasks[index].completed = true;
+      console.log(tasks[index]);
+      saveTasks();
+      totalTaskCalculation();
+      renderPage(); // Re-render to move the task to the completed section
+    }
+
+    if (uncheckBtn) {
+      const index = Number(uncheckBtn.dataset.index);
+      // Toggle the completed status: Take the current completed status and flip it to the opposite.
+      tasks[index].completed = false;
+      console.log(tasks[index]);
+      saveTasks();
+      totalTaskCalculation();
+      renderPage(); // Re-render to move the task to the active section
+    }
 
     if (deleteBtn) {
       const index = Number(deleteBtn.dataset.index);
