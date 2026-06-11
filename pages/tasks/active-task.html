@@ -110,7 +110,7 @@
 
       <main class="main-content">
         <header class="header">
-          <div class="all-tasks">All Tasks</div>
+          <div class="all-tasks">Active Tasks</div>
           <div class="search-bar-container">
             <div class="search-field">
               <i class="fa-solid fa-magnifying-glass fa-2xs"></i>
@@ -123,26 +123,7 @@
             <button class="add-task-button js-add-task-button">+ Add Task</button>
           </div>
         </header>
-        <section>
-          <div class="task-containers">
-            <div class="task-container" id="total-task">
-              <h1 class="total-number js-total-number"></h1>
-              <p>TOTAL</p>
-            </div>
-            <div class="task-container">
-              <h1 class="active-number js-active-number">5</h1>
-              <p>ACTIVE</p>
-            </div>
-            <div class="task-container">
-              <h1 class="completed-number js-completed-number">0</h1>
-              <p>COMPLETED</p>
-            </div>
-            <div class="task-container" id="overdue-task">
-              <h1 class="overdue-number js-overdue-number">1</h1>
-              <p>OVERDUE</p>
-            </div>
-          </div>
-        </section>
+        
 
         <section>
           <div class="sort-clear-container">
@@ -155,7 +136,7 @@
         </section>
 
         <section>
-          <div class="task-list js-task-list"></div>
+          <div class="task-list js-active-task-list"></div>
         </section>
 
         <div class="new-task-modal js-new-task-modal">
@@ -275,7 +256,7 @@
       </main>
     </div>
 
-    <script type="module" src="../../scripts/main.js"></script>
+    <script type="module" src="../../scripts/tasks/active-task.js"></script>
     
   </body>
 </html>
