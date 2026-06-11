@@ -45,6 +45,7 @@ function renderActiveTasks() {
 
   renderTasks();
 }
+if (activeTaskList) {
 activeTaskList.addEventListener("click", (e) => {
   const deleteBtn = e.target.closest(".js-delete-button");
   const editBtn = e.target.closest(".js-edit-button");
@@ -69,6 +70,8 @@ activeTaskList.addEventListener("click", (e) => {
     document.querySelector(".js-edit-task-modal").style.display = "flex";
   }
 });
+}
+
 
 function getInputInformation() {
   const titleInput = document.querySelector(".new-title");
