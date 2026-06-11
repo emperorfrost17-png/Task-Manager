@@ -17,10 +17,16 @@ export function totalTaskCalculation() {
   if (allTasksCount) allTasksCount.innerHTML = tasks.length;
   if (activeNumber)
     activeNumber.innerHTML = tasks.filter((task) => !task.completed).length;
+  if (completedNumber)
+    completedNumber.innerHTML = tasks.filter((task) => task.completed).length;
   const activeTasksCount = document.querySelector(".js-active-tasks-count");
   if (activeTasksCount)
     activeTasksCount.innerHTML = tasks.filter((task) => !task.completed).length;
+  const completedTaskCount = document.querySelector(".js-completed-tasks-count");
+if (completedTaskCount)
+  completedTaskCount.innerHTML = tasks.filter((task) => task.completed).length;
 }
+
 
 
 

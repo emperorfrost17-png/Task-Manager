@@ -1,19 +1,18 @@
 import { tasks, saveTasks } from "../store.js";
 import { totalTaskCalculation } from "../taskcalculation.js";
+
 let currentEditingIndex = null;
 
-export function getActiveTasks() {
-  return tasks.filter((task) => !task.completed);
+export function getCompletedTasks() {
+  return tasks.filter((task) => task.completed);
 }
-const activeTaskList = document.querySelector(".js-active-task-list");
-
-function renderActiveTasks() {
+const completedTaskList = document.querySelector(".js-completed-task-list");
+export function renderCompletedTasks() {
   function renderTasks() {
-    let taskHTML = "";
-    getActiveTasks().forEach((task) => {
-      // Use the index of the task in the original tasks array to ensure it matches up with edit and delete buttons
+    let taskCompletedHTML = "";
+    getCompletedTasks().forEach((task) => {
       const actualIndex = tasks.indexOf(task);
-      taskHTML += ` <div class="task-item" data-index="${actualIndex}">
+      taskCompletedHTML += `<div class="task-item" data-index="${actualIndex}">
               <button class="task-check js-task-check" aria-label="Mark task as completed" data-index="${actualIndex}" style="display: ${task.completed ? "none" : "inline"}">
                 <i class="fa-regular fa-circle"></i>
               </button>
@@ -43,13 +42,12 @@ function renderActiveTasks() {
               </div>
             </div>`;
     });
-    if (activeTaskList) activeTaskList.innerHTML = taskHTML;
+    if (completedTaskList) completedTaskList.innerHTML = taskCompletedHTML;
   }
-
   renderTasks();
 }
-if (activeTaskList) {
-  activeTaskList.addEventListener("click", (e) => {
+if (completedTaskList) {
+  completedTaskList.addEventListener("click", (e) => {
     // e.target.closest() searches UP the DOM tree from the clicked element to find the first
     // matching parent element. This is useful because if a user clicks the icon inside the button,
     // e.target would be the icon, not the button. closest() travels up to find the button.
@@ -64,7 +62,7 @@ if (activeTaskList) {
 
       saveTasks();
       totalTaskCalculation();
-      renderActiveTasks(); // Re-render to move the task to the completed section
+      renderCompletedTasks(); // Re-render to move the task to the completed section
     }
     if (uncheckBtn) {
       const index = Number(uncheckBtn.dataset.index);
@@ -73,14 +71,14 @@ if (activeTaskList) {
       console.log(tasks[index]);
       saveTasks();
       totalTaskCalculation();
-      renderActiveTasks(); // Re-render to move the task to the active section
+      renderCompletedTasks(); // Re-render to move the task to the completed section
     }
     if (deleteBtn) {
       const index = Number(deleteBtn.dataset.index);
       tasks.splice(index, 1);
       saveTasks();
       totalTaskCalculation();
-      renderActiveTasks();
+      renderCompletedTasks();
     }
 
     if (editBtn) {
@@ -96,7 +94,6 @@ if (activeTaskList) {
     }
   });
 }
-
 function getInputInformation() {
   const titleInput = document.querySelector(".new-title");
   const descriptionInput = document.querySelector(".new-description");
@@ -140,7 +137,6 @@ function clearFormInputs() {
   document.querySelector(".new-due-date").value = "";
   document.querySelector(".new-category").value = "";
 }
-
 // Set up modal event listeners (only run once)
 const addButton = document.querySelector(".js-add-task-button");
 addButton.addEventListener("click", () => {
@@ -168,7 +164,6 @@ const editCancelButton = document.querySelector(".js-edit-cancel-button");
 editCancelButton.addEventListener("click", () => {
   document.querySelector(".js-edit-task-modal").style.display = "none";
 });
-
 const saveButton = document.querySelector(".js-save-button");
 saveButton.addEventListener("click", (event) => {
   event.preventDefault();
@@ -225,4 +220,4 @@ updateButton.addEventListener("click", (event) => {
   document.querySelector(".js-edit-task-modal").style.display = "none";
 });
 totalTaskCalculation();
-renderActiveTasks();
+renderCompletedTasks();
