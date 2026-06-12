@@ -1,33 +1,30 @@
 import { totalTaskCalculation } from "./taskcalculation.js";
 import { tasks, saveTasks } from "./store.js";
+import { renderCompletedTasks } from "./tasks/completed-task.js";
 
-let currentEditingIndex = null; // Track which task is being edited
+let currentEditingIndex = null;
 const taskList = document.querySelector(".js-task-list");
+
 export function renderPage() {
   function renderTasks() {
     let taskHTML = "";
     tasks.forEach((task, index) => {
-      taskHTML += ` <div class="task-item" data-index="${index}" style="opacity: ${task.completed ? "0.5" : "1"}">
+      taskHTML += `<div class="task-item" data-index="${index}" style="opacity: ${task.completed ? "0.5" : "1"}">
               <button class="task-check js-task-check" aria-label="Mark task as completed" data-index="${index}" style="display: ${task.completed ? "none" : "inline"}">
-  <i class="fa-regular fa-circle"></i>
-</button>
-
-<button class="task-check js-task-uncheck" aria-label="Mark task as not completed" data-index="${index}" style="display: ${task.completed ? "inline" : "none"}">
-  <i class="fa-solid fa-circle-check" style="color: rgb(99, 230, 99);"></i>
-</button>
-
+                <i class="fa-regular fa-circle"></i>
+              </button>
+              <button class="task-check js-task-uncheck" aria-label="Mark task as not completed" data-index="${index}" style="display: ${task.completed ? "inline" : "none"}">
+                <i class="fa-solid fa-circle-check" style="color: rgb(99, 230, 99);"></i>
+              </button>
               <div class="task-item-content">
                 <h3 style="text-decoration: ${task.completed ? "line-through" : "none"}; opacity: ${task.completed ? "0.5" : "1"}">${task.title}</h3>
                 <p class="task-description">${task.description}</p>
                 <div class="task-meta">
                   <span class="task-priority-${task.priority.toLowerCase()}">${task.priority}</span>
-                  <span class="due-date"
-                    ><i class="fa-regular fa-calendar"></i> ${new Date(task.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span
-                  >
+                  <span class="due-date"><i class="fa-regular fa-calendar"></i> ${new Date(task.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
                   <span class="task-category">${task.category}</span>
                 </div>
               </div>
-
               <div class="task-actions">
                 <button aria-label="Edit task" class="js-edit-button" data-index="${index}">
                   <i class="fa-regular fa-pen-to-square"></i>
@@ -38,17 +35,13 @@ export function renderPage() {
               </div>
             </div>`;
     });
-
     if (taskList) taskList.innerHTML = taskHTML;
   }
   renderTasks();
 }
+
 if (taskList) {
   taskList.addEventListener("click", (e) => {
-    // Use event delegation to handle clicks on dynamically generated edit and delete buttons
-    // e.target.closest() searches UP the DOM tree from the clicked element to find the first
-    // matching parent element. This is useful because if a user clicks the icon inside the button,
-    // e.target would be the icon, not the button. closest() travels up to find the button.
     const deleteBtn = e.target.closest(".js-delete-button");
     const editBtn = e.target.closest(".js-edit-button");
     const checkBtn = e.target.closest(".js-task-check");
@@ -56,22 +49,20 @@ if (taskList) {
 
     if (checkBtn) {
       const index = Number(checkBtn.dataset.index);
-      // Toggle the completed status: Take the current completed status and flip it to the opposite.
       tasks[index].completed = true;
-      console.log(tasks[index]);
       saveTasks();
       totalTaskCalculation();
-      renderPage(); // Re-render to move the task to the completed section
+      renderPage();
+      renderCompletedTasks();
     }
 
     if (uncheckBtn) {
       const index = Number(uncheckBtn.dataset.index);
-      // Toggle the completed status: Take the current completed status and flip it to the opposite.
       tasks[index].completed = false;
-      console.log(tasks[index]);
       saveTasks();
       totalTaskCalculation();
-      renderPage(); // Re-render to move the task to the active section
+      renderPage();
+      renderCompletedTasks();
     }
 
     if (deleteBtn) {
@@ -80,6 +71,7 @@ if (taskList) {
       saveTasks();
       totalTaskCalculation();
       renderPage();
+      renderCompletedTasks();
     }
 
     if (editBtn) {
@@ -97,40 +89,27 @@ if (taskList) {
 }
 
 function getInputInformation() {
-  const titleInput = document.querySelector(".new-title");
-  const descriptionInput = document.querySelector(".new-description");
-  const priorityInput = document.querySelector(".new-priority");
-  const dueDateInput = document.querySelector(".new-due-date");
-  const categoryInput = document.querySelector(".new-category");
-  //Create a new task object with the input values
-  const newTask = {
-    title: titleInput.value,
-    description: descriptionInput.value,
-    priority: priorityInput.value,
-    dueDate: dueDateInput.value,
-    category: categoryInput.value,
+  return {
+    title: document.querySelector(".new-title").value,
+    description: document.querySelector(".new-description").value,
+    priority: document.querySelector(".new-priority").value,
+    dueDate: document.querySelector(".new-due-date").value,
+    category: document.querySelector(".new-category").value,
     completed: false,
   };
-  return newTask;
 }
+
 function getEditInputInformation() {
-  const titleInput = document.querySelector(".edit-title");
-  const descriptionInput = document.querySelector(".edit-description");
-  const priorityInput = document.querySelector(".edit-priority");
-  const dueDateInput = document.querySelector(".edit-due-date");
-  const categoryInput = document.querySelector(".edit-category");
-  //Create a new task object with the input values
-  const updatedTask = {
-    title: titleInput.value,
-    description: descriptionInput.value,
-    priority: priorityInput.value,
-    dueDate: dueDateInput.value,
-    category: categoryInput.value,
-    completed: tasks[currentEditingIndex].completed, // Preserve the completed status
+  return {
+    title: document.querySelector(".edit-title").value,
+    description: document.querySelector(".edit-description").value,
+    priority: document.querySelector(".edit-priority").value,
+    dueDate: document.querySelector(".edit-due-date").value,
+    category: document.querySelector(".edit-category").value,
+    completed: tasks[currentEditingIndex].completed,
   };
-  return updatedTask;
 }
-// This function will clear the form inputs after a new task is added, or when the modal is closed
+
 function clearFormInputs() {
   document.querySelector(".new-title").value = "";
   document.querySelector(".new-description").value = "";
@@ -139,89 +118,86 @@ function clearFormInputs() {
   document.querySelector(".new-category").value = "";
 }
 
-// Set up modal event listeners (only run once)
-const addButton = document.querySelector(".js-add-task-button");
-addButton.addEventListener("click", () => {
+// --- Modal / button listeners (owned here, not duplicated in completed-task.js) ---
+
+document.querySelector(".js-add-task-button").addEventListener("click", () => {
   document.querySelector(".js-new-task-modal").style.display = "flex";
 });
 
-const closeButton = document.querySelector(".js-close-modal");
-closeButton.addEventListener("click", () => {
+document.querySelector(".js-close-modal").addEventListener("click", () => {
   clearFormInputs();
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
 
-const cancelButton = document.querySelector(".js-cancel-button");
-cancelButton.addEventListener("click", () => {
+document.querySelector(".js-cancel-button").addEventListener("click", () => {
   clearFormInputs();
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
-const editCloseButton = document.querySelector(
-  ".js-edit-task-modal .js-close-modal",
-);
-editCloseButton.addEventListener("click", () => {
-  document.querySelector(".js-edit-task-modal").style.display = "none";
-});
-const editCancelButton = document.querySelector(".js-edit-cancel-button");
-editCancelButton.addEventListener("click", () => {
-  document.querySelector(".js-edit-task-modal").style.display = "none";
-});
 
-const saveButton = document.querySelector(".js-save-button");
-saveButton.addEventListener("click", (event) => {
+document
+  .querySelector(".js-edit-task-modal .js-close-modal")
+  .addEventListener("click", () => {
+    document.querySelector(".js-edit-task-modal").style.display = "none";
+  });
+
+document
+  .querySelector(".js-edit-cancel-button")
+  .addEventListener("click", () => {
+    document.querySelector(".js-edit-task-modal").style.display = "none";
+  });
+
+const clearCompletedButton = document.querySelector(".js-clear-completed");
+if (clearCompletedButton) {
+  clearCompletedButton.addEventListener("click", () => {
+    // tasks.filter() creates a NEW array of only incomplete tasks, but we can't just reassign
+    // tasks = filteredArray because tasks is an imported reference from store.js — reassigning
+    // it would only update the local variable, leaving the original array in store.js untouched.
+    // Instead, tasks.splice(0, tasks.length) removes every item from the ORIGINAL array in place,
+    // then the spread operator (...) unpacks the filtered array into individual items so splice
+    // can refill the original array with them. This mutates the same array all files share.
+    tasks.splice(0, tasks.length, ...tasks.filter((task) => !task.completed));
+    saveTasks();
+    renderPage();
+    renderCompletedTasks();
+    totalTaskCalculation();
+  });
+}
+
+document.querySelector(".js-save-button").addEventListener("click", (event) => {
   event.preventDefault();
-  //Get the input information and create a new task object, then push that object to the tasks array, clear the form inputs, and re-render the page to show the new task
   const newTask = getInputInformation();
-  if (newTask.title === "") {
-    return alert("Title cannot be empty");
-  }
-  if (newTask.description === "") {
-    return alert("Description cannot be empty");
-  }
-  if (newTask.priority === "") {
-    return alert("Priority cannot be empty");
-  }
-  if (newTask.dueDate === "") {
-    return alert("Due date cannot be empty");
-  }
-  if (newTask.category === "") {
-    return alert("Category cannot be empty");
-  }
+  if (!newTask.title) return alert("Title cannot be empty");
+  if (!newTask.description) return alert("Description cannot be empty");
+  if (!newTask.priority) return alert("Priority cannot be empty");
+  if (!newTask.dueDate) return alert("Due date cannot be empty");
+  if (!newTask.category) return alert("Category cannot be empty");
   tasks.push(newTask);
   saveTasks();
   clearFormInputs();
   renderPage();
+  renderCompletedTasks();
   totalTaskCalculation();
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
-const updateButton = document.querySelector(".js-update-button");
-updateButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  //Get the input information and create a new task object, then push that object to the tasks array, clear the form inputs, and re-render the page to show the new task
-  const updatedTask = getEditInputInformation();
-  //Validate before saving
-  if (updatedTask.title === "") {
-    return alert("Title cannot be empty");
-  }
-  if (updatedTask.description === "") {
-    return alert("Description cannot be empty");
-  }
-  if (updatedTask.priority === "") {
-    return alert("Priority cannot be empty");
-  }
-  if (updatedTask.dueDate === "") {
-    return alert("Due date cannot be empty");
-  }
-  if (updatedTask.category === "") {
-    return alert("Category cannot be empty");
-  }
-  //Use the stored index from when the edit button was clicked
-  tasks[currentEditingIndex] = updatedTask;
-  saveTasks();
-  renderPage();
-  totalTaskCalculation();
-  document.querySelector(".js-edit-task-modal").style.display = "none";
-});
-totalTaskCalculation();
 
+document
+  .querySelector(".js-update-button")
+  .addEventListener("click", (event) => {
+    event.preventDefault();
+    const updatedTask = getEditInputInformation();
+    if (!updatedTask.title) return alert("Title cannot be empty");
+    if (!updatedTask.description) return alert("Description cannot be empty");
+    if (!updatedTask.priority) return alert("Priority cannot be empty");
+    if (!updatedTask.dueDate) return alert("Due date cannot be empty");
+    if (!updatedTask.category) return alert("Category cannot be empty");
+    tasks[currentEditingIndex] = updatedTask;
+    saveTasks();
+    renderPage();
+    renderCompletedTasks();
+    totalTaskCalculation();
+    document.querySelector(".js-edit-task-modal").style.display = "none";
+  });
+
+totalTaskCalculation();
 renderPage();
+renderCompletedTasks();
