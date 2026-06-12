@@ -119,6 +119,17 @@ function clearFormInputs() {
   document.querySelector(".new-due-date").value = "";
   document.querySelector(".new-category").value = "";
 }
+function getOverdueDays(dueDate) {
+  const currentDate = new Date();
+  const due = new Date(dueDate);
+  // Set both to midnight to compare just the dates, not the time
+  today.setHours(0, 0, 0, 0);
+  due.setHours(0, 0, 0, 0);
+
+  const timeDiff = currentDate - due;
+  const dayDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+  return dayDiff > 0 ? dayDiff : 0;
+}
 
 // --- Modal / button listeners ---
 
@@ -136,13 +147,17 @@ document.querySelector(".js-cancel-button").addEventListener("click", () => {
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
 
-document.querySelector(".js-edit-task-modal .js-close-modal").addEventListener("click", () => {
-  document.querySelector(".js-edit-task-modal").style.display = "none";
-});
+document
+  .querySelector(".js-edit-task-modal .js-close-modal")
+  .addEventListener("click", () => {
+    document.querySelector(".js-edit-task-modal").style.display = "none";
+  });
 
-document.querySelector(".js-edit-cancel-button").addEventListener("click", () => {
-  document.querySelector(".js-edit-task-modal").style.display = "none";
-});
+document
+  .querySelector(".js-edit-cancel-button")
+  .addEventListener("click", () => {
+    document.querySelector(".js-edit-task-modal").style.display = "none";
+  });
 
 const clearCompletedButton = document.querySelector(".js-clear-completed");
 if (clearCompletedButton) {
@@ -170,20 +185,22 @@ document.querySelector(".js-save-button").addEventListener("click", (event) => {
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
 
-document.querySelector(".js-update-button").addEventListener("click", (event) => {
-  event.preventDefault();
-  const updatedTask = getEditInputInformation();
-  if (!updatedTask.title) return alert("Title cannot be empty");
-  if (!updatedTask.description) return alert("Description cannot be empty");
-  if (!updatedTask.priority) return alert("Priority cannot be empty");
-  if (!updatedTask.dueDate) return alert("Due date cannot be empty");
-  if (!updatedTask.category) return alert("Category cannot be empty");
-  tasks[currentEditingIndex] = updatedTask;
-  saveTasks();
-  renderActiveTasks();
-  totalTaskCalculation();
-  document.querySelector(".js-edit-task-modal").style.display = "none";
-});
+document
+  .querySelector(".js-update-button")
+  .addEventListener("click", (event) => {
+    event.preventDefault();
+    const updatedTask = getEditInputInformation();
+    if (!updatedTask.title) return alert("Title cannot be empty");
+    if (!updatedTask.description) return alert("Description cannot be empty");
+    if (!updatedTask.priority) return alert("Priority cannot be empty");
+    if (!updatedTask.dueDate) return alert("Due date cannot be empty");
+    if (!updatedTask.category) return alert("Category cannot be empty");
+    tasks[currentEditingIndex] = updatedTask;
+    saveTasks();
+    renderActiveTasks();
+    totalTaskCalculation();
+    document.querySelector(".js-edit-task-modal").style.display = "none";
+  });
 
 totalTaskCalculation();
 renderActiveTasks();

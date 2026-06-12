@@ -103,6 +103,39 @@ if (completedTaskList) {
       totalTaskCalculation();
     });
   }
+  function getEditInputInformation() {
+  return {
+    title: document.querySelector(".edit-title").value,
+    description: document.querySelector(".edit-description").value,
+    priority: document.querySelector(".edit-priority").value,
+    dueDate: document.querySelector(".edit-due-date").value,
+    category: document.querySelector(".edit-category").value,
+    completed: tasks[currentEditingIndex].completed,
+  };
+}
+
+document.querySelector(".js-edit-task-modal .js-close-modal").addEventListener("click", () => {
+  document.querySelector(".js-edit-task-modal").style.display = "none";
+});
+
+document.querySelector(".js-edit-cancel-button").addEventListener("click", () => {
+  document.querySelector(".js-edit-task-modal").style.display = "none";
+});
+
+document.querySelector(".js-update-button").addEventListener("click", (event) => {
+  event.preventDefault();
+  const updatedTask = getEditInputInformation();
+  if (!updatedTask.title) return alert("Title cannot be empty");
+  if (!updatedTask.description) return alert("Description cannot be empty");
+  if (!updatedTask.priority) return alert("Priority cannot be empty");
+  if (!updatedTask.dueDate) return alert("Due date cannot be empty");
+  if (!updatedTask.category) return alert("Category cannot be empty");
+  tasks[currentEditingIndex] = updatedTask;
+  saveTasks();
+  renderCompletedTasks();
+  totalTaskCalculation();
+  document.querySelector(".js-edit-task-modal").style.display = "none";
+});
 }
 totalTaskCalculation();
 renderCompletedTasks();

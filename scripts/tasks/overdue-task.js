@@ -1,25 +1,30 @@
-import { totalTaskCalculation } from "./taskcalculation.js";
-import { tasks, saveTasks } from "./store.js";
-import { renderCompletedTasks } from "./tasks/completed-task.js";
-import { renderActiveTasks } from "./tasks/active-task.js";
-import { renderOverdueTasks } from "./tasks/overdue-task.js";
+import { tasks, saveTasks } from "../store.js";
+import { totalTaskCalculation } from "../taskcalculation.js";
 
 let currentEditingIndex = null;
-const taskList = document.querySelector(".js-task-list");
 
-export function renderPage() {
+export function getOverdueTasks() {
+  const currentDate = new Date();
+  return tasks.filter(
+    (task) => !task.completed && new Date(task.dueDate) < currentDate,
+  );
+}
+const overdueTaskList = document.querySelector(".js-overdue-task-list");
+
+export function renderOverdueTasks() {
   function renderTasks() {
     let taskHTML = "";
-    tasks.forEach((task, index) => {
-      taskHTML += `<div class="task-item" data-index="${index}" style="opacity: ${task.completed ? "0.5" : "1"}">
-              <button class="task-check js-task-check" aria-label="Mark task as completed" data-index="${index}" style="display: ${task.completed ? "none" : "inline"}">
+    getOverdueTasks().forEach((task) => {
+      const actualIndex = tasks.indexOf(task);
+      taskHTML += `<div class="task-item" data-index="${actualIndex}">
+              <button class="task-check js-task-check" aria-label="Mark task as completed" data-index="${actualIndex}" style="display: ${task.completed ? "none" : "inline"}">
                 <i class="fa-regular fa-circle"></i>
               </button>
-              <button class="task-check js-task-uncheck" aria-label="Mark task as not completed" data-index="${index}" style="display: ${task.completed ? "inline" : "none"}">
+              <button class="task-check js-task-uncheck" aria-label="Mark task as not completed" data-index="${actualIndex}" style="display: ${task.completed ? "inline" : "none"}">
                 <i class="fa-solid fa-circle-check" style="color: rgb(99, 230, 99);"></i>
               </button>
               <div class="task-item-content">
-                <h3 style="text-decoration: ${task.completed ? "line-through" : "none"}; opacity: ${task.completed ? "0.5" : "1"}">${task.title}</h3>
+                <h3>${task.title}</h3>
                 <p class="task-description">${task.description}</p>
                 <div class="task-meta">
                   <span class="task-priority-${task.priority.toLowerCase()}">${task.priority}</span>
@@ -28,22 +33,21 @@ export function renderPage() {
                 </div>
               </div>
               <div class="task-actions">
-                <button aria-label="Edit task" class="js-edit-button" data-index="${index}">
+                <button aria-label="Edit task" class="js-edit-button" data-index="${actualIndex}">
                   <i class="fa-regular fa-pen-to-square"></i>
                 </button>
-                <button aria-label="Delete task" class="js-delete-button" data-index="${index}">
+                <button aria-label="Delete task" class="js-delete-button" data-index="${actualIndex}">
                   <i class="fa-regular fa-trash-can"></i>
                 </button>
               </div>
             </div>`;
     });
-    if (taskList) taskList.innerHTML = taskHTML;
+    if (overdueTaskList) overdueTaskList.innerHTML = taskHTML;
   }
   renderTasks();
 }
-
-if (taskList) {
-  taskList.addEventListener("click", (e) => {
+if (overdueTaskList) {
+  overdueTaskList.addEventListener("click", (e) => {
     const deleteBtn = e.target.closest(".js-delete-button");
     const editBtn = e.target.closest(".js-edit-button");
     const checkBtn = e.target.closest(".js-task-check");
@@ -54,9 +58,6 @@ if (taskList) {
       tasks[index].completed = true;
       saveTasks();
       totalTaskCalculation();
-      renderPage();
-      renderCompletedTasks();
-      renderActiveTasks();
       renderOverdueTasks();
     }
 
@@ -65,9 +66,6 @@ if (taskList) {
       tasks[index].completed = false;
       saveTasks();
       totalTaskCalculation();
-      renderPage();
-      renderCompletedTasks();
-      renderActiveTasks();
       renderOverdueTasks();
     }
 
@@ -76,9 +74,6 @@ if (taskList) {
       tasks.splice(index, 1);
       saveTasks();
       totalTaskCalculation();
-      renderPage();
-      renderCompletedTasks();
-      renderActiveTasks();
       renderOverdueTasks();
     }
 
@@ -95,7 +90,6 @@ if (taskList) {
     }
   });
 }
-
 function getInputInformation() {
   return {
     title: document.querySelector(".new-title").value,
@@ -106,7 +100,6 @@ function getInputInformation() {
     completed: false,
   };
 }
-
 function getEditInputInformation() {
   return {
     title: document.querySelector(".edit-title").value,
@@ -117,7 +110,6 @@ function getEditInputInformation() {
     completed: tasks[currentEditingIndex].completed,
   };
 }
-
 function clearFormInputs() {
   document.querySelector(".new-title").value = "";
   document.querySelector(".new-description").value = "";
@@ -127,7 +119,6 @@ function clearFormInputs() {
 }
 
 // --- Modal / button listeners ---
-
 document.querySelector(".js-add-task-button").addEventListener("click", () => {
   document.querySelector(".js-new-task-modal").style.display = "flex";
 });
@@ -159,9 +150,6 @@ if (clearCompletedButton) {
   clearCompletedButton.addEventListener("click", () => {
     tasks.splice(0, tasks.length, ...tasks.filter((task) => !task.completed));
     saveTasks();
-    renderPage();
-    renderCompletedTasks();
-    renderActiveTasks();
     renderOverdueTasks();
     totalTaskCalculation();
   });
@@ -178,9 +166,6 @@ document.querySelector(".js-save-button").addEventListener("click", (event) => {
   tasks.push(newTask);
   saveTasks();
   clearFormInputs();
-  renderPage();
-  renderCompletedTasks();
-  renderActiveTasks();
   renderOverdueTasks();
   totalTaskCalculation();
   document.querySelector(".js-new-task-modal").style.display = "none";
@@ -198,16 +183,10 @@ document
     if (!updatedTask.category) return alert("Category cannot be empty");
     tasks[currentEditingIndex] = updatedTask;
     saveTasks();
-    renderPage();
-    renderCompletedTasks();
-    renderActiveTasks();
     renderOverdueTasks();
     totalTaskCalculation();
     document.querySelector(".js-edit-task-modal").style.display = "none";
   });
 
 totalTaskCalculation();
-renderPage();
-renderCompletedTasks();
-renderActiveTasks();
 renderOverdueTasks();

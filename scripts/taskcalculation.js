@@ -1,11 +1,5 @@
 import { tasks } from "./store.js";
 
-
-const date = new Date();
-console.log(date)
-const activeTask = [];
-
-
 export function totalTaskCalculation() {
   const totalNumber = document.querySelector(".js-total-number");
   const activeNumber = document.querySelector(".js-active-number");
@@ -22,11 +16,24 @@ export function totalTaskCalculation() {
   const activeTasksCount = document.querySelector(".js-active-tasks-count");
   if (activeTasksCount)
     activeTasksCount.innerHTML = tasks.filter((task) => !task.completed).length;
-  const completedTaskCount = document.querySelector(".js-completed-tasks-count");
-if (completedTaskCount)
-  completedTaskCount.innerHTML = tasks.filter((task) => task.completed).length;
+  const completedTaskCount = document.querySelector(
+    ".js-completed-tasks-count",
+  );
+  if (completedTaskCount)
+    completedTaskCount.innerHTML = tasks.filter(
+      (task) => task.completed,
+    ).length;
+  const overdueTasksCount = document.querySelector(".js-overdue-tasks-count");
+  if (overdueTasksCount) {
+    const currentDate = new Date();
+    overdueTasksCount.innerHTML = tasks.filter(
+      (task) => !task.completed && new Date(task.dueDate) < currentDate,
+    ).length;
+  }
+  if (overdueNumber) {
+    const currentDate = new Date();
+    overdueNumber.innerHTML = tasks.filter(
+      (task) => !task.completed && new Date(task.dueDate) < currentDate,
+    ).length;
+  }
 }
-
-
-
-
