@@ -1,10 +1,9 @@
 import { totalTaskCalculation } from "./taskcalculation.js";
-import { tasks, saveTasks } from "./store.js";
+import { tasks, saveTasks, currentEditingIndex, setCurrentEditingIndex } from "./store.js";
 import { renderCompletedTasks } from "./tasks/completed-task.js";
 import { renderActiveTasks } from "./tasks/active-task.js";
 import { renderOverdueTasks } from "./tasks/overdue-task.js";
 
-let currentEditingIndex = null;
 const taskList = document.querySelector(".js-task-list");
 
 export function renderPage() {
@@ -84,7 +83,7 @@ if (taskList) {
 
     if (editBtn) {
       const index = Number(editBtn.dataset.index);
-      currentEditingIndex = index;
+      setCurrentEditingIndex(index);
       const task = tasks[index];
       document.querySelector(".edit-title").value = task.title;
       document.querySelector(".edit-description").value = task.description;
@@ -196,6 +195,7 @@ document
     if (!updatedTask.priority) return alert("Priority cannot be empty");
     if (!updatedTask.dueDate) return alert("Due date cannot be empty");
     if (!updatedTask.category) return alert("Category cannot be empty");
+    // Update the task in the tasks array
     tasks[currentEditingIndex] = updatedTask;
     saveTasks();
     renderPage();

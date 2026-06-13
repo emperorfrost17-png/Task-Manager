@@ -1,7 +1,8 @@
-import { tasks, saveTasks } from "../store.js";
+import { tasks, saveTasks, setCurrentEditingIndex } from "../store.js";
 import { totalTaskCalculation } from "../taskcalculation.js";
-
-let currentEditingIndex = null;
+import { renderCompletedTasks } from "./completed-task.js";
+import { renderOverdueTasks } from "./overdue-task.js";
+import { renderPage } from "../main.js";
 
 export function getActiveTasks() {
   return tasks.filter((task) => !task.completed);
@@ -58,6 +59,9 @@ if (activeTaskList) {
       saveTasks();
       totalTaskCalculation();
       renderActiveTasks();
+      renderCompletedTasks();
+      renderOverdueTasks();
+      renderPage();
     }
 
     if (uncheckBtn) {
@@ -66,6 +70,9 @@ if (activeTaskList) {
       saveTasks();
       totalTaskCalculation();
       renderActiveTasks();
+      renderCompletedTasks();
+      renderOverdueTasks();
+      renderPage();
     }
 
     if (deleteBtn) {
@@ -74,11 +81,14 @@ if (activeTaskList) {
       saveTasks();
       totalTaskCalculation();
       renderActiveTasks();
+      renderCompletedTasks();
+      renderOverdueTasks();
+      renderPage();
     }
 
     if (editBtn) {
       const index = Number(editBtn.dataset.index);
-      currentEditingIndex = index;
+      setCurrentEditingIndex(index);
       const task = tasks[index];
       document.querySelector(".edit-title").value = task.title;
       document.querySelector(".edit-description").value = task.description;
@@ -89,118 +99,3 @@ if (activeTaskList) {
     }
   });
 }
-
-function getInputInformation() {
-  return {
-    title: document.querySelector(".new-title").value,
-    description: document.querySelector(".new-description").value,
-    priority: document.querySelector(".new-priority").value,
-    dueDate: document.querySelector(".new-due-date").value,
-    category: document.querySelector(".new-category").value,
-    completed: false,
-  };
-}
-
-function getEditInputInformation() {
-  return {
-    title: document.querySelector(".edit-title").value,
-    description: document.querySelector(".edit-description").value,
-    priority: document.querySelector(".edit-priority").value,
-    dueDate: document.querySelector(".edit-due-date").value,
-    category: document.querySelector(".edit-category").value,
-    completed: tasks[currentEditingIndex].completed,
-  };
-}
-
-function clearFormInputs() {
-  document.querySelector(".new-title").value = "";
-  document.querySelector(".new-description").value = "";
-  document.querySelector(".new-priority").value = "low";
-  document.querySelector(".new-due-date").value = "";
-  document.querySelector(".new-category").value = "";
-}
-function getOverdueDays(dueDate) {
-  const currentDate = new Date();
-  const due = new Date(dueDate);
-  // Set both to midnight to compare just the dates, not the time
-  today.setHours(0, 0, 0, 0);
-  due.setHours(0, 0, 0, 0);
-
-  const timeDiff = currentDate - due;
-  const dayDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-  return dayDiff > 0 ? dayDiff : 0;
-}
-
-// --- Modal / button listeners ---
-
-document.querySelector(".js-add-task-button").addEventListener("click", () => {
-  document.querySelector(".js-new-task-modal").style.display = "flex";
-});
-
-document.querySelector(".js-close-modal").addEventListener("click", () => {
-  clearFormInputs();
-  document.querySelector(".js-new-task-modal").style.display = "none";
-});
-
-document.querySelector(".js-cancel-button").addEventListener("click", () => {
-  clearFormInputs();
-  document.querySelector(".js-new-task-modal").style.display = "none";
-});
-
-document
-  .querySelector(".js-edit-task-modal .js-close-modal")
-  .addEventListener("click", () => {
-    document.querySelector(".js-edit-task-modal").style.display = "none";
-  });
-
-document
-  .querySelector(".js-edit-cancel-button")
-  .addEventListener("click", () => {
-    document.querySelector(".js-edit-task-modal").style.display = "none";
-  });
-
-const clearCompletedButton = document.querySelector(".js-clear-completed");
-if (clearCompletedButton) {
-  clearCompletedButton.addEventListener("click", () => {
-    tasks.splice(0, tasks.length, ...tasks.filter((task) => !task.completed));
-    saveTasks();
-    renderActiveTasks();
-    totalTaskCalculation();
-  });
-}
-
-document.querySelector(".js-save-button").addEventListener("click", (event) => {
-  event.preventDefault();
-  const newTask = getInputInformation();
-  if (!newTask.title) return alert("Title cannot be empty");
-  if (!newTask.description) return alert("Description cannot be empty");
-  if (!newTask.priority) return alert("Priority cannot be empty");
-  if (!newTask.dueDate) return alert("Due date cannot be empty");
-  if (!newTask.category) return alert("Category cannot be empty");
-  tasks.push(newTask);
-  saveTasks();
-  clearFormInputs();
-  renderActiveTasks();
-  totalTaskCalculation();
-  document.querySelector(".js-new-task-modal").style.display = "none";
-});
-
-document
-  .querySelector(".js-update-button")
-  .addEventListener("click", (event) => {
-    event.preventDefault();
-    const updatedTask = getEditInputInformation();
-    if (!updatedTask.title) return alert("Title cannot be empty");
-    if (!updatedTask.description) return alert("Description cannot be empty");
-    if (!updatedTask.priority) return alert("Priority cannot be empty");
-    if (!updatedTask.dueDate) return alert("Due date cannot be empty");
-    if (!updatedTask.category) return alert("Category cannot be empty");
-    tasks[currentEditingIndex] = updatedTask;
-    saveTasks();
-    renderActiveTasks();
-    totalTaskCalculation();
-    document.querySelector(".js-edit-task-modal").style.display = "none";
-  });
-
-totalTaskCalculation();
-renderActiveTasks();

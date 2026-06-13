@@ -1,7 +1,8 @@
-import { tasks, saveTasks } from "../store.js";
+import { tasks, saveTasks, setCurrentEditingIndex } from "../store.js";
 import { totalTaskCalculation } from "../taskcalculation.js";
-
-let currentEditingIndex = null;
+import { renderActiveTasks } from "./active-task.js";
+import { renderCompletedTasks } from "./completed-task.js";
+import {renderPage} from "../main.js";
 
 export function getOverdueTasks() {
   const currentDate = new Date();
@@ -9,6 +10,7 @@ export function getOverdueTasks() {
     (task) => !task.completed && new Date(task.dueDate) < currentDate,
   );
 }
+
 const overdueTaskList = document.querySelector(".js-overdue-task-list");
 
 export function renderOverdueTasks() {
@@ -46,6 +48,7 @@ export function renderOverdueTasks() {
   }
   renderTasks();
 }
+
 if (overdueTaskList) {
   overdueTaskList.addEventListener("click", (e) => {
     const deleteBtn = e.target.closest(".js-delete-button");
@@ -59,6 +62,9 @@ if (overdueTaskList) {
       saveTasks();
       totalTaskCalculation();
       renderOverdueTasks();
+      renderActiveTasks();
+      renderCompletedTasks();
+      renderPage();
     }
 
     if (uncheckBtn) {
@@ -67,6 +73,9 @@ if (overdueTaskList) {
       saveTasks();
       totalTaskCalculation();
       renderOverdueTasks();
+      renderActiveTasks();
+      renderCompletedTasks();
+      renderPage();
     }
 
     if (deleteBtn) {
@@ -75,11 +84,14 @@ if (overdueTaskList) {
       saveTasks();
       totalTaskCalculation();
       renderOverdueTasks();
+      renderActiveTasks();
+      renderCompletedTasks();
+      renderPage();
     }
 
     if (editBtn) {
       const index = Number(editBtn.dataset.index);
-      currentEditingIndex = index;
+      setCurrentEditingIndex(index);
       const task = tasks[index];
       document.querySelector(".edit-title").value = task.title;
       document.querySelector(".edit-description").value = task.description;
@@ -90,103 +102,3 @@ if (overdueTaskList) {
     }
   });
 }
-function getInputInformation() {
-  return {
-    title: document.querySelector(".new-title").value,
-    description: document.querySelector(".new-description").value,
-    priority: document.querySelector(".new-priority").value,
-    dueDate: document.querySelector(".new-due-date").value,
-    category: document.querySelector(".new-category").value,
-    completed: false,
-  };
-}
-function getEditInputInformation() {
-  return {
-    title: document.querySelector(".edit-title").value,
-    description: document.querySelector(".edit-description").value,
-    priority: document.querySelector(".edit-priority").value,
-    dueDate: document.querySelector(".edit-due-date").value,
-    category: document.querySelector(".edit-category").value,
-    completed: tasks[currentEditingIndex].completed,
-  };
-}
-function clearFormInputs() {
-  document.querySelector(".new-title").value = "";
-  document.querySelector(".new-description").value = "";
-  document.querySelector(".new-priority").value = "low";
-  document.querySelector(".new-due-date").value = "";
-  document.querySelector(".new-category").value = "";
-}
-
-// --- Modal / button listeners ---
-document.querySelector(".js-add-task-button").addEventListener("click", () => {
-  document.querySelector(".js-new-task-modal").style.display = "flex";
-});
-
-document.querySelector(".js-close-modal").addEventListener("click", () => {
-  clearFormInputs();
-  document.querySelector(".js-new-task-modal").style.display = "none";
-});
-
-document.querySelector(".js-cancel-button").addEventListener("click", () => {
-  clearFormInputs();
-  document.querySelector(".js-new-task-modal").style.display = "none";
-});
-
-document
-  .querySelector(".js-edit-task-modal .js-close-modal")
-  .addEventListener("click", () => {
-    document.querySelector(".js-edit-task-modal").style.display = "none";
-  });
-
-document
-  .querySelector(".js-edit-cancel-button")
-  .addEventListener("click", () => {
-    document.querySelector(".js-edit-task-modal").style.display = "none";
-  });
-
-const clearCompletedButton = document.querySelector(".js-clear-completed");
-if (clearCompletedButton) {
-  clearCompletedButton.addEventListener("click", () => {
-    tasks.splice(0, tasks.length, ...tasks.filter((task) => !task.completed));
-    saveTasks();
-    renderOverdueTasks();
-    totalTaskCalculation();
-  });
-}
-
-document.querySelector(".js-save-button").addEventListener("click", (event) => {
-  event.preventDefault();
-  const newTask = getInputInformation();
-  if (!newTask.title) return alert("Title cannot be empty");
-  if (!newTask.description) return alert("Description cannot be empty");
-  if (!newTask.priority) return alert("Priority cannot be empty");
-  if (!newTask.dueDate) return alert("Due date cannot be empty");
-  if (!newTask.category) return alert("Category cannot be empty");
-  tasks.push(newTask);
-  saveTasks();
-  clearFormInputs();
-  renderOverdueTasks();
-  totalTaskCalculation();
-  document.querySelector(".js-new-task-modal").style.display = "none";
-});
-
-document
-  .querySelector(".js-update-button")
-  .addEventListener("click", (event) => {
-    event.preventDefault();
-    const updatedTask = getEditInputInformation();
-    if (!updatedTask.title) return alert("Title cannot be empty");
-    if (!updatedTask.description) return alert("Description cannot be empty");
-    if (!updatedTask.priority) return alert("Priority cannot be empty");
-    if (!updatedTask.dueDate) return alert("Due date cannot be empty");
-    if (!updatedTask.category) return alert("Category cannot be empty");
-    tasks[currentEditingIndex] = updatedTask;
-    saveTasks();
-    renderOverdueTasks();
-    totalTaskCalculation();
-    document.querySelector(".js-edit-task-modal").style.display = "none";
-  });
-
-totalTaskCalculation();
-renderOverdueTasks();

@@ -1,7 +1,8 @@
-import { tasks, saveTasks } from "../store.js";
+import { tasks, saveTasks, setCurrentEditingIndex } from "../store.js";
 import { totalTaskCalculation } from "../taskcalculation.js";
-
-let currentEditingIndex = null;
+import { renderActiveTasks } from "./active-task.js";
+import { renderOverdueTasks } from "./overdue-task.js";
+import { renderPage } from "../main.js";
 
 export function getCompletedTasks() {
   return tasks.filter((task) => task.completed);
@@ -58,6 +59,9 @@ if (completedTaskList) {
       saveTasks();
       totalTaskCalculation();
       renderCompletedTasks();
+      renderActiveTasks();
+      renderOverdueTasks();
+      renderPage();
     }
 
     if (uncheckBtn) {
@@ -66,6 +70,9 @@ if (completedTaskList) {
       saveTasks();
       totalTaskCalculation();
       renderCompletedTasks();
+      renderActiveTasks();
+      renderOverdueTasks();
+      renderPage();
     }
 
     if (deleteBtn) {
@@ -74,11 +81,14 @@ if (completedTaskList) {
       saveTasks();
       totalTaskCalculation();
       renderCompletedTasks();
+      renderActiveTasks();
+      renderOverdueTasks();
+      renderPage();
     }
 
     if (editBtn) {
       const index = Number(editBtn.dataset.index);
-      currentEditingIndex = index;
+      setCurrentEditingIndex(index);
       const task = tasks[index];
       document.querySelector(".edit-title").value = task.title;
       document.querySelector(".edit-description").value = task.description;
@@ -88,54 +98,4 @@ if (completedTaskList) {
       document.querySelector(".js-edit-task-modal").style.display = "flex";
     }
   });
-  const clearCompletedButton = document.querySelector(".js-clear-completed");
-  if (clearCompletedButton) {
-    clearCompletedButton.addEventListener("click", () => {
-      // tasks.filter() creates a NEW array of only incomplete tasks, but we can't just reassign
-      // tasks = filteredArray because tasks is an imported reference from store.js — reassigning
-      // it would only update the local variable, leaving the original array in store.js untouched.
-      // Instead, tasks.splice(0, tasks.length) removes every item from the ORIGINAL array in place,
-      // then the spread operator (...) unpacks the filtered array into individual items so splice
-      // can refill the original array with them. This mutates the same array all files share.
-      tasks.splice(0, tasks.length, ...tasks.filter((task) => !task.completed));
-      saveTasks();
-      renderCompletedTasks();
-      totalTaskCalculation();
-    });
-  }
-  function getEditInputInformation() {
-  return {
-    title: document.querySelector(".edit-title").value,
-    description: document.querySelector(".edit-description").value,
-    priority: document.querySelector(".edit-priority").value,
-    dueDate: document.querySelector(".edit-due-date").value,
-    category: document.querySelector(".edit-category").value,
-    completed: tasks[currentEditingIndex].completed,
-  };
 }
-
-document.querySelector(".js-edit-task-modal .js-close-modal").addEventListener("click", () => {
-  document.querySelector(".js-edit-task-modal").style.display = "none";
-});
-
-document.querySelector(".js-edit-cancel-button").addEventListener("click", () => {
-  document.querySelector(".js-edit-task-modal").style.display = "none";
-});
-
-document.querySelector(".js-update-button").addEventListener("click", (event) => {
-  event.preventDefault();
-  const updatedTask = getEditInputInformation();
-  if (!updatedTask.title) return alert("Title cannot be empty");
-  if (!updatedTask.description) return alert("Description cannot be empty");
-  if (!updatedTask.priority) return alert("Priority cannot be empty");
-  if (!updatedTask.dueDate) return alert("Due date cannot be empty");
-  if (!updatedTask.category) return alert("Category cannot be empty");
-  tasks[currentEditingIndex] = updatedTask;
-  saveTasks();
-  renderCompletedTasks();
-  totalTaskCalculation();
-  document.querySelector(".js-edit-task-modal").style.display = "none";
-});
-}
-totalTaskCalculation();
-renderCompletedTasks();
