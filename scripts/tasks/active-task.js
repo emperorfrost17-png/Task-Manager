@@ -1,8 +1,8 @@
-import { tasks, saveTasks, setCurrentEditingIndex } from "../store.js";
+import { tasks, saveTasks, setCurrentEditingIndex, getOverdueDays } from "../store.js";
 import { totalTaskCalculation } from "../taskcalculation.js";
 import { renderCompletedTasks } from "./completed-task.js";
 import { renderOverdueTasks } from "./overdue-task.js";
-import { renderPage } from "../main.js";
+
 
 export function getActiveTasks() {
   return tasks.filter((task) => !task.completed);
@@ -14,6 +14,8 @@ export function renderActiveTasks() {
   function renderTasks() {
     let taskHTML = "";
     getActiveTasks().forEach((task) => {
+      const overdueDays = getOverdueDays(task.dueDate);
+      const dueDateDisplay = overdueDays > 0 ? `<span class="due-date overdue">${overdueDays}d overdue</span>` : `<span class="due-date">${new Date(task.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>`
       const actualIndex = tasks.indexOf(task);
       taskHTML += `<div class="task-item" data-index="${actualIndex}">
               <button class="task-check js-task-check" aria-label="Mark task as completed" data-index="${actualIndex}" style="display: ${task.completed ? "none" : "inline"}">
@@ -27,7 +29,7 @@ export function renderActiveTasks() {
                 <p class="task-description">${task.description}</p>
                 <div class="task-meta">
                   <span class="task-priority-${task.priority.toLowerCase()}">${task.priority}</span>
-                  <span class="due-date"><i class="fa-regular fa-calendar"></i> ${new Date(task.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+                  ${dueDateDisplay}
                   <span class="task-category">${task.category}</span>
                 </div>
               </div>
@@ -61,7 +63,7 @@ if (activeTaskList) {
       renderActiveTasks();
       renderCompletedTasks();
       renderOverdueTasks();
-      renderPage();
+      
     }
 
     if (uncheckBtn) {
@@ -72,7 +74,7 @@ if (activeTaskList) {
       renderActiveTasks();
       renderCompletedTasks();
       renderOverdueTasks();
-      renderPage();
+      
     }
 
     if (deleteBtn) {
@@ -83,7 +85,7 @@ if (activeTaskList) {
       renderActiveTasks();
       renderCompletedTasks();
       renderOverdueTasks();
-      renderPage();
+      
     }
 
     if (editBtn) {

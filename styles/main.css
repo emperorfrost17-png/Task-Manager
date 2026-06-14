@@ -373,3 +373,9 @@
   justify-content: space-between;
   align-items: center;
 }
+.due-date.overdue {
+  color: rgb(220, 80, 80);               /* red text */
+  background-color: rgba(220, 80, 80, 0.1); /* faint red background */
+  padding: 2px 8px;
+  border-radius: 4px;
+}

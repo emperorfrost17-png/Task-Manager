@@ -1,5 +1,11 @@
 import { totalTaskCalculation } from "./taskcalculation.js";
-import { tasks, saveTasks, currentEditingIndex, setCurrentEditingIndex } from "./store.js";
+import {
+  tasks,
+  saveTasks,
+  currentEditingIndex,
+  setCurrentEditingIndex,
+  getOverdueDays,
+} from "./store.js";
 import { renderCompletedTasks } from "./tasks/completed-task.js";
 import { renderActiveTasks } from "./tasks/active-task.js";
 import { renderOverdueTasks } from "./tasks/overdue-task.js";
@@ -10,6 +16,11 @@ export function renderPage() {
   function renderTasks() {
     let taskHTML = "";
     tasks.forEach((task, index) => {
+      const overDuedays = getOverdueDays(task.dueDate);
+      const dueDateDisplay =
+        overDuedays > 0
+          ? `<span class="due-date overdue">${overDuedays}d overdue</span>`
+          : `<span class="due-date">${new Date(task.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>`;
       taskHTML += `<div class="task-item" data-index="${index}" style="opacity: ${task.completed ? "0.5" : "1"}">
               <button class="task-check js-task-check" aria-label="Mark task as completed" data-index="${index}" style="display: ${task.completed ? "none" : "inline"}">
                 <i class="fa-regular fa-circle"></i>
@@ -22,7 +33,7 @@ export function renderPage() {
                 <p class="task-description">${task.description}</p>
                 <div class="task-meta">
                   <span class="task-priority-${task.priority.toLowerCase()}">${task.priority}</span>
-                  <span class="due-date"><i class="fa-regular fa-calendar"></i> ${new Date(task.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+                  ${dueDateDisplay}
                   <span class="task-category">${task.category}</span>
                 </div>
               </div>

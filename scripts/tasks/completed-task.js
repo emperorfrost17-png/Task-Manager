@@ -1,8 +1,12 @@
-import { tasks, saveTasks, setCurrentEditingIndex } from "../store.js";
+import {
+  tasks,
+  saveTasks,
+  setCurrentEditingIndex,
+  getOverdueDays,
+} from "../store.js";
 import { totalTaskCalculation } from "../taskcalculation.js";
 import { renderActiveTasks } from "./active-task.js";
 import { renderOverdueTasks } from "./overdue-task.js";
-import { renderPage } from "../main.js";
 
 export function getCompletedTasks() {
   return tasks.filter((task) => task.completed);
@@ -14,8 +18,13 @@ export function renderCompletedTasks() {
   function renderTasks() {
     let taskCompletedHTML = "";
     getCompletedTasks().forEach((task) => {
+      const overdueDays = getOverdueDays(task.dueDate);
+      const dueDateDisplay =
+        overdueDays > 0
+          ? `<span class="due-date overdue">${overdueDays}d overdue</span>`
+          : `<span class="due-date">${new Date(task.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>`;
       const actualIndex = tasks.indexOf(task);
-      taskCompletedHTML += `<div class="task-item" data-index="${actualIndex}">
+      taskCompletedHTML += `<div class="task-item" data-index="${actualIndex}" style="opacity: ${task.completed ? "0.5" : "1"}">
               <button class="task-check js-task-check" aria-label="Mark task as completed" data-index="${actualIndex}" style="display: ${task.completed ? "none" : "inline"}">
                 <i class="fa-regular fa-circle"></i>
               </button>
@@ -23,11 +32,11 @@ export function renderCompletedTasks() {
                 <i class="fa-solid fa-circle-check" style="color: rgb(99, 230, 99);"></i>
               </button>
               <div class="task-item-content">
-                <h3>${task.title}</h3>
+                <h3 style="text-decoration: ${task.completed ? "line-through" : "none"}; opacity: ${task.completed ? "0.5" : "1"}">${task.title}</h3>
                 <p class="task-description">${task.description}</p>
                 <div class="task-meta">
                   <span class="task-priority-${task.priority.toLowerCase()}">${task.priority}</span>
-                  <span class="due-date"><i class="fa-regular fa-calendar"></i> ${new Date(task.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+                  ${dueDateDisplay}
                   <span class="task-category">${task.category}</span>
                 </div>
               </div>
@@ -61,7 +70,6 @@ if (completedTaskList) {
       renderCompletedTasks();
       renderActiveTasks();
       renderOverdueTasks();
-      renderPage();
     }
 
     if (uncheckBtn) {
@@ -72,7 +80,6 @@ if (completedTaskList) {
       renderCompletedTasks();
       renderActiveTasks();
       renderOverdueTasks();
-      renderPage();
     }
 
     if (deleteBtn) {
@@ -83,7 +90,6 @@ if (completedTaskList) {
       renderCompletedTasks();
       renderActiveTasks();
       renderOverdueTasks();
-      renderPage();
     }
 
     if (editBtn) {
