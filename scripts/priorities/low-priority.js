@@ -1,30 +1,22 @@
-import {
-  tasks,
-  saveTasks,
-  setCurrentEditingIndex,
-  getOverdueDays,
-} from "../store.js";
-import { totalTaskCalculation } from "../taskcalculation.js";
-import { renderActiveTasks } from "./active-task.js";
-import { renderOverdueTasks } from "./overdue-task.js";
+import {tasks, saveTasks, getOverdueDays, setCurrentEditingIndex} from '../store.js';
+import {totalTaskCalculation} from '../taskcalculation.js';
+import {renderCompletedTasks} from '../tasks/completed-task.js';
+import {renderActiveTasks} from '../tasks/active-task.js';
+import {renderOverdueTasks} from '../tasks/overdue-task.js';
 
-export function getCompletedTasks() {
-  return tasks.filter((task) => task.completed);
+export function getLowPriorityTasks() {
+  return tasks.filter((task) => task.priority.toLowerCase() === "low");
 }
+const lowPriorityTaskList = document.querySelector(".js-low-priority-task-list");
 
-const completedTaskList = document.querySelector(".js-completed-task-list");
-
-export function renderCompletedTasks() {
+export function renderLowPriorityTasks() {
   function renderTasks() {
-    let taskCompletedHTML = "";
-    getCompletedTasks().forEach((task) => {
+    let taskHTML = "";
+    getLowPriorityTasks().forEach((task) => {
       const overdueDays = getOverdueDays(task.dueDate);
-      const dueDateDisplay =
-        overdueDays > 0
-          ? `<span class="due-date overdue">${overdueDays}d overdue</span>`
-          : `<span class="due-date">${new Date(task.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>`;
+      const dueDateDisplay = overdueDays > 0 ? `<span class="due-date overdue">${overdueDays}d overdue</span>` : `<span class="due-date">${new Date(task.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>`
       const actualIndex = tasks.indexOf(task);
-      taskCompletedHTML += `<div class="task-item" data-index="${actualIndex}" style="opacity: ${task.completed ? "0.5" : "1"}">
+      taskHTML += `<div class="task-item" data-index="${actualIndex}">
               <button class="task-check js-task-check" aria-label="Mark task as completed" data-index="${actualIndex}" style="display: ${task.completed ? "none" : "inline"}">
                 <i class="fa-regular fa-circle"></i>
               </button>
@@ -32,7 +24,7 @@ export function renderCompletedTasks() {
                 <i class="fa-solid fa-circle-check" style="color: rgb(99, 230, 99);"></i>
               </button>
               <div class="task-item-content">
-                <h3 style="text-decoration: ${task.completed ? "line-through" : "none"}; opacity: ${task.completed ? "0.5" : "1"}">${task.title}</h3>
+                <h3>${task.title}</h3>
                 <p class="task-description">${task.description}</p>
                 <div class="task-meta">
                   <span class="task-priority-${task.priority.toLowerCase()}">${task.priority}</span>
@@ -50,13 +42,13 @@ export function renderCompletedTasks() {
               </div>
             </div>`;
     });
-    if (completedTaskList) completedTaskList.innerHTML = taskCompletedHTML;
+    if (lowPriorityTaskList) lowPriorityTaskList.innerHTML = taskHTML;
   }
   renderTasks();
 }
 
-if (completedTaskList) {
-  completedTaskList.addEventListener("click", (e) => {
+if (lowPriorityTaskList) {
+  lowPriorityTaskList.addEventListener("click", (e) => {
     const deleteBtn = e.target.closest(".js-delete-button");
     const editBtn = e.target.closest(".js-edit-button");
     const checkBtn = e.target.closest(".js-task-check");
@@ -67,9 +59,11 @@ if (completedTaskList) {
       tasks[index].completed = true;
       saveTasks();
       totalTaskCalculation();
-      renderCompletedTasks();
       renderActiveTasks();
+      renderCompletedTasks();
       renderOverdueTasks();
+      renderLowPriorityTasks();
+      
     }
 
     if (uncheckBtn) {
@@ -77,9 +71,10 @@ if (completedTaskList) {
       tasks[index].completed = false;
       saveTasks();
       totalTaskCalculation();
-      renderCompletedTasks();
       renderActiveTasks();
+      renderCompletedTasks();
       renderOverdueTasks();
+      renderLowPriorityTasks();
     }
 
     if (deleteBtn) {
@@ -87,9 +82,10 @@ if (completedTaskList) {
       tasks.splice(index, 1);
       saveTasks();
       totalTaskCalculation();
-      renderCompletedTasks();
       renderActiveTasks();
+      renderCompletedTasks();
       renderOverdueTasks();
+      renderLowPriorityTasks();
     }
 
     if (editBtn) {
@@ -105,3 +101,4 @@ if (completedTaskList) {
     }
   });
 }
+

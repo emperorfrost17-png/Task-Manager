@@ -9,6 +9,7 @@ import {
 import { renderCompletedTasks } from "./tasks/completed-task.js";
 import { renderActiveTasks } from "./tasks/active-task.js";
 import { renderOverdueTasks } from "./tasks/overdue-task.js";
+import { renderLowPriorityTasks } from "./priorities/low-priority.js";
 
 const taskList = document.querySelector(".js-task-list");
 
@@ -68,6 +69,7 @@ if (taskList) {
       renderCompletedTasks();
       renderActiveTasks();
       renderOverdueTasks();
+      renderLowPriorityTasks();
     }
 
     if (uncheckBtn) {
@@ -79,6 +81,7 @@ if (taskList) {
       renderCompletedTasks();
       renderActiveTasks();
       renderOverdueTasks();
+      renderLowPriorityTasks();
     }
 
     if (deleteBtn) {
@@ -90,6 +93,7 @@ if (taskList) {
       renderCompletedTasks();
       renderActiveTasks();
       renderOverdueTasks();
+      renderLowPriorityTasks();
     }
 
     if (editBtn) {
@@ -174,6 +178,7 @@ if (clearCompletedButton) {
     renderCompletedTasks();
     renderActiveTasks();
     renderOverdueTasks();
+    renderLowPriorityTasks();
     totalTaskCalculation();
   });
 }
@@ -193,6 +198,7 @@ document.querySelector(".js-save-button").addEventListener("click", (event) => {
   renderCompletedTasks();
   renderActiveTasks();
   renderOverdueTasks();
+  renderLowPriorityTasks();
   totalTaskCalculation();
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
@@ -214,6 +220,7 @@ document
     renderCompletedTasks();
     renderActiveTasks();
     renderOverdueTasks();
+    renderLowPriorityTasks();
     totalTaskCalculation();
     document.querySelector(".js-edit-task-modal").style.display = "none";
   });
@@ -223,3 +230,4 @@ renderPage();
 renderCompletedTasks();
 renderActiveTasks();
 renderOverdueTasks();
+renderLowPriorityTasks();

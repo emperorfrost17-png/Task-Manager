@@ -30,7 +30,7 @@ export function renderActiveTasks() {
                 <div class="task-meta">
                   <span class="task-priority-${task.priority.toLowerCase()}">${task.priority}</span>
                   ${dueDateDisplay}
-                  <span class="task-category">${task.category}</span>
+                  ${task.category ? `<span class="task-category">${task.category}</span>` : ""}
                 </div>
               </div>
               <div class="task-actions">

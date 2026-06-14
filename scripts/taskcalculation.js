@@ -36,4 +36,9 @@ export function totalTaskCalculation() {
       (task) => !task.completed && new Date(task.dueDate) < currentDate,
     ).length;
   }
+  const lowPriorityCount = document.querySelector(".js-low-priority-count");
+  if (lowPriorityCount)
+    lowPriorityCount.innerHTML = tasks.filter(
+      (task) => task.priority.toLowerCase() === "low",
+    ).length;
 }
