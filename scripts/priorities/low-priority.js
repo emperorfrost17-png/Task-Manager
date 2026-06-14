@@ -1,8 +1,5 @@
 import {tasks, saveTasks, getOverdueDays, setCurrentEditingIndex} from '../store.js';
-import {totalTaskCalculation} from '../taskcalculation.js';
-import {renderCompletedTasks} from '../tasks/completed-task.js';
-import {renderActiveTasks} from '../tasks/active-task.js';
-import {renderOverdueTasks} from '../tasks/overdue-task.js';
+import {renderAll} from '../main.js';
 
 export function getLowPriorityTasks() {
   return tasks.filter((task) => task.priority.toLowerCase() === "low");
@@ -58,34 +55,22 @@ if (lowPriorityTaskList) {
       const index = Number(checkBtn.dataset.index);
       tasks[index].completed = true;
       saveTasks();
-      totalTaskCalculation();
-      renderActiveTasks();
-      renderCompletedTasks();
-      renderOverdueTasks();
-      renderLowPriorityTasks();
-      
+      renderAll();
+
     }
 
     if (uncheckBtn) {
       const index = Number(uncheckBtn.dataset.index);
       tasks[index].completed = false;
       saveTasks();
-      totalTaskCalculation();
-      renderActiveTasks();
-      renderCompletedTasks();
-      renderOverdueTasks();
-      renderLowPriorityTasks();
+      renderAll();
     }
 
     if (deleteBtn) {
       const index = Number(deleteBtn.dataset.index);
       tasks.splice(index, 1);
       saveTasks();
-      totalTaskCalculation();
-      renderActiveTasks();
-      renderCompletedTasks();
-      renderOverdueTasks();
-      renderLowPriorityTasks();
+      renderAll();
     }
 
     if (editBtn) {

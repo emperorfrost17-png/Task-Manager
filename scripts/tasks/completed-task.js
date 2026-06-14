@@ -1,12 +1,5 @@
-import {
-  tasks,
-  saveTasks,
-  setCurrentEditingIndex,
-  getOverdueDays,
-} from "../store.js";
-import { totalTaskCalculation } from "../taskcalculation.js";
-import { renderActiveTasks } from "./active-task.js";
-import { renderOverdueTasks } from "./overdue-task.js";
+import { tasks, saveTasks, setCurrentEditingIndex, getOverdueDays } from "../store.js";
+import { renderAll } from "../main.js";
 
 export function getCompletedTasks() {
   return tasks.filter((task) => task.completed);
@@ -66,30 +59,21 @@ if (completedTaskList) {
       const index = Number(checkBtn.dataset.index);
       tasks[index].completed = true;
       saveTasks();
-      totalTaskCalculation();
-      renderCompletedTasks();
-      renderActiveTasks();
-      renderOverdueTasks();
+      renderAll();
     }
 
     if (uncheckBtn) {
       const index = Number(uncheckBtn.dataset.index);
       tasks[index].completed = false;
       saveTasks();
-      totalTaskCalculation();
-      renderCompletedTasks();
-      renderActiveTasks();
-      renderOverdueTasks();
+      renderAll();
     }
 
     if (deleteBtn) {
       const index = Number(deleteBtn.dataset.index);
       tasks.splice(index, 1);
       saveTasks();
-      totalTaskCalculation();
-      renderCompletedTasks();
-      renderActiveTasks();
-      renderOverdueTasks();
+      renderAll();
     }
 
     if (editBtn) {

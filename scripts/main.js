@@ -10,6 +10,7 @@ import { renderCompletedTasks } from "./tasks/completed-task.js";
 import { renderActiveTasks } from "./tasks/active-task.js";
 import { renderOverdueTasks } from "./tasks/overdue-task.js";
 import { renderLowPriorityTasks } from "./priorities/low-priority.js";
+import { renderMediumPriorityTasks } from "./priorities/medium-priority.js";
 
 const taskList = document.querySelector(".js-task-list");
 
@@ -17,7 +18,7 @@ export function renderPage() {
   function renderTasks() {
     let taskHTML = "";
     tasks.forEach((task, index) => {
-      const overDuedays = getOverdueDays(task.dueDate); 
+      const overDuedays = getOverdueDays(task.dueDate);
       const dueDateDisplay =
         overDuedays > 0
           ? `<span class="due-date overdue">${overDuedays}d overdue</span>`
@@ -64,36 +65,21 @@ if (taskList) {
       const index = Number(checkBtn.dataset.index);
       tasks[index].completed = true;
       saveTasks();
-      totalTaskCalculation();
-      renderPage();
-      renderCompletedTasks();
-      renderActiveTasks();
-      renderOverdueTasks();
-      renderLowPriorityTasks();
+      renderAll();
     }
 
     if (uncheckBtn) {
       const index = Number(uncheckBtn.dataset.index);
       tasks[index].completed = false;
       saveTasks();
-      totalTaskCalculation();
-      renderPage();
-      renderCompletedTasks();
-      renderActiveTasks();
-      renderOverdueTasks();
-      renderLowPriorityTasks();
+      renderAll();
     }
 
     if (deleteBtn) {
       const index = Number(deleteBtn.dataset.index);
       tasks.splice(index, 1);
       saveTasks();
-      totalTaskCalculation();
-      renderPage();
-      renderCompletedTasks();
-      renderActiveTasks();
-      renderOverdueTasks();
-      renderLowPriorityTasks();
+      renderAll();
     }
 
     if (editBtn) {
@@ -174,12 +160,7 @@ if (clearCompletedButton) {
     // This line removes all completed tasks from the tasks array while keeping the uncompleted ones. It uses the filter method to create a new array that only includes tasks where task.completed is false, and then it uses splice to replace the contents of the original tasks array with this new filtered array.
     tasks.splice(0, tasks.length, ...tasks.filter((task) => !task.completed));
     saveTasks();
-    renderPage();
-    renderCompletedTasks();
-    renderActiveTasks();
-    renderOverdueTasks();
-    renderLowPriorityTasks();
-    totalTaskCalculation();
+    renderAll();
   });
 }
 
@@ -190,16 +171,11 @@ document.querySelector(".js-save-button").addEventListener("click", (event) => {
   if (!newTask.description) return alert("Description cannot be empty");
   if (!newTask.priority) return alert("Priority cannot be empty");
   if (!newTask.dueDate) return alert("Due date cannot be empty");
-  
+
   tasks.push(newTask);
   saveTasks();
   clearFormInputs();
-  renderPage();
-  renderCompletedTasks();
-  renderActiveTasks();
-  renderOverdueTasks();
-  renderLowPriorityTasks();
-  totalTaskCalculation();
+  renderAll();
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
 
@@ -216,18 +192,16 @@ document
     // Update the task in the tasks array
     tasks[currentEditingIndex] = updatedTask;
     saveTasks();
-    renderPage();
-    renderCompletedTasks();
-    renderActiveTasks();
-    renderOverdueTasks();
-    renderLowPriorityTasks();
-    totalTaskCalculation();
+    renderAll();
     document.querySelector(".js-edit-task-modal").style.display = "none";
   });
-
-totalTaskCalculation();
-renderPage();
-renderCompletedTasks();
-renderActiveTasks();
-renderOverdueTasks();
-renderLowPriorityTasks();
+export function renderAll() {
+  totalTaskCalculation();
+  renderPage();
+  renderCompletedTasks();
+  renderActiveTasks();
+  renderOverdueTasks();
+  renderLowPriorityTasks();
+  renderMediumPriorityTasks();
+}
+renderAll();
