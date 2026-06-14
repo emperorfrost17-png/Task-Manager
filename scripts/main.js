@@ -16,7 +16,7 @@ export function renderPage() {
   function renderTasks() {
     let taskHTML = "";
     tasks.forEach((task, index) => {
-      const overDuedays = getOverdueDays(task.dueDate);
+      const overDuedays = getOverdueDays(task.dueDate); 
       const dueDateDisplay =
         overDuedays > 0
           ? `<span class="due-date overdue">${overDuedays}d overdue</span>`
@@ -34,7 +34,7 @@ export function renderPage() {
                 <div class="task-meta">
                   <span class="task-priority-${task.priority.toLowerCase()}">${task.priority}</span>
                   ${dueDateDisplay}
-                  <span class="task-category">${task.category}</span>
+                  ${task.category ? `<span class="task-category">${task.category}</span>` : ""}
                 </div>
               </div>
               <div class="task-actions">
@@ -185,7 +185,7 @@ document.querySelector(".js-save-button").addEventListener("click", (event) => {
   if (!newTask.description) return alert("Description cannot be empty");
   if (!newTask.priority) return alert("Priority cannot be empty");
   if (!newTask.dueDate) return alert("Due date cannot be empty");
-  if (!newTask.category) return alert("Category cannot be empty");
+  
   tasks.push(newTask);
   saveTasks();
   clearFormInputs();
