@@ -41,7 +41,9 @@ export function totalTaskCalculation() {
     lowPriorityCount.innerHTML = tasks.filter(
       (task) => task.priority.toLowerCase() === "low" && !task.completed,
     ).length;
-  const mediumPriorityCount = document.querySelector(".js-medium-priority-count");
+  const mediumPriorityCount = document.querySelector(
+    ".js-medium-priority-count",
+  );
   if (mediumPriorityCount)
     mediumPriorityCount.innerHTML = tasks.filter(
       (task) => task.priority.toLowerCase() === "medium" && !task.completed,
@@ -51,4 +53,22 @@ export function totalTaskCalculation() {
     highPriorityCount.innerHTML = tasks.filter(
       (task) => task.priority.toLowerCase() === "high" && !task.completed,
     ).length;
+}
+ export function calculateOverallProgress(number) {
+  const progressElement = document.querySelector(".js-overall-progress");
+  const totalTasks = tasks.length;
+  const overallProgressPercent = totalTasks > 0 ? (number / totalTasks) * 100 : 0;
+  if (progressElement) {
+    progressElement.innerHTML = `${Math.round(overallProgressPercent)}%`;
+  }
+  return progressElement;
+}
+export function calculateOverallProgressBar(number) {
+  const progressBar = document.querySelector(".progress-bar");
+  const totalTasks = tasks.length;
+  const overallProgressPercent = totalTasks > 0 ? (number / totalTasks) * 100 : 0;
+  if (progressBar) {
+    progressBar.style.width = `${Math.round(overallProgressPercent)}%`;
+  }
+  return progressBar;
 }

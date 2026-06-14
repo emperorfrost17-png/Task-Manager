@@ -1,4 +1,4 @@
-import { totalTaskCalculation } from "./taskcalculation.js";
+import { totalTaskCalculation, calculateOverallProgress, calculateOverallProgressBar } from "./taskcalculation.js";
 import {
   tasks,
   saveTasks,
@@ -198,6 +198,9 @@ document
   });
 export function renderAll() {
   totalTaskCalculation();
+  // Used to calculate the overall progress based on the number of completed tasks and the total number of tasks. It updates the progress bar and percentage display accordingly.
+  calculateOverallProgress(tasks.filter((task) => task.completed).length);
+  calculateOverallProgressBar(tasks.filter((task) => task.completed).length);
   renderPage();
   renderCompletedTasks();
   renderActiveTasks();
