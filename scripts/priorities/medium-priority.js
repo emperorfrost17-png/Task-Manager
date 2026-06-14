@@ -2,7 +2,7 @@ import { tasks, saveTasks, getOverdueDays, setCurrentEditingIndex } from '../sto
 import { renderAll } from '../main.js';
 
 export function getMediumPriorityTasks() {
-  return tasks.filter((task) => task.priority.toLowerCase() === "medium");
+  return tasks.filter((task) => task.priority.toLowerCase() === "medium" && !task.completed);
 }
 const mediumPriorityTaskList = document.querySelector(".js-medium-priority-task-list");
 

@@ -2,7 +2,7 @@ import {tasks, saveTasks, getOverdueDays, setCurrentEditingIndex} from '../store
 import {renderAll} from '../main.js';
 
 export function getLowPriorityTasks() {
-  return tasks.filter((task) => task.priority.toLowerCase() === "low");
+  return tasks.filter((task) => task.priority.toLowerCase() === "low" && !task.completed);
 }
 const lowPriorityTaskList = document.querySelector(".js-low-priority-task-list");
 

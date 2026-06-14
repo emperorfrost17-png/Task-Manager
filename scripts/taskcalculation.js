@@ -39,6 +39,16 @@ export function totalTaskCalculation() {
   const lowPriorityCount = document.querySelector(".js-low-priority-count");
   if (lowPriorityCount)
     lowPriorityCount.innerHTML = tasks.filter(
-      (task) => task.priority.toLowerCase() === "low",
+      (task) => task.priority.toLowerCase() === "low" && !task.completed,
+    ).length;
+  const mediumPriorityCount = document.querySelector(".js-medium-priority-count");
+  if (mediumPriorityCount)
+    mediumPriorityCount.innerHTML = tasks.filter(
+      (task) => task.priority.toLowerCase() === "medium" && !task.completed,
+    ).length;
+  const highPriorityCount = document.querySelector(".js-high-priority-count");
+  if (highPriorityCount)
+    highPriorityCount.innerHTML = tasks.filter(
+      (task) => task.priority.toLowerCase() === "high" && !task.completed,
     ).length;
 }

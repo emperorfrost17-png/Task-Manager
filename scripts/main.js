@@ -11,6 +11,7 @@ import { renderActiveTasks } from "./tasks/active-task.js";
 import { renderOverdueTasks } from "./tasks/overdue-task.js";
 import { renderLowPriorityTasks } from "./priorities/low-priority.js";
 import { renderMediumPriorityTasks } from "./priorities/medium-priority.js";
+import { renderHighPriorityTasks } from "./priorities/high-priority.js";
 
 const taskList = document.querySelector(".js-task-list");
 
@@ -188,7 +189,7 @@ document
     if (!updatedTask.description) return alert("Description cannot be empty");
     if (!updatedTask.priority) return alert("Priority cannot be empty");
     if (!updatedTask.dueDate) return alert("Due date cannot be empty");
-    if (!updatedTask.category) return alert("Category cannot be empty");
+    
     // Update the task in the tasks array
     tasks[currentEditingIndex] = updatedTask;
     saveTasks();
@@ -203,5 +204,6 @@ export function renderAll() {
   renderOverdueTasks();
   renderLowPriorityTasks();
   renderMediumPriorityTasks();
+  renderHighPriorityTasks();
 }
 renderAll();
