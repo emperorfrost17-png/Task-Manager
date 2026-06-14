@@ -167,6 +167,7 @@ document
 const clearCompletedButton = document.querySelector(".js-clear-completed");
 if (clearCompletedButton) {
   clearCompletedButton.addEventListener("click", () => {
+    // This line removes all completed tasks from the tasks array while keeping the uncompleted ones. It uses the filter method to create a new array that only includes tasks where task.completed is false, and then it uses splice to replace the contents of the original tasks array with this new filtered array.
     tasks.splice(0, tasks.length, ...tasks.filter((task) => !task.completed));
     saveTasks();
     renderPage();
