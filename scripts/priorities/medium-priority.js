@@ -1,19 +1,15 @@
-import { tasks, saveTasks, setCurrentEditingIndex, getOverdueDays } from "../store.js";
-import { renderAll } from "../main.js";
+import { tasks, saveTasks, getOverdueDays, setCurrentEditingIndex } from '../store.js';
+import { renderAll } from '../main.js';
 
-export function getOverdueTasks() {
-  const currentDate = new Date();
-  return tasks.filter(
-    (task) => !task.completed && new Date(task.dueDate) < currentDate,
-  );
+export function getMediumPriorityTasks() {
+  return tasks.filter((task) => task.priority.toLowerCase() === "medium");
 }
+const mediumPriorityTaskList = document.querySelector(".js-medium-priority-task-list");
 
-const overdueTaskList = document.querySelector(".js-overdue-task-list");
-
-export function renderOverdueTasks() {
+export function renderMediumPriorityTasks() {
   function renderTasks() {
     let taskHTML = "";
-    getOverdueTasks().forEach((task) => {
+    getMediumPriorityTasks().forEach((task) => {
       const overdueDays = getOverdueDays(task.dueDate);
       const dueDateDisplay = overdueDays > 0 ? `<span class="due-date overdue">${overdueDays}d overdue</span>` : `<span class="due-date">${new Date(task.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>`
       const actualIndex = tasks.indexOf(task);
@@ -43,13 +39,13 @@ export function renderOverdueTasks() {
               </div>
             </div>`;
     });
-    if (overdueTaskList) overdueTaskList.innerHTML = taskHTML;
+    if (mediumPriorityTaskList) mediumPriorityTaskList.innerHTML = taskHTML;
   }
   renderTasks();
 }
 
-if (overdueTaskList) {
-  overdueTaskList.addEventListener("click", (e) => {
+if (mediumPriorityTaskList) {
+  mediumPriorityTaskList.addEventListener("click", (e) => {
     const deleteBtn = e.target.closest(".js-delete-button");
     const editBtn = e.target.closest(".js-edit-button");
     const checkBtn = e.target.closest(".js-task-check");
