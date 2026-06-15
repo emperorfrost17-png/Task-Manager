@@ -269,6 +269,29 @@ if (dateCreatedButton) {
     dateCreatedButton.classList.add("active-sort-by-date-created");
   });
 }
+const searchBar = document.querySelector(".js-search-bar");
+if (searchBar) {
+  //"input" fires every time the user types or deletes a character, so results update in real time.
+  searchBar.addEventListener("input", () => {
+    const searchValue = searchBar.value.toLowerCase();
+    const taskItems = document.querySelectorAll(".task-item");
+    //For each task item it checks if the title includes the search value. If it matches → show it (flex), if not → hide it (none).
+    taskItems.forEach((taskItem, index) => {
+      const task = tasks[index];
+      //.toLowerCase() makes it case-insensitive so searching "brush" matches "Brush Teeth".
+      const titleMatch = task.title.toLowerCase().includes(searchValue);
+      const descriptionMatch = task.description
+        .toLowerCase()
+        .includes(searchValue);
+
+      if (titleMatch || descriptionMatch) {
+        taskItem.style.display = "flex"; // Show the task item if it matches the search
+      } else {
+        taskItem.style.display = "none"; // Hide the task item if it doesn't match the search
+      }
+    });
+  });
+}
 
 export function renderAll() {
   totalTaskCalculation();
