@@ -19,6 +19,10 @@
   display: flex;
   gap: 12px;
 }
+.search-bar:focus{
+  outline: none;
+  border-color: rgb(91, 127, 255);
+}
 
 .search-field {
   position: relative;
