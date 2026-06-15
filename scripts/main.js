@@ -28,7 +28,7 @@ export function renderPage() {
         overDuedays > 0
           ? `<span class="due-date overdue">${overDuedays}d overdue</span>`
           : `<span class="due-date">${new Date(task.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>`;
-      taskHTML += `<div class="task-item" data-index="${index}" style="opacity: ${task.completed ? "0.5" : "1"}">
+      taskHTML += `<div class="task-item" data-index="${index}" style="opacity: ${task.completed ? "0.5" : "1"}; animation-delay: ${index * 0.05}s">
               <button class="task-check js-task-check" aria-label="Mark task as completed" data-index="${index}" style="display: ${task.completed ? "none" : "inline"}">
                 <i class="fa-regular fa-circle"></i>
               </button>
@@ -109,6 +109,8 @@ function getInputInformation() {
     dueDate: document.querySelector(".new-due-date").value,
     category: document.querySelector(".new-category").value,
     completed: false,
+    //saves the exact time the task was created as a number, so you can sort by it later.
+    createdAt: Date.now(),
   };
 }
 
@@ -179,7 +181,7 @@ document.querySelector(".js-save-button").addEventListener("click", (event) => {
   if (!newTask.priority) return alert("Priority cannot be empty");
   if (!newTask.dueDate) return alert("Due date cannot be empty");
 
-  tasks.push(newTask);
+  tasks.unshift(newTask);
   saveTasks();
   clearFormInputs();
   renderAll();
@@ -208,8 +210,66 @@ if (atozButton) {
     //localeCompare is a JavaScript string method that compares two strings in a locale-sensitive way
     tasks.sort((a, b) => a.title.localeCompare(b.title));
     renderAll();
+    atozButton.classList.add("active-sort-by-alphabet");
+    priorityButton.classList.remove("active-sort-by-priority");
+    dueDateButton.classList.remove("active-sort-by-due-date");
+    dateCreatedButton.classList.remove("date-created-button");
+    dateCreatedButton.classList.remove("active-sort-by-date-created");
   });
 }
+
+const priorityButton = document.querySelector(".js-sort-by-priority");
+if (priorityButton) {
+  priorityButton.addEventListener("click", () => {
+    // sort() rules:
+    // - negative result → a comes first
+    // - positive result → b comes first
+
+    // a - b = small numbers win → come first
+
+    // Priority values:
+    // high = 1, medium = 2, low = 3
+
+    // Example:
+    // high(1) - medium(2) = -1 → negative → high comes first
+    const priorityOrder = { high: 1, medium: 2, low: 3 };
+    tasks.sort(
+      (a, b) =>
+        priorityOrder[a.priority.toLowerCase()] -
+        priorityOrder[b.priority.toLowerCase()],
+    );
+    renderAll();
+    atozButton.classList.remove("active-sort-by-alphabet");
+    priorityButton.classList.add("active-sort-by-priority");
+    dueDateButton.classList.remove("active-sort-by-due-date");
+    dateCreatedButton.classList.remove("date-created-button");
+    dateCreatedButton.classList.remove("active-sort-by-date-created");
+  });
+}
+const dueDateButton = document.querySelector(".js-sort-by-due-date");
+if (dueDateButton) {
+  dueDateButton.addEventListener("click", () => {
+    tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+    renderAll();
+    atozButton.classList.remove("active-sort-by-alphabet");
+    priorityButton.classList.remove("active-sort-by-priority");
+    dueDateButton.classList.add("active-sort-by-due-date");
+    dateCreatedButton.classList.remove("date-created-button");
+    dateCreatedButton.classList.remove("active-sort-by-date-created");
+  });
+}
+const dateCreatedButton = document.querySelector(".js-sort-by-date-created");
+if (dateCreatedButton) {
+  dateCreatedButton.addEventListener("click", () => {
+    tasks.sort((a, b) => b.createdAt - a.createdAt);
+    renderAll();
+    atozButton.classList.remove("active-sort-by-alphabet");
+    priorityButton.classList.remove("active-sort-by-priority");
+    dueDateButton.classList.remove("active-sort-by-due-date");
+    dateCreatedButton.classList.add("active-sort-by-date-created");
+  });
+}
+
 export function renderAll() {
   totalTaskCalculation();
   // Used to calculate the overall progress based on the number of completed tasks and the total number of tasks. It updates the progress bar and percentage display accordingly.
@@ -222,5 +282,8 @@ export function renderAll() {
   renderLowPriorityTasks();
   renderMediumPriorityTasks();
   renderHighPriorityTasks();
+}
+if (dateCreatedButton) {
+  dateCreatedButton.classList.add("active-sort-by-date-created");
 }
 renderAll();
