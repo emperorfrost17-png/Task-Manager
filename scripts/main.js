@@ -28,6 +28,7 @@ export function renderPage() {
         overDuedays > 0
           ? `<span class="due-date overdue">${overDuedays}d overdue</span>`
           : `<span class="due-date">${new Date(task.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>`;
+
       taskHTML += `<div class="task-item" data-index="${index}" style="opacity: ${task.completed ? "0.5" : "1"}; animation-delay: ${index * 0.05}s">
               <button class="task-check js-task-check" aria-label="Mark task as completed" data-index="${index}" style="display: ${task.completed ? "none" : "inline"}">
                 <i class="fa-regular fa-circle"></i>
@@ -274,9 +275,12 @@ if (searchBar) {
   //"input" fires every time the user types or deletes a character, so results update in real time.
   searchBar.addEventListener("input", () => {
     //.trim() removes spaces from the start and end of the input, so if someone types "   " it becomes "" and all tasks show normally.
-    
+
     //.replace(/\s+/g, " ") replaces multiple spaces in a row with a single space, so if someone types "brush     teeth" it becomes "brush teeth", which matches the task title and shows the task.
-    const searchValue = searchBar.value.trim().replace(/\s+/g, " ").toLowerCase();
+    const searchValue = searchBar.value
+      .trim()
+      .replace(/\s+/g, " ")
+      .toLowerCase();
     const taskItems = document.querySelectorAll(".task-item");
     //For each task item it checks if the title includes the search value. If it matches → show it (flex), if not → hide it (none).
     taskItems.forEach((taskItem, index) => {
