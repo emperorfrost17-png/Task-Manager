@@ -13,7 +13,7 @@ export function renderLowPriorityTasks() {
       const overdueDays = getOverdueDays(task.dueDate);
       const dueDateDisplay = overdueDays > 0 ? `<span class="due-date overdue">${overdueDays}d overdue</span>` : `<span class="due-date">${new Date(task.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>`
       const actualIndex = tasks.indexOf(task);
-      taskHTML += `<div class="task-item" data-index="${actualIndex}">
+      taskHTML += `<div class="task-item" data-index="${actualIndex}" style="animation-delay: ${actualIndex * 0.05}s">
               <button class="task-check js-task-check" aria-label="Mark task as completed" data-index="${actualIndex}" style="display: ${task.completed ? "none" : "inline"}">
                 <i class="fa-regular fa-circle"></i>
               </button>
