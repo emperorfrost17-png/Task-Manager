@@ -1,4 +1,8 @@
-import { totalTaskCalculation, calculateOverallProgress, calculateOverallProgressBar } from "./taskcalculation.js";
+import {
+  totalTaskCalculation,
+  calculateOverallProgress,
+  calculateOverallProgressBar,
+} from "./taskcalculation.js";
 import {
   tasks,
   saveTasks,
@@ -128,10 +132,12 @@ function clearFormInputs() {
 }
 
 // --- Modal / button listeners ---
-
-document.querySelector(".js-add-task-button").addEventListener("click", () => {
-  document.querySelector(".js-new-task-modal").style.display = "flex";
-});
+const addTaskButton = document.querySelector(".js-add-task-button");
+if (addTaskButton) {
+  addTaskButton.addEventListener("click", () => {
+    document.querySelector(".js-new-task-modal").style.display = "flex";
+  });
+}
 
 document.querySelector(".js-close-modal").addEventListener("click", () => {
   clearFormInputs();
@@ -189,16 +195,16 @@ document
     if (!updatedTask.description) return alert("Description cannot be empty");
     if (!updatedTask.priority) return alert("Priority cannot be empty");
     if (!updatedTask.dueDate) return alert("Due date cannot be empty");
-    
+
     // Update the task in the tasks array
     tasks[currentEditingIndex] = updatedTask;
     saveTasks();
     renderAll();
     document.querySelector(".js-edit-task-modal").style.display = "none";
   });
-  const atozButton = document.querySelector('.js-sort-by-alphabet');
-  if (atozButton) {
-  atozButton.addEventListener('click', () => {
+const atozButton = document.querySelector(".js-sort-by-alphabet");
+if (atozButton) {
+  atozButton.addEventListener("click", () => {
     //localeCompare is a JavaScript string method that compares two strings in a locale-sensitive way
     tasks.sort((a, b) => a.title.localeCompare(b.title));
     renderAll();
