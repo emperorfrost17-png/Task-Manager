@@ -196,6 +196,14 @@ document
     renderAll();
     document.querySelector(".js-edit-task-modal").style.display = "none";
   });
+  const atozButton = document.querySelector('.js-sort-by-alphabet');
+  if (atozButton) {
+  atozButton.addEventListener('click', () => {
+    //localeCompare is a JavaScript string method that compares two strings in a locale-sensitive way
+    tasks.sort((a, b) => a.title.localeCompare(b.title));
+    renderAll();
+  });
+}
 export function renderAll() {
   totalTaskCalculation();
   // Used to calculate the overall progress based on the number of completed tasks and the total number of tasks. It updates the progress bar and percentage display accordingly.
