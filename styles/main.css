@@ -1,7 +1,7 @@
 .task-containers {
   display: flex;
 
-  gap: 30px;
+  gap: 10px;
 }
 .task-container {
   margin-top: 20px;
@@ -352,8 +352,9 @@
 }
 #new-description {
   min-height: 80px;
-  min-width: 375px;
-  max-width: 375px;
+  max-height: 100px;
+  min-width: 348px;
+  max-width: 348px;
 }
 .edit-task-modal {
   position: fixed;
