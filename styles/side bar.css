@@ -7,18 +7,18 @@
 .sidebar-check-icon {
   display: flex;
   color: rgb(50, 79, 226);
-  font-size: 19px;
+  font-size: 1.9rem;
   align-items: center;
-  margin-right: 6px;
+  margin-right: 0.6rem;
 }
 .taskflow-header {
   display: flex;
   align-items: center;
-  margin-top: 20px;
-  margin-left: 20px;
+  margin-top: 2rem;
+  margin-left: 2rem;
   font-weight: bold;
-  padding-bottom: 14px;
-  font-size: 16px;
+  padding-bottom: 1.4rem;
+  font-size: 1.6rem;
 }
 .sidebar-list {
   border-right: 1px solid #263152;
@@ -28,28 +28,28 @@
   height: 430px;
 }
 .sidebar-list li:not(.sidebar-views, .sidebar-priority) {
-  font-size: 14px;
-  margin-top: 14px;
-  margin-left: 20px;
+  font-size: 1.4rem;
+  margin-top: 1.4rem;
+  margin-left: 2rem;
   color: rgba(220, 220, 220, 0.416);
   cursor: pointer;
   display: flex;
-  gap: 10px;
+  gap: 1rem;
   align-items: center;
-  padding: 5px 10px;
+  padding: 0.5rem 1rem;
 }
 .sidebar-views,
 .sidebar-priority {
-  margin-top: 17px;
-  margin-left: 29px;
+  margin-top: 1.7rem;
+  margin-left: 2.9rem;
   color: rgba(220, 220, 220, 0.416);
-  font-size: 13px;
+  font-size: 1.3rem;
   transition: 0.3s;
 }
 .sidebar-list li:not(.sidebar-views, .sidebar-priority):hover {
   background-color: rgb(63, 68, 92);
   color: white;
-  padding: 5px 10px;
+  padding: 0.5rem 1rem;
   transition: 0.3s;
   border-radius: 5px;
 }
@@ -71,7 +71,7 @@
 .sidebar-item a {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 1rem;
   width: 100%;
   text-decoration: none;
   color: inherit;
@@ -83,8 +83,8 @@
   margin-left: auto;
   background-color: rgb(35, 37, 46);
   color: rgba(220, 220, 220, 0.416);
-  font-size: 12px;
-  padding: 2px 6px;
+  font-size: 1.2rem;
+  padding: 0.2rem 0.6rem;
   border-radius: 12px;
   line-height: 1;
   flex-shrink: 0;
@@ -95,15 +95,15 @@
   transition: 0.3s;
 }
 .progress {
-  margin-top: 20px;
-  margin-left: 10px;
+  margin-top: 2rem;
+  margin-left: 1rem;
   width: 200px;
 }
 .progress-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 6px;
-  font-size: 14px;
+  margin-bottom: 0.6rem;
+  font-size: 1.4rem;
 }
 .progress-header p {
   color: rgba(220, 220, 220, 0.416);

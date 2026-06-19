@@ -2,22 +2,22 @@
   background-color: #0d0d10c1;
   display: flex;
   align-items: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   border-bottom: 1px solid #263152;
   
 }
 .all-tasks{
-  font-size: 23px;
+  font-size: 2.3rem;
   font-weight: bold;
   flex: 1;
-  margin-left: 30px;
+  margin-left: 3rem;
   font-weight: bold;
 }
 .search-bar-container{
   align-items: center;
   display: flex;
-  gap: 12px;
+  gap: 1.2rem;
 }
 .search-bar:focus{
   outline: none;
@@ -31,11 +31,11 @@
 
 .search-field i {
   color: rgb(63, 68, 92);
-  left: 14px;
+  left: 1.4rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 14px;
+  font-size: 1.4rem;
   cursor: text;
 }
 
@@ -45,7 +45,7 @@
   border-radius: 7px;
   box-sizing: border-box;
   height: 38px;
-  padding-left: 38px;
+  padding-left: 3.8rem;
   width: 100%;
 }
 .header input::placeholder {
@@ -56,11 +56,11 @@
   color: white;
   outline: 0;
   border: none;
-  font-size: 14px;
-  padding: 0 20px;
+  font-size: 1.4rem;
+  padding: 0 2rem;
   height: 38px;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-  margin-right: 20px;
+  margin-right: 2rem;
 }
