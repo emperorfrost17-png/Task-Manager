@@ -1,8 +1,11 @@
 .sidebar {
   background-color: rgb(18, 21, 34);
   width: 220px;
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
   border-right: 1px solid #263152;
+  overflow: hidden;
 }
 .sidebar-check-icon {
   display: flex;
@@ -24,8 +27,8 @@
   border-right: 1px solid #263152;
   border-top: 1px solid #263152;
   border-bottom: 1px solid #263152;
-
-  height: 430px;
+  flex: 1;
+   overflow-y: auto;
 }
 .sidebar-list li:not(.sidebar-views, .sidebar-priority) {
   font-size: 1.4rem;
@@ -98,12 +101,14 @@
   margin-top: 2rem;
   margin-left: 1rem;
   width: 200px;
+  padding-bottom: 1.6rem;
 }
 .progress-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.6rem;
   font-size: 1.4rem;
+  
 }
 .progress-header p {
   color: rgba(220, 220, 220, 0.416);

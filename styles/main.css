@@ -5,8 +5,8 @@
 }
 .task-container {
   margin-top: 2rem;
-  width: 400px;
-  height: 100px;
+  width: 40rem;
+  height: 10rem;
   border: 1px solid #263152;
   border-radius: 15px;
   background-color: rgb(18, 21, 34);
@@ -149,6 +149,10 @@
   width: 96%;
   margin: 1rem auto;
   animation: fadeSlideIn 0.3s ease both;
+}
+.task-list {
+  flex: 1;
+  overflow-y: auto;
 }
 
 .task-check {

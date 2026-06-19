@@ -1,2 +1,22 @@
 
-
+/* Large Laptops 1280px - 1552px */
+@media (max-width: 97rem) {
+/*1552px*/
+ html{
+  font-size: 56.25%;
+ }
+ .task-container{
+  width: 34rem;
+ }
+ 
+}
+/* Small Laptops 1024px - 1280px */
+@media (max-width: 80rem) {
+  html{
+    font-size: 50%;
+  }
+  .task-container{
+    width: 30.5rem;
+  }
+}
+/*Tablets Screens 768px - 1024px*/
