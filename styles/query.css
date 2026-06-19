@@ -1,22 +1,59 @@
-
 /* Large Laptops 1280px - 1552px */
 @media (max-width: 97rem) {
-/*1552px*/
- html{
-  font-size: 56.25%;
- }
- .task-container{
-  width: 34rem;
- }
- 
+  /*1552px*/
+  html {
+    font-size: 56.25%;
+  }
+  .task-container {
+    width: 34rem;
+  }
 }
 /* Small Laptops 1024px - 1280px */
 @media (max-width: 80rem) {
-  html{
+  /*1280px*/
+  html {
     font-size: 50%;
   }
-  .task-container{
+  .task-container {
     width: 30.5rem;
   }
 }
-/*Tablets Screens 768px - 1024px*/
+/*Phones in landscape 576px - 768px*/
+@media (max-width: 45rem) {
+  /*720px*/
+  html {
+    font-size: 43.75%;
+  }
+  .task-containers {
+    gap: 1rem;
+  }
+  .all-tasks {
+    margin-left: 2rem;
+    gap: 2rem;
+  }
+  .clear-completed {
+    flex-shrink: 0;
+    
+  }
+  .sort-by {
+    flex-shrink: 0;
+    /*Force a text to go on one line*/
+    white-space: nowrap;
+  }
+  .sort-clear-container{
+    gap: 1rem;
+  }
+  .sidebar li{
+    white-space: nowrap;
+  }
+}
+/*Phone in potrait screen with less than */
+@media (max-width: 32rem) {
+  /*512px*/
+  .sidebar {
+    display: none;
+  }
+  .menu-button {
+    display: inline;
+  }
+}
