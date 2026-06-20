@@ -97,6 +97,7 @@ if (taskList) {
       document.querySelector(".edit-priority").value = task.priority;
       document.querySelector(".edit-due-date").value = task.dueDate;
       document.querySelector(".edit-category").value = task.category;
+       document.querySelector('.app-layout').classList.add('is-blurred')
       document.querySelector(".js-edit-task-modal").style.display = "flex";
     }
   });
@@ -139,28 +140,33 @@ const addTaskButton = document.querySelector(".js-add-task-button");
 if (addTaskButton) {
   addTaskButton.addEventListener("click", () => {
     document.querySelector(".js-new-task-modal").style.display = "flex";
+    document.querySelector('.app-layout').classList.add('is-blurred')
   });
 }
 
 document.querySelector(".js-close-modal").addEventListener("click", () => {
   clearFormInputs();
+   document.querySelector('.app-layout').classList.remove('is-blurred')
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
 
 document.querySelector(".js-cancel-button").addEventListener("click", () => {
   clearFormInputs();
+   document.querySelector('.app-layout').classList.remove('is-blurred')
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
 
 document
   .querySelector(".js-edit-task-modal .js-close-modal")
   .addEventListener("click", () => {
+     document.querySelector('.app-layout').classList.remove('is-blurred')
     document.querySelector(".js-edit-task-modal").style.display = "none";
   });
 
 document
   .querySelector(".js-edit-cancel-button")
   .addEventListener("click", () => {
+     document.querySelector('.app-layout').classList.remove('is-blurred')
     document.querySelector(".js-edit-task-modal").style.display = "none";
   });
 

@@ -32,6 +32,121 @@
     />
   </head>
   <body>
+    <div class="new-task-modal js-new-task-modal">
+          <div class="new-task-content">
+            <form class="new-task-form">
+              <div class="new-task">
+                <h2 >New Task</h2>
+              <button type="button" class="close-modal js-close-modal">
+                <i class="fa-solid fa-x"></i>
+              </button>
+              </div>
+              
+              <label for="new-title">Task Title</label>
+              <input
+                type="text"
+                id="new-title"
+                class="new-title"
+                name="title"
+                placeholder="What needs to be done?"
+                required
+              />
+
+              <label for="new-description">Description</label>
+              <textarea
+                id="new-description"
+                class="new-description"
+                name="description"
+                placeholder="Add a description..."
+              ></textarea>
+
+              <label for="new-due-date">Due Date</label>
+              <input type="date" id="new-due-date" class="new-due-date" name="dueDate" />
+
+              <label for="new-priority">Priority</label>
+              <select id="new-priority" class="new-priority" name="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+
+              <label for="new-category">Category:</label>
+              <input
+                type="text"
+                id="new-category"
+                class="new-category "
+                name="category"
+                placeholder="e.g Work, Personal, Health, etc."
+              />
+
+              <div class="modal-buttons">
+                <button type="button" class="cancel-button js-cancel-button">
+                  Cancel
+                </button>
+                <button  class="save-button js-save-button">Save Changes</button>
+                
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="edit-task-modal js-edit-task-modal">
+          <div class="edit-task-content">
+            <form class="edit-task-form">
+              <div class="edit-task">
+                <h2 >Edit Task</h2>
+              <button type="button" class="close-modal js-close-modal">
+                <i class="fa-solid fa-x"></i>
+              </button>
+              </div>
+              
+              <label for="new-title">Task Title</label>
+              <input
+                type="text"
+                id="new-title"
+                class="edit-title"
+                name="title"
+                placeholder="What needs to be done?"
+                required
+              />
+
+              <label for="new-description">Description</label>
+              <textarea
+                id="new-description"
+                class="edit-description"
+                name="description"
+                placeholder="Add a description..."
+              ></textarea>
+
+              <label for="new-due-date">Due Date</label>
+              <input type="date" id="new-due-date" class="edit-due-date" name="dueDate" required />
+
+              <label for="new-priority">Priority</label>
+              <select id="new-priority" class="edit-priority" name="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+
+              <label for="new-category">Category:</label>
+              <input
+                type="text"
+                id="new-category"
+                class="edit-category"
+                name="category"
+                placeholder="e.g Work, Personal, Health, etc."
+              />
+
+              <div class="modal-buttons">
+                <button type="button" class="cancel-button js-edit-cancel-button">
+                  Cancel
+                </button>
+                <button  class="update-button js-update-button">Update Changes</button>
+                
+              </div>
+            </form>
+          </div>
+        </div>
     <div class="app-layout">
       <aside class="sidebar">
         <div class="taskflow-header">
@@ -163,122 +278,12 @@
           <div class="task-list js-task-list"></div>
         </section>
 
-        <div class="new-task-modal js-new-task-modal">
-          <div class="new-task-content">
-            <form class="new-task-form">
-              <div class="new-task">
-                <h2 >New Task</h2>
-              <button type="button" class="close-modal js-close-modal">
-                <i class="fa-solid fa-x"></i>
-              </button>
-              </div>
-              
-              <label for="new-title">Task Title</label>
-              <input
-                type="text"
-                id="new-title"
-                class="new-title"
-                name="title"
-                placeholder="What needs to be done?"
-                required
-              />
-
-              <label for="new-description">Description</label>
-              <textarea
-                id="new-description"
-                class="new-description"
-                name="description"
-                placeholder="Add a description..."
-              ></textarea>
-
-              <label for="new-due-date">Due Date</label>
-              <input type="date" id="new-due-date" class="new-due-date" name="dueDate" />
-
-              <label for="new-priority">Priority</label>
-              <select id="new-priority" class="new-priority" name="priority">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-              </select>
-
-              <label for="new-category">Category:</label>
-              <input
-                type="text"
-                id="new-category"
-                class="new-category "
-                name="category"
-                placeholder="e.g Work, Personal, Health, etc."
-              />
-
-              <div class="modal-buttons">
-                <button type="button" class="cancel-button js-cancel-button">
-                  Cancel
-                </button>
-                <button  class="save-button js-save-button">Save Changes</button>
-                
-              </div>
-            </form>
-          </div>
-        </div>
-         <div class="edit-task-modal js-edit-task-modal">
-          <div class="edit-task-content">
-            <form class="edit-task-form">
-              <div class="edit-task">
-                <h2 >Edit Task</h2>
-              <button type="button" class="close-modal js-close-modal">
-                <i class="fa-solid fa-x"></i>
-              </button>
-              </div>
-              
-              <label for="new-title">Task Title</label>
-              <input
-                type="text"
-                id="new-title"
-                class="edit-title"
-                name="title"
-                placeholder="What needs to be done?"
-                required
-              />
-
-              <label for="new-description">Description</label>
-              <textarea
-                id="new-description"
-                class="edit-description"
-                name="description"
-                placeholder="Add a description..."
-              ></textarea>
-
-              <label for="new-due-date">Due Date</label>
-              <input type="date" id="new-due-date" class="edit-due-date" name="dueDate" required />
-
-              <label for="new-priority">Priority</label>
-              <select id="new-priority" class="edit-priority" name="priority">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-              </select>
-
-              <label for="new-category">Category:</label>
-              <input
-                type="text"
-                id="new-category"
-                class="edit-category"
-                name="category"
-                placeholder="e.g Work, Personal, Health, etc."
-              />
-
-              <div class="modal-buttons">
-                <button type="button" class="cancel-button js-edit-cancel-button">
-                  Cancel
-                </button>
-                <button  class="update-button js-update-button">Update Changes</button>
-                
-              </div>
-            </form>
-          </div>
-        </div>
+        
+         
       </main>
     </div>
+
+    <div class="dropdown-menu"></div>
 
     <script type="module" src="scripts/main.js"></script>
     

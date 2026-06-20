@@ -264,7 +264,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  backdrop-filter: blur(8px);
+  
   display: none;
 }
 
@@ -377,7 +377,6 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  backdrop-filter: blur(8px);
   display: none;
 }
 .edit-task-modal-content {
@@ -441,4 +440,13 @@
   background-color: rgba(220, 80, 80, 0.1); /* faint red background */
   padding: 0.2rem 0.8rem;
   border-radius: 4px;
+}
+.is-blurred  {
+  filter: blur(8px);
+}
+.dropdown-menu{
+  width: 10rem;
+  height: 10rem;
+  background-color: red;
+  top: 0;
 }

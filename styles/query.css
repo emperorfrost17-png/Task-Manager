@@ -50,10 +50,50 @@
 /*Phone in potrait screen with less than */
 @media (max-width: 32rem) {
   /*512px*/
+  .html{
+    font-size: 35.29%;
+  }
   .sidebar {
     display: none;
   }
   .menu-button {
     display: inline;
+  }
+  .sort-clear-container{
+    overflow: scroll;
+  }
+  .all-tasks{
+    
+    margin-left: 1rem;
+  }
+  .search-field i{
+    margin-left: 2.5rem;
+  }
+  .header input {
+    width: 90%;
+    margin-left: 2.5rem;
+  }
+  .add-task-button{
+    margin-right: 1rem;
+    white-space: nowrap;
+    padding: 0 1.3rem;
+  }
+  .new-task-form{
+    height: auto;
+    width: 100%;
+  }
+  #new-description{
+    max-width: 100%;
+    min-width: 100%;
+  }
+  .new-task-modal{
+   top: -15rem;
+  }
+  .edit-task-form{
+    height: auto;
+    width: 100%;
+  }
+  .edit-task-modal{
+   top: -15rem;
   }
 }
