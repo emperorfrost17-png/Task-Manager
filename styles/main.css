@@ -266,9 +266,8 @@
   display: none;
 }
 
-.new-task-modal-content {
+.new-task-content {
   background-color: rgb(18, 21, 34);
-  padding: 2rem;
   border-radius: 15px;
   width: 400px;
   transition: 0.3s;
@@ -281,6 +280,7 @@
   width: 400px;
   padding: 2.5rem;
   border-radius: 15px;
+  
 }
 .new-task-form label {
   color: rgba(220, 220, 220, 0.416);
@@ -377,9 +377,8 @@
   z-index: 1000;
   display: none;
 }
-.edit-task-modal-content {
+.edit-task-content {
   background-color: rgb(18, 21, 34);
-  padding: 2rem;
   border-radius: 15px;
   width: 400px;
   transition: 0.3s;

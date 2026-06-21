@@ -7,7 +7,7 @@
   .task-container {
     width: 34rem;
   }
-  .dropdown-menu{
+  .dropdown-menu {
     display: none;
   }
 }
@@ -20,8 +20,45 @@
   .task-container {
     width: 30.5rem;
   }
-  .dropdown-menu{
+  .dropdown-menu {
     display: none;
+  }
+}
+@media (max-width: 56rem) {
+  html {
+    font-size: 43.75%;
+  }
+  .task-containers {
+    gap: 1rem;
+  }
+  .all-tasks {
+    margin-left: 2rem;
+    gap: 2rem;
+  }
+  .clear-completed {
+    flex-shrink: 0;
+  }
+  .sort-by {
+    flex-shrink: 0;
+    /*Force a text to go on one line*/
+    white-space: nowrap;
+  }
+  .sort-clear-container {
+    gap: 1rem;
+  }
+  .sidebar li {
+    white-space: nowrap;
+  }
+  .dropdown-menu {
+    display: none;
+  }
+  .new-task-content {
+    overflow: scroll;
+    max-height: 90vh;
+  }
+  .edit-task-content {
+    overflow: scroll;
+    max-height: 90vh;
   }
 }
 /*Phones in landscape 576px - 768px*/
@@ -39,27 +76,26 @@
   }
   .clear-completed {
     flex-shrink: 0;
-    
   }
   .sort-by {
     flex-shrink: 0;
     /*Force a text to go on one line*/
     white-space: nowrap;
   }
-  .sort-clear-container{
+  .sort-clear-container {
     gap: 1rem;
   }
-  .sidebar li{
+  .sidebar li {
     white-space: nowrap;
   }
-  .dropdown-menu{
+  .dropdown-menu {
     display: none;
   }
 }
 /*Phone in potrait screen with less than */
 @media (max-width: 32rem) {
   /*512px*/
-  .html{
+  .html {
     font-size: 35.29%;
   }
   .sidebar {
@@ -68,42 +104,40 @@
   .menu-button {
     display: inline;
   }
-  .sort-clear-container{
+  .sort-clear-container {
     overflow: scroll;
   }
-  .all-tasks{
-    
+  .all-tasks {
     margin-left: 1rem;
   }
-  .search-field i{
+  .search-field i {
     margin-left: 2.5rem;
   }
   .header input {
     width: 90%;
     margin-left: 2.5rem;
   }
-  .add-task-button{
+  .add-task-button {
     margin-right: 1rem;
     white-space: nowrap;
     padding: 0 1.3rem;
   }
-  .new-task-form{
+  .new-task-form {
     height: auto;
     width: 100%;
   }
-  #new-description{
+  #new-description {
     max-width: 100%;
     min-width: 100%;
   }
-  .new-task-modal{
-   top: -10rem;
+  .new-task-modal {
+    top: -10rem;
   }
-  .edit-task-form{
+  .edit-task-form {
     height: auto;
     width: 100%;
   }
-  .edit-task-modal{
-   top: -10rem;
+  .edit-task-modal {
+    top: -10rem;
   }
-  
 }
