@@ -1,214 +1,369 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Active Tasks</title>
+    <link rel="stylesheet" href="../../styles/styles.css" />
+    <link rel="stylesheet" href="../../styles/header.css" />
+    <link rel="stylesheet" href="../../styles/side bar.css" />
+    <link rel="stylesheet" href="../../styles/main.css" />
+    <link rel="stylesheet" href="../../styles/query.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script
+      src="https://kit.fontawesome.com/29c2dd441e.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Active Tasks</title>
-  <link rel="stylesheet" href="../../styles/styles.css" />
-  <link rel="stylesheet" href="../../styles/header.css" />
-  <link rel="stylesheet" href="../../styles/side bar.css" />
-  <link rel="stylesheet" href="../../styles/main.css" />
-  <link rel="stylesheet" href="../../styles/query.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <script src="https://kit.fontawesome.com/29c2dd441e.js" crossorigin="anonymous"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-    rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/lucide-static/font/lucide.css"
+    />
+  </head>
 
-  <link rel="stylesheet" href="https://unpkg.com/lucide-static/font/lucide.css" />
-</head>
-
-<body>
-  <div class="app-layout">
-    <aside class="sidebar">
-      <div class="taskflow-header">
-        <i class="fa-regular fa-square-check sidebar-check-icon"></i>
-        TaskFlow
-      </div>
+  <body>
+    <div class="dropdown-menu js-dropdown-menu">
       <nav class="sidebar-list">
-        <div class="sidebar-views">VIEWS</div>
-        <ul>
-          <li class="sidebar-item">
-            <a href="../../index.html" class="js-all-tasks-link">
-              <i class="fa-solid fa-list-check"></i> All Tasks
-              <span class="task-count js-all-tasks-count"></span>
-            </a>
-          </li>
-          <li class="sidebar-item">
-            <a href="active-task.html" class="js-active-tasks-link">
-              <i class="fa-solid fa-clock"></i> Active
-              <span class="task-count js-active-tasks-count">1</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
-            <a href="completed-task.html" class="js-completed-tasks-link">
-              <i class="fa-regular fa-square-check fa-sm"></i> Completed
-              <span class="task-count js-completed-tasks-count">0</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
-            <a href="overdue-task.html" class="js-overdue-tasks-link">
-              <i class="fa-solid fa-exclamation-triangle"></i> Overdue
-              <span class="task-count js-overdue-tasks-count">0</span>
-            </a>
-          </li>
-        </ul>
-        <div class="sidebar-priority">PRIORITY</div>
-        <ul>
-          <li class="sidebar-item">
-            <a href="../priority/high-priority.html" class="js-high-priority-link">
-              <i class="fa-solid fa-circle fa-2xs" style="color: rgb(217, 66, 66)"></i>
-              High Priority <span class="task-count js-high-priority-count">0</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
-            <a href="../priority/medium-priority.html" class="js-medium-priority-link">
-              <i class="fa-solid fa-circle fa-2xs" style="color: rgb(255, 165, 0)"></i>
-              Medium Priority <span class="task-count js-medium-priority-count">1</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
-            <a href="../priority/low-priority.html" class="js-low-priority-link">
-              <i class="fa-solid fa-circle fa-2xs" style="color: rgb(34, 139, 34)"></i>
-              Low Priority <span class="task-count js-low-priority-count">0</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-
-      <div class="progress">
-        <div class="progress-header">
-          <p>Overall Progress</p>
-          <p class="js-overall-progress"></p>
-        </div>
-        <div class="progress-bar-container">
-          <div class="progress-bar"></div>
-        </div>
-      </div>
-    </aside>
-
-    <main class="main-content">
-      <header class="header">
-        <div class="all-tasks">Active Tasks</div>
-        <div class="search-bar-container">
-          <div class="search-field">
-            <i class="fa-solid fa-magnifying-glass fa-2xs"></i>
-            <input type="text" placeholder="Search tasks..." class="search-bar js-search-bar" />
+          <div class="sidebar-views">VIEWS</div>
+          <ul>
+            <li class="sidebar-item">
+              <a href="../../index.html" class="js-all-tasks-link">
+                <i class="fa-solid fa-list-check"></i> All Tasks
+                <span class="task-count js-all-tasks-count"></span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="active-task.html" class="js-active-tasks-link">
+                <i class="fa-solid fa-clock"></i> Active
+                <span class="task-count js-active-tasks-count">1</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="completed-task.html" class="js-completed-tasks-link">
+                <i class="fa-regular fa-square-check fa-sm"></i> Completed
+                <span class="task-count js-completed-tasks-count">0</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="overdue-task.html" class="js-overdue-tasks-link">
+                <i class="fa-solid fa-exclamation-triangle"></i> Overdue
+                <span class="task-count js-overdue-tasks-count">0</span>
+              </a>
+            </li>
+          </ul>
+          <div class="sidebar-priority">PRIORITY</div>
+          <ul>
+            <li class="sidebar-item">
+              <a
+                href="../priority/high-priority.html"
+                class="js-high-priority-link"
+              >
+                <i
+                  class="fa-solid fa-circle fa-2xs"
+                  style="color: rgb(217, 66, 66)"
+                ></i>
+                High Priority
+                <span class="task-count js-high-priority-count">0</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a
+                href="../priority/medium-priority.html"
+                class="js-medium-priority-link"
+              >
+                <i
+                  class="fa-solid fa-circle fa-2xs"
+                  style="color: rgb(255, 165, 0)"
+                ></i>
+                Medium Priority
+                <span class="task-count js-medium-priority-count">1</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a
+                href="../priority/low-priority.html"
+                class="js-low-priority-link"
+              >
+                <i
+                  class="fa-solid fa-circle fa-2xs"
+                  style="color: rgb(34, 139, 34)"
+                ></i>
+                Low Priority
+                <span class="task-count js-low-priority-count">0</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+    </div>
+    <div class="new-task-modal js-new-task-modal">
+      <div class="new-task-content">
+        <form class="new-task-form">
+          <div class="new-task">
+            <h2>New Task</h2>
+            <button type="button" class="close-modal js-close-modal">
+              <i class="fa-solid fa-x"></i>
+            </button>
           </div>
-          <button type="button" class="add-task-button js-add-task-button">+ Add Task</button>
-        </div>
-      </header>
 
+          <label for="new-title">Task Title</label>
+          <input
+            type="text"
+            id="new-title"
+            class="new-title"
+            name="title"
+            placeholder="What needs to be done?"
+            required
+          />
 
-      <section>
-        <div class="sort-clear-container">
-          <div class="sort-by">
-              Sort by <button class="date-created-button js-sort-by-date-created">Date created</button> <button class="js-sort-by-priority">Priority</button>
-              <button class="js-sort-by-due-date">Due date</button> <button class="js-sort-by-alphabet">A-Z</button>
-            </div>
-          
-        </div>
-      </section>
+          <label for="new-description">Description</label>
+          <textarea
+            id="new-description"
+            class="new-description"
+            name="description"
+            placeholder="Add a description..."
+          ></textarea>
 
-      <section>
-        <div class="task-list js-active-task-list"></div>
-      </section>
+          <label for="new-due-date">Due Date</label>
+          <input
+            type="date"
+            id="new-due-date"
+            class="new-due-date"
+            name="dueDate"
+          />
 
-      <div class="new-task-modal js-new-task-modal">
-        <div class="new-task-content">
-          <form class="new-task-form">
-            <div class="new-task">
-              <h2>New Task</h2>
-              <button type="button" class="close-modal js-close-modal">
-                <i class="fa-solid fa-x"></i>
-              </button>
-            </div>
+          <label for="new-priority">Priority</label>
+          <select id="new-priority" class="new-priority" name="priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
 
-            <label for="new-title">Task Title</label>
-            <input type="text" id="new-title" class="new-title" name="title" placeholder="What needs to be done?"
-              required />
+          <label for="new-category">Category:</label>
+          <input
+            type="text"
+            id="new-category"
+            class="new-category"
+            name="category"
+            placeholder="e.g Work, Personal, Health, etc."
+          />
 
-            <label for="new-description">Description</label>
-            <textarea id="new-description" class="new-description" name="description"
-              placeholder="Add a description..."></textarea>
-
-            <label for="new-due-date">Due Date</label>
-            <input type="date" id="new-due-date" class="new-due-date" name="dueDate" />
-
-            <label for="new-priority">Priority</label>
-            <select id="new-priority" class="new-priority" name="priority">
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
-
-            <label for="new-category">Category:</label>
-            <input type="text" id="new-category" class="new-category" name="category"
-              placeholder="e.g Work, Personal, Health, etc." />
-
-            <div class="modal-buttons">
-              <button type="button" class="cancel-button js-cancel-button">
-                Cancel
-              </button>
-              <button type="button" class="save-button js-save-button">Save Changes</button>
-
-            </div>
-          </form>
-        </div>
+          <div class="modal-buttons">
+            <button type="button" class="cancel-button js-cancel-button">
+              Cancel
+            </button>
+            <button type="button" class="save-button js-save-button">
+              Save Changes
+            </button>
+          </div>
+        </form>
       </div>
-      <div class="edit-task-modal js-edit-task-modal">
-        <div class="edit-task-content">
-          <form class="edit-task-form">
-            <div class="edit-task">
-              <h2>Edit Task</h2>
-              <button type="button" class="close-modal js-close-modal">
-                <i class="fa-solid fa-x"></i>
-              </button>
-            </div>
+    </div>
+    <div class="edit-task-modal js-edit-task-modal">
+      <div class="edit-task-content">
+        <form class="edit-task-form">
+          <div class="edit-task">
+            <h2>Edit Task</h2>
+            <button type="button" class="close-modal js-close-modal">
+              <i class="fa-solid fa-x"></i>
+            </button>
+          </div>
 
-            <label for="edit-title">Task Title</label>
-            <input type="text" id="edit-title" class="edit-title" name="title" placeholder="What needs to be done?"
-              required />
+          <label for="edit-title">Task Title</label>
+          <input
+            type="text"
+            id="edit-title"
+            class="edit-title"
+            name="title"
+            placeholder="What needs to be done?"
+            required
+          />
 
-            <label for="edit-description">Description</label>
-            <textarea id="edit-description" class="edit-description" name="description"
-              placeholder="Add a description..."></textarea>
+          <label for="edit-description">Description</label>
+          <textarea
+            id="edit-description"
+            class="edit-description"
+            name="description"
+            placeholder="Add a description..."
+          ></textarea>
 
-            <label for="edit-due-date">Due Date</label>
-            <input type="date" id="edit-due-date" class="edit-due-date" name="dueDate" required />
+          <label for="edit-due-date">Due Date</label>
+          <input
+            type="date"
+            id="edit-due-date"
+            class="edit-due-date"
+            name="dueDate"
+            required
+          />
 
-            <label for="edit-priority">Priority</label>
-            <select id="edit-priority" class="edit-priority" name="priority">
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
+          <label for="edit-priority">Priority</label>
+          <select id="edit-priority" class="edit-priority" name="priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
 
-            <label for="edit-category">Category:</label>
-            <input type="text" id="edit-category" class="edit-category" name="category"
-              placeholder="e.g Work, Personal, Health, etc." />
+          <label for="edit-category">Category:</label>
+          <input
+            type="text"
+            id="edit-category"
+            class="edit-category"
+            name="category"
+            placeholder="e.g Work, Personal, Health, etc."
+          />
 
-            <div class="modal-buttons">
-              <button type="button" class="cancel-button js-edit-cancel-button">
-                Cancel
-              </button>
-              <button type="button" class="update-button js-update-button">Update Changes</button>
-
-            </div>
-          </form>
-        </div>
+          <div class="modal-buttons">
+            <button type="button" class="cancel-button js-edit-cancel-button">
+              Cancel
+            </button>
+            <button type="button" class="update-button js-update-button">
+              Update Changes
+            </button>
+          </div>
+        </form>
       </div>
-    </main>
-  </div>
+    </div>
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="taskflow-header">
+          <i class="fa-regular fa-square-check sidebar-check-icon"></i>
+          TaskFlow
+        </div>
+        <nav class="sidebar-list">
+          <div class="sidebar-views">VIEWS</div>
+          <ul>
+            <li class="sidebar-item">
+              <a href="../../index.html" class="js-all-tasks-link">
+                <i class="fa-solid fa-list-check"></i> All Tasks
+                <span class="task-count js-all-tasks-count"></span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="active-task.html" class="js-active-tasks-link">
+                <i class="fa-solid fa-clock"></i> Active
+                <span class="task-count js-active-tasks-count">1</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="completed-task.html" class="js-completed-tasks-link">
+                <i class="fa-regular fa-square-check fa-sm"></i> Completed
+                <span class="task-count js-completed-tasks-count">0</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="overdue-task.html" class="js-overdue-tasks-link">
+                <i class="fa-solid fa-exclamation-triangle"></i> Overdue
+                <span class="task-count js-overdue-tasks-count">0</span>
+              </a>
+            </li>
+          </ul>
+          <div class="sidebar-priority">PRIORITY</div>
+          <ul>
+            <li class="sidebar-item">
+              <a
+                href="../priority/high-priority.html"
+                class="js-high-priority-link"
+              >
+                <i
+                  class="fa-solid fa-circle fa-2xs"
+                  style="color: rgb(217, 66, 66)"
+                ></i>
+                High Priority
+                <span class="task-count js-high-priority-count">0</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a
+                href="../priority/medium-priority.html"
+                class="js-medium-priority-link"
+              >
+                <i
+                  class="fa-solid fa-circle fa-2xs"
+                  style="color: rgb(255, 165, 0)"
+                ></i>
+                Medium Priority
+                <span class="task-count js-medium-priority-count">1</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a
+                href="../priority/low-priority.html"
+                class="js-low-priority-link"
+              >
+                <i
+                  class="fa-solid fa-circle fa-2xs"
+                  style="color: rgb(34, 139, 34)"
+                ></i>
+                Low Priority
+                <span class="task-count js-low-priority-count">0</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
 
-  <script type="module" src="../../scripts/main.js"></script>
+        <div class="progress">
+          <div class="progress-header">
+            <p>Overall Progress</p>
+            <p class="js-overall-progress"></p>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar"></div>
+          </div>
+        </div>
+      </aside>
 
-</body>
+      <main class="main-content">
+        <header class="header">
+          <button class="close-dropdown-menu js-close-dropdown-menu"><i class="fa-solid fa-x" style="color: white;"></i></button>
+          <button class="menu-button js-menu-button">
+            <i class="fa-solid fa-bars" style="color: white"></i>
+          </button>
+          <div class="all-tasks">Active Tasks</div>
+          <div class="search-bar-container">
+            <div class="search-field">
+              <i class="fa-solid fa-magnifying-glass fa-2xs"></i>
+              <input
+                type="text"
+                placeholder="Search tasks..."
+                class="search-bar js-search-bar"
+              />
+            </div>
+            <button type="button" class="add-task-button js-add-task-button">
+              + Add Task
+            </button>
+          </div>
+        </header>
 
+        <section>
+          <div class="sort-clear-container">
+            <div class="sort-by">
+              Sort by
+              <button class="date-created-button js-sort-by-date-created">
+                Date created
+              </button>
+              <button class="js-sort-by-priority">Priority</button>
+              <button class="js-sort-by-due-date">Due date</button>
+              <button class="js-sort-by-alphabet">A-Z</button>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="task-list js-active-task-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="../../scripts/main.js"></script>
+  </body>
 </html>

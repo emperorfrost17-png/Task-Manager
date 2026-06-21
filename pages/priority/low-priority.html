@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../styles/header.css" />
     <link rel="stylesheet" href="../../styles/side bar.css" />
     <link rel="stylesheet" href="../../styles/main.css" />
-    <link rel="stylesheet" href="../../styles/query.css">
+    <link rel="stylesheet" href="../../styles/query.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script
@@ -32,6 +32,209 @@
     />
   </head>
   <body>
+    <div class="dropdown-menu js-dropdown-menu">
+      <nav class="sidebar-list">
+        <div class="sidebar-views">VIEWS</div>
+        <ul>
+          <li class="sidebar-item">
+            <a href="../../index.html" class="js-all-tasks-link">
+              <i class="fa-solid fa-list-check"></i> All Tasks
+              <span class="task-count js-all-tasks-count"></span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../tasks/active-task.html" class="js-active-tasks-link">
+              <i class="fa-solid fa-clock"></i> Active
+              <span class="task-count js-active-tasks-count">1</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a
+              href="../tasks/completed-task.html"
+              class="js-completed-tasks-link"
+            >
+              <i class="fa-regular fa-square-check fa-sm"></i> Completed
+              <span class="task-count js-completed-tasks-count">0</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../tasks/overdue-task.html" class="js-overdue-tasks-link">
+              <i class="fa-solid fa-exclamation-triangle"></i> Overdue
+              <span class="task-count js-overdue-tasks-count">0</span>
+            </a>
+          </li>
+        </ul>
+        <div class="sidebar-priority">PRIORITY</div>
+        <ul>
+          <li class="sidebar-item">
+            <a
+              href="../priority/high-priority.html"
+              class="js-high-priority-link"
+            >
+              <i
+                class="fa-solid fa-circle fa-2xs"
+                style="color: rgb(217, 66, 66)"
+              ></i>
+              High Priority
+              <span class="task-count js-high-priority-count">0</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a
+              href="../priority/medium-priority.html"
+              class="js-medium-priority-link"
+            >
+              <i
+                class="fa-solid fa-circle fa-2xs"
+                style="color: rgb(255, 165, 0)"
+              ></i>
+              Medium Priority
+              <span class="task-count js-medium-priority-count">1</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a
+              href="../priority/low-priority.html"
+              class="js-low-priority-link"
+            >
+              <i
+                class="fa-solid fa-circle fa-2xs"
+                style="color: rgb(34, 139, 34)"
+              ></i>
+              Low Priority
+              <span class="task-count js-low-priority-count">0</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="new-task-modal js-new-task-modal">
+      <div class="new-task-content">
+        <form class="new-task-form">
+          <div class="new-task">
+            <h2>New Task</h2>
+            <button type="button" class="close-modal js-close-modal">
+              <i class="fa-solid fa-x"></i>
+            </button>
+          </div>
+
+          <label for="new-title">Task Title</label>
+          <input
+            type="text"
+            id="new-title"
+            class="new-title"
+            name="title"
+            placeholder="What needs to be done?"
+            required
+          />
+
+          <label for="new-description">Description</label>
+          <textarea
+            id="new-description"
+            class="new-description"
+            name="description"
+            placeholder="Add a description..."
+          ></textarea>
+
+          <label for="new-due-date">Due Date</label>
+          <input
+            type="date"
+            id="new-due-date"
+            class="new-due-date"
+            name="dueDate"
+          />
+
+          <label for="new-priority">Priority</label>
+          <select id="new-priority" class="new-priority" name="priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+
+          <label for="new-category">Category:</label>
+          <input
+            type="text"
+            id="new-category"
+            class="new-category"
+            name="category"
+            placeholder="e.g Work, Personal, Health, etc."
+          />
+
+          <div class="modal-buttons">
+            <button type="button" class="cancel-button js-cancel-button">
+              Cancel
+            </button>
+            <button type="button" class="save-button js-save-button">
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="edit-task-modal js-edit-task-modal">
+      <div class="edit-task-content">
+        <form class="edit-task-form">
+          <div class="edit-task">
+            <h2>Edit Task</h2>
+            <button type="button" class="close-modal js-close-modal">
+              <i class="fa-solid fa-x"></i>
+            </button>
+          </div>
+
+          <label for="edit-title">Task Title</label>
+          <input
+            type="text"
+            id="edit-title"
+            class="edit-title"
+            name="title"
+            placeholder="What needs to be done?"
+            required
+          />
+
+          <label for="edit-description">Description</label>
+          <textarea
+            id="edit-description"
+            class="edit-description"
+            name="description"
+            placeholder="Add a description..."
+          ></textarea>
+
+          <label for="edit-due-date">Due Date</label>
+          <input
+            type="date"
+            id="edit-due-date"
+            class="edit-due-date"
+            name="dueDate"
+            required
+          />
+
+          <label for="edit-priority">Priority</label>
+          <select id="edit-priority" class="edit-priority" name="priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+
+          <label for="edit-category">Category:</label>
+          <input
+            type="text"
+            id="edit-category"
+            class="edit-category"
+            name="category"
+            placeholder="e.g Work, Personal, Health, etc."
+          />
+
+          <div class="modal-buttons">
+            <button type="button" class="cancel-button js-edit-cancel-button">
+              Cancel
+            </button>
+            <button type="button" class="update-button js-update-button">
+              Update Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
     <div class="app-layout">
       <aside class="sidebar">
         <div class="taskflow-header">
@@ -41,8 +244,8 @@
         <nav class="sidebar-list">
           <div class="sidebar-views">VIEWS</div>
           <ul>
-            <li class="sidebar-item" >
-              <a href="../../index.html" class="js-all-tasks-link" >
+            <li class="sidebar-item">
+              <a href="../../index.html" class="js-all-tasks-link">
                 <i class="fa-solid fa-list-check"></i> All Tasks
                 <span class="task-count js-all-tasks-count"></span>
               </a>
@@ -54,13 +257,19 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="../tasks/completed-task.html" class="js-completed-tasks-link">
+              <a
+                href="../tasks/completed-task.html"
+                class="js-completed-tasks-link"
+              >
                 <i class="fa-regular fa-square-check fa-sm"></i> Completed
                 <span class="task-count js-completed-tasks-count">0</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="../tasks/overdue-task.html" class="js-overdue-tasks-link">
+              <a
+                href="../tasks/overdue-task.html"
+                class="js-overdue-tasks-link"
+              >
                 <i class="fa-solid fa-exclamation-triangle"></i> Overdue
                 <span class="task-count js-overdue-tasks-count">0</span>
               </a>
@@ -69,30 +278,42 @@
           <div class="sidebar-priority">PRIORITY</div>
           <ul>
             <li class="sidebar-item">
-              <a href="../priority/high-priority.html" class="js-high-priority-link">
+              <a
+                href="../priority/high-priority.html"
+                class="js-high-priority-link"
+              >
                 <i
                   class="fa-solid fa-circle fa-2xs"
                   style="color: rgb(217, 66, 66)"
                 ></i>
-                High Priority <span class="task-count js-high-priority-count">0</span>
+                High Priority
+                <span class="task-count js-high-priority-count">0</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="../priority/medium-priority.html" class="js-medium-priority-link">
+              <a
+                href="../priority/medium-priority.html"
+                class="js-medium-priority-link"
+              >
                 <i
                   class="fa-solid fa-circle fa-2xs"
                   style="color: rgb(255, 165, 0)"
                 ></i>
-                Medium Priority <span class="task-count js-medium-priority-count">1</span>
+                Medium Priority
+                <span class="task-count js-medium-priority-count">1</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="../priority/low-priority.html" class="js-low-priority-link">
+              <a
+                href="../priority/low-priority.html"
+                class="js-low-priority-link"
+              >
                 <i
                   class="fa-solid fa-circle fa-2xs"
                   style="color: rgb(34, 139, 34)"
                 ></i>
-                Low Priority <span class="task-count js-low-priority-count">0</span>
+                Low Priority
+                <span class="task-count js-low-priority-count">0</span>
               </a>
             </li>
           </ul>
@@ -111,6 +332,12 @@
 
       <main class="main-content">
         <header class="header">
+          <button class="close-dropdown-menu js-close-dropdown-menu">
+            <i class="fa-solid fa-x" style="color: white"></i>
+          </button>
+          <button class="menu-button js-menu-button">
+            <i class="fa-solid fa-bars" style="color: white"></i>
+          </button>
           <div class="all-tasks">Low Priority</div>
           <div class="search-bar-container">
             <div class="search-field">
@@ -121,7 +348,9 @@
                 class="search-bar js-search-bar"
               />
             </div>
-            <button class="add-task-button js-add-task-button">+ Add Task</button>
+            <button class="add-task-button js-add-task-button">
+              + Add Task
+            </button>
           </div>
         </header>
         <section>
@@ -148,135 +377,24 @@
         <section>
           <div class="sort-clear-container">
             <div class="sort-by">
-              Sort by <button class="date-created-button js-sort-by-date-created">Date created</button> <button class="js-sort-by-priority">Priority</button>
-              <button class="js-sort-by-due-date">Due date</button> <button class="js-sort-by-alphabet">A-Z</button>
+              Sort by
+              <button class="date-created-button js-sort-by-date-created">
+                Date created
+              </button>
+              <button class="js-sort-by-priority">Priority</button>
+              <button class="js-sort-by-due-date">Due date</button>
+              <button class="js-sort-by-alphabet">A-Z</button>
             </div>
-            <div><button class="clear-completed">Clear Completed</button></div> 
+            <div><button class="clear-completed">Clear Completed</button></div>
           </div>
         </section>
 
         <section>
           <div class="task-list js-low-priority-task-list"></div>
         </section>
-
-        <div class="new-task-modal js-new-task-modal">
-          <div class="new-task-content">
-            <form class="new-task-form">
-              <div class="new-task">
-                <h2 >New Task</h2>
-              <button type="button" class="close-modal js-close-modal">
-                <i class="fa-solid fa-x"></i>
-              </button>
-              </div>
-              
-              <label for="new-title">Task Title</label>
-              <input
-                type="text"
-                id="new-title"
-                class="new-title"
-                name="title"
-                placeholder="What needs to be done?"
-                required
-              />
-
-              <label for="new-description">Description</label>
-              <textarea
-                id="new-description"
-                class="new-description"
-                name="description"
-                placeholder="Add a description..."
-              ></textarea>
-
-              <label for="new-due-date">Due Date</label>
-              <input type="date" id="new-due-date" class="new-due-date" name="dueDate" />
-
-              <label for="new-priority">Priority</label>
-              <select id="new-priority" class="new-priority" name="priority">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-              </select>
-
-              <label for="new-category">Category:</label>
-              <input
-                type="text"
-                id="new-category"
-                class="new-category"
-                name="category"
-                placeholder="e.g Work, Personal, Health, etc."
-              />
-
-              <div class="modal-buttons">
-                <button type="button" class="cancel-button js-cancel-button">
-                  Cancel
-                </button>
-                <button  class="save-button js-save-button">Save Changes</button>
-                
-              </div>
-            </form>
-          </div>
-        </div>
-         <div class="edit-task-modal js-edit-task-modal">
-          <div class="edit-task-content">
-            <form class="edit-task-form">
-              <div class="edit-task">
-                <h2 >Edit Task</h2>
-              <button type="button" class="close-modal js-close-modal">
-                <i class="fa-solid fa-x"></i>
-              </button>
-              </div>
-              
-              <label for="new-title">Task Title</label>
-              <input
-                type="text"
-                id="new-title"
-                class="edit-title"
-                name="title"
-                placeholder="What needs to be done?"
-                required
-              />
-
-              <label for="new-description">Description</label>
-              <textarea
-                id="new-description"
-                class="edit-description"
-                name="description"
-                placeholder="Add a description..."
-              ></textarea>
-
-              <label for="new-due-date">Due Date</label>
-              <input type="date" id="new-due-date" class="edit-due-date" name="dueDate" required />
-
-              <label for="new-priority">Priority</label>
-              <select id="new-priority" class="edit-priority" name="priority">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-              </select>
-
-              <label for="new-category">Category:</label>
-              <input
-                type="text"
-                id="new-category"
-                class="edit-category"
-                name="category"
-                placeholder="e.g Work, Personal, Health, etc."
-              />
-
-              <div class="modal-buttons">
-                <button type="button" class="cancel-button js-edit-cancel-button">
-                  Cancel
-                </button>
-                <button  class="update-button js-update-button">Update Changes</button>
-                
-              </div>
-            </form>
-          </div>
-        </div>
       </main>
     </div>
 
     <script type="module" src="../../scripts/main.js"></script>
-    
   </body>
 </html>

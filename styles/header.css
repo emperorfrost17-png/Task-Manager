@@ -72,3 +72,12 @@
   outline: none;
   display: none;
 }
+.close-dropdown-menu {
+  font-size: 2.3rem;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  display: none;
+}
+

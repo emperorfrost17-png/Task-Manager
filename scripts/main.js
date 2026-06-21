@@ -97,7 +97,7 @@ if (taskList) {
       document.querySelector(".edit-priority").value = task.priority;
       document.querySelector(".edit-due-date").value = task.dueDate;
       document.querySelector(".edit-category").value = task.category;
-       document.querySelector('.app-layout').classList.add('is-blurred')
+      document.querySelector(".app-layout").classList.add("is-blurred");
       document.querySelector(".js-edit-task-modal").style.display = "flex";
     }
   });
@@ -140,35 +140,46 @@ const addTaskButton = document.querySelector(".js-add-task-button");
 if (addTaskButton) {
   addTaskButton.addEventListener("click", () => {
     document.querySelector(".js-new-task-modal").style.display = "flex";
-    document.querySelector('.app-layout').classList.add('is-blurred')
+    document.querySelector(".app-layout").classList.add("is-blurred");
   });
 }
 
 document.querySelector(".js-close-modal").addEventListener("click", () => {
   clearFormInputs();
-   document.querySelector('.app-layout').classList.remove('is-blurred')
+  document.querySelector(".app-layout").classList.remove("is-blurred");
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
 
 document.querySelector(".js-cancel-button").addEventListener("click", () => {
   clearFormInputs();
-   document.querySelector('.app-layout').classList.remove('is-blurred')
+  document.querySelector(".app-layout").classList.remove("is-blurred");
   document.querySelector(".js-new-task-modal").style.display = "none";
 });
 
 document
   .querySelector(".js-edit-task-modal .js-close-modal")
   .addEventListener("click", () => {
-     document.querySelector('.app-layout').classList.remove('is-blurred')
+    document.querySelector(".app-layout").classList.remove("is-blurred");
     document.querySelector(".js-edit-task-modal").style.display = "none";
   });
 
 document
   .querySelector(".js-edit-cancel-button")
   .addEventListener("click", () => {
-     document.querySelector('.app-layout').classList.remove('is-blurred')
+    document.querySelector(".app-layout").classList.remove("is-blurred");
     document.querySelector(".js-edit-task-modal").style.display = "none";
   });
+document.querySelector(".js-menu-button").addEventListener("click", () => {
+  document.querySelector(".js-dropdown-menu").style.display = "block";
+  document.querySelector('.js-close-dropdown-menu').style.display = 'inline'
+  document.querySelector('.js-menu-button').style.display = 'none'
+});
+
+document.querySelector('.js-close-dropdown-menu').addEventListener('click', () => {
+  document.querySelector(".js-dropdown-menu").style.display = "none";
+  document.querySelector('.js-close-dropdown-menu').style.display = 'none'
+  document.querySelector('.js-menu-button').style.display = 'block'
+})
 
 const clearCompletedButton = document.querySelector(".js-clear-completed");
 if (clearCompletedButton) {
@@ -193,6 +204,7 @@ document.querySelector(".js-save-button").addEventListener("click", (event) => {
   clearFormInputs();
   renderAll();
   document.querySelector(".js-new-task-modal").style.display = "none";
+  document.querySelector(".app-layout").classList.remove("is-blurred");
 });
 
 document
@@ -210,6 +222,7 @@ document
     saveTasks();
     renderAll();
     document.querySelector(".js-edit-task-modal").style.display = "none";
+    document.querySelector(".app-layout").classList.remove("is-blurred");
   });
 const atozButton = document.querySelector(".js-sort-by-alphabet");
 if (atozButton) {

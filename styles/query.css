@@ -7,6 +7,9 @@
   .task-container {
     width: 34rem;
   }
+  .dropdown-menu{
+    display: none;
+  }
 }
 /* Small Laptops 1024px - 1280px */
 @media (max-width: 80rem) {
@@ -16,6 +19,9 @@
   }
   .task-container {
     width: 30.5rem;
+  }
+  .dropdown-menu{
+    display: none;
   }
 }
 /*Phones in landscape 576px - 768px*/
@@ -45,6 +51,9 @@
   }
   .sidebar li{
     white-space: nowrap;
+  }
+  .dropdown-menu{
+    display: none;
   }
 }
 /*Phone in potrait screen with less than */
@@ -87,13 +96,14 @@
     min-width: 100%;
   }
   .new-task-modal{
-   top: -15rem;
+   top: -10rem;
   }
   .edit-task-form{
     height: auto;
     width: 100%;
   }
   .edit-task-modal{
-   top: -15rem;
+   top: -10rem;
   }
+  
 }
